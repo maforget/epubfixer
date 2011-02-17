@@ -221,9 +221,11 @@ namespace ePubFixer
             {
                 var idTextNodes = NodeFound.Descendants("#text");
 
-                var Cleaned = from n in idTextNodes
-                              where !String.IsNullOrEmpty(HttpUtility.HtmlDecode(n.InnerText.Trim()))
-                              select HttpUtility.HtmlDecode(n.InnerText.Trim());
+                var Clean = idTextNodes.Select(x => x.InnerText.Trim().Replace("\n", " "));
+
+                var Cleaned = from n in Clean
+                              where !String.IsNullOrEmpty(HttpUtility.HtmlDecode(n))
+                              select HttpUtility.HtmlDecode(n);
 
                 List<string> t = (from n in Cleaned
                                   where !string.IsNullOrEmpty(n.Trim())
