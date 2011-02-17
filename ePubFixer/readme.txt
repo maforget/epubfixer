@@ -55,7 +55,8 @@ Change Log
 
 v1.3.6 
 - Put a Check that will prevent any none html file to be loaded or saved in the TOC.
-- Changed the Version.xml location, so it is more easily changed, version older will only be prompted to update to version 1.3.6.
+- Changed the Version.xml location on the web, so it is more easily changed. Older version might not always show the new version number.
+- Multiple Tweaks to Splitting so more file are compatible and do not crash
 
 v1.3.5
 - No more error when Saving at the same time as extracting, or closing when there are still file activity.
