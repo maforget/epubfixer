@@ -13,6 +13,7 @@ namespace ePubFixer
     {
         #region Properties & Fields
         internal Dictionary<string, string> list { get; set; }
+        private bool PreviousContainedAnchor = true;
         private List<string> ZipFileNames = new List<string>();
         private Dictionary<string, string> Ids;
         private IEnumerable<string> FilesTodelete;
@@ -37,8 +38,7 @@ namespace ePubFixer
                 {
                     ZipFileNames.AddRange(zip.EntryFileNames);
                 }
-            }
-            catch (Exception)
+            } catch (Exception)
             {
 
                 this.list = null;
@@ -49,7 +49,7 @@ namespace ePubFixer
         #region Update Files
         internal void UpdateFiles()
         {
-            System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch(); 
+            System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
             using (new HourGlass())
             {
                 if (list != null)
@@ -151,15 +151,18 @@ namespace ePubFixer
                     foreach (string files in filesToAdd)
                     {
                         string newID = id + "-" + filesToAdd.IndexOf(files);
-                        Ids.Add(newID, id);
+                        if (!Ids.ContainsKey(newID))
+                        {
+                            Ids.Add(newID, id);
 
-                        XElement newEl =
-                            new XElement(ns + "item",
-                                new XAttribute("href", files),
-                                new XAttribute("id", newID),
-                                new XAttribute("media-type", mediaType));
+                            XElement newEl =
+                                new XElement(ns + "item",
+                                    new XAttribute("href", files),
+                                    new XAttribute("id", newID),
+                                    new XAttribute("media-type", mediaType));
 
-                        newItems.Add(newEl);
+                            newItems.Add(newEl);
+                        }
                     }
 
 
@@ -206,7 +209,7 @@ namespace ePubFixer
             {
                 System.Windows.Forms.MessageBox.Show(
                     "The same file must appear at least 2 times in the TOC, to be Split", "No files to split",
-                    System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Information);
+                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
                 return;
             }
 
@@ -222,7 +225,7 @@ namespace ePubFixer
 
                 if (item.Contains("#"))
                 {
-                    var prevItem = i >= 1 && AnchorList[i - 1].Contains('#') ? AnchorList[i - 1] : string.Empty;
+                    string prevItem = i >= 1 && AnchorList[i - 1].Contains('#') ? AnchorList[i - 1] : string.Empty;
                     string id = item.Split('#')[1];
                     string prevId = prevItem != string.Empty ? prevItem.Split('#')[1] : string.Empty;
                     string filename = item.Split('#')[0];
@@ -254,7 +257,10 @@ namespace ePubFixer
                     }
 
                     Splitted = true;
-
+                    PreviousContainedAnchor = true;
+                } else
+                {
+                    PreviousContainedAnchor = false;
                 }
             }
 
@@ -351,7 +357,7 @@ namespace ePubFixer
                 string str;
                 while ((str = sr.ReadLine()) != null)
                 {
-                    if (!str.Contains(@"<body class="))
+                    if (!str.StartsWith(@"<body"))
                     {
                         Head.AppendLine(str);
                     } else
@@ -373,9 +379,9 @@ namespace ePubFixer
                 string str;
                 while ((str = sr.ReadLine()) != null)
                 {
-                    if (str.Contains(@"<body class="))
+                    if (str.StartsWith(@"<body"))
                     {
-                        BodyHeading = str;
+                        //BodyHeading = str;
                         StartBody = true;
                     }
 
@@ -400,7 +406,9 @@ namespace ePubFixer
                 List<string> File = GetHtmlBody(html);
                 string Head = GetHead(html);
                 List<string> ExtractedBody = new List<string>();
-                
+                id = id != "" ? "id=\"" + id : id;
+                prevId = !String.IsNullOrEmpty(prevId) ? "id=\"" + prevId : prevId;
+
                 if (String.IsNullOrEmpty(id))
                     // Just for the last file
                     ExtractedBody = File.SkipWhile(x => !x.Contains(prevId)).ToList();
@@ -411,11 +419,11 @@ namespace ePubFixer
 
                 StringBuilder sb = new StringBuilder();
                 sb.Append(Head);
-                sb.AppendLine(BodyHeading);
+                //sb.AppendLine(BodyHeading);
                 ExtractedBody.ForEach(x => sb.AppendLine(x));
                 string newHtml = sb.ToString();
 
-                if (ExtractedBody.Count <= 2)
+                if (ExtractedBody.Count <= 2 || prevId == "" && PreviousContainedAnchor)
                 {
                     splitNumber--;
                 } else
