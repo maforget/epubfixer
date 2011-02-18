@@ -207,19 +207,16 @@ namespace ePubFixer
         }
         #endregion
 
+        #region Decrypt
         private void decryptFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Decrypt = decryptFilesToolStripMenuItem.Checked ? true : false;
             Properties.Settings.Default.Save();
         }
 
-        private void SettingToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-            
-        }
-
         private void frmMain_KeyDown(object sender, KeyEventArgs e)
         {
+            #if DRM
             switch (e.KeyCode)
             {
                 case Keys.Shift:
@@ -230,7 +227,8 @@ namespace ePubFixer
                     break;
                 default:
                     break;
-            }
+            } 
+            #endif
         }
 
         private void frmMain_KeyUp(object sender, KeyEventArgs e)
@@ -251,7 +249,8 @@ namespace ePubFixer
         private void SettingToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
         {
             decryptFilesToolStripMenuItem.Visible = false;
-        }
+        } 
+        #endregion
 
 
 
