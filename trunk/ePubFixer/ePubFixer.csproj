@@ -61,9 +61,8 @@
   <PropertyGroup>
     <StartupObject>ePubFixer.Program</StartupObject>
   </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release NO DRM|x86'">
-    <OutputPath>bin\x86\Release NO DRM\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release_DRM|x86'">
+    <OutputPath>bin\x86\Release_DRM\</OutputPath>
     <DefineConstants>TRACE;DRM</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>x86</PlatformTarget>
