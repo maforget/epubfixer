@@ -320,7 +320,7 @@ namespace ePubFixer
 
         #region Get Tidy Html
         private Dictionary<string, string> HtmlCache = new Dictionary<string, string>();
-        string BodyHeading = "";
+        //string BodyHeading = "";
         private string GetHtml(string filename)
         {
             if (HtmlCache.ContainsKey(filename))
