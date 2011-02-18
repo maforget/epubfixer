@@ -347,6 +347,8 @@ namespace ePubFixer
             return true;
         }
 
+        [System.Diagnostics.Conditional("Release_DRM")]
+        [System.Diagnostics.Conditional("Debug")]
         internal static void DecryptFile()
         {
             try
