@@ -37,6 +37,8 @@ namespace ePubFixer
         }
         #endregion
 
+
+
         internal abstract void UpdateFile();
 
         #region Get From Zip
@@ -65,8 +67,7 @@ namespace ePubFixer
                 }
 
                 return null;
-            }
-            catch (Exception)
+            } catch (Exception)
             {
                 return null;
                 //NOTE File in use message (Read)
@@ -119,8 +120,7 @@ namespace ePubFixer
                     zip.Save();
                     fileOutStream = null;
                 }
-            }
-            catch (Exception)
+            } catch (Exception)
             {
                 //NOTE File in use message (Save File)
             }
@@ -188,8 +188,7 @@ namespace ePubFixer
                 ns = OldTOC.Name.Namespace;
 
                 return OldTOC.Elements(ns + TextToFind).FirstOrDefault();
-            }
-            catch (Exception)
+            } catch (Exception)
             {
                 System.Windows.Forms.MessageBox.Show("Invalid File", Variables.BookName);
                 ns = nsIfEmpty;

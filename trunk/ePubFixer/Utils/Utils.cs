@@ -23,6 +23,7 @@ namespace ePubFixer
 
         public static void NewFilename()
         {
+            Variables.FileDecrypted = false;
             Variables.HeaderTextInFile = new Dictionary<string, List<string>>();
             Variables.AnchorTextInFile = new Dictionary<string, List<string>>();
             Variables.AnchorsInFile = new Dictionary<string, List<string>>();
@@ -331,7 +332,55 @@ namespace ePubFixer
 
         }
         #endregion
-    }
+
+        #region Decryption
+        internal static bool IsEncrypted()
+        {
+            List<string> AdeptFiles = new List<string>() { "META-INF/rights.xml", "META-INF/encryption.xml" };
+
+            foreach (var item in AdeptFiles)
+            {
+                if (string.IsNullOrEmpty(GetFilePathInsideZip(item)))
+                    return false;
+            }
+
+            return true;
+        }
+
+        internal static void DecryptFile()
+        {
+            try
+            {
+
+                if (Utils.IsEncrypted() && !Variables.FileDecrypted)
+                {
+                    SaveFileDialog save = new SaveFileDialog();
+                    save.AddExtension = true;
+                    save.DefaultExt = ".epub";
+                    save.Title = "Select Location of Decrypted file";
+                    save.Filter = "ePub Files (*.epub) | *.epub";
+                    save.FileName = Path.GetFileName(Variables.Filename);
+
+                    if (save.ShowDialog() == DialogResult.OK)
+                    {
+                        string ProtectedFilePath = Variables.Filename;
+                        string NewFilePath = save.FileName;
+                        Variables.Filename = NewFilePath;
+                        Variables.Filenames[Variables.Filenames.IndexOf(ProtectedFilePath)] = NewFilePath;
+                        using (new HourGlass())
+                        {
+                            Variables.FileDecrypted = Drm.Adept.Epub.Strip(ProtectedFilePath, NewFilePath);
+                        }
+                    }
+                }
+            } catch (Exception e)
+            {
+                Variables.FileDecrypted = false;
+                MessageBox.Show("Decryption Failed", "File could not be decrypted\n" + e.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    } 
+        #endregion
 
 
 }

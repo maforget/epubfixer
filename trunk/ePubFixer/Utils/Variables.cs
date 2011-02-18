@@ -20,6 +20,7 @@ namespace ePubFixer
         public static Dictionary<string, List<string>> HeaderTextInFile;
         public static Dictionary<string, List<string>> AnchorTextInFile;
         public static Dictionary<string, List<string>> AnchorsInFile;
+        public static bool FileDecrypted = false;
         public static List<Form> OpenedForm = new List<Form>();
 
         private static string _NCXFile;
