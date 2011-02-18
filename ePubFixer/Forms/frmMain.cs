@@ -73,7 +73,7 @@ namespace ePubFixer
                                                 "Change the Order or Level by Drag & Drop\n" +
                                                 "Mass Rename by adding a number or Converting Number to Words\n" +
                                                 "Split files on Chapters Anchor");
-            toolTip.SetToolTip(this.cbSigil, "Makes a Backup of your TOC and opens Sigil\n" + 
+            toolTip.SetToolTip(this.cbSigil, "Makes a Backup of your TOC and opens Sigil\n" +
                                                 "On closing it will restore your Old Table of Content.\n" +
                                                 "You might want to use at the same time with the TOC Editor.");
             toolTip.SetToolTip(this.cbFixMargins, "Changes all the left and right margins in the CSS to 0\n" +
@@ -175,11 +175,16 @@ namespace ePubFixer
                 MessageBox.Show("No ePub Files Found");
             }
 
-            foreach (string file in Variables.Filenames)
+
+            for (int i = 0; i < Variables.Filenames.Count; i++)
             {
+                string file = Variables.Filenames[i];
                 Utils.NewFilename();
                 Variables.Filename = file;
                 Variables.BackupDone = false;
+                if (Properties.Settings.Default.Decrypt)
+                    Utils.DecryptFile();
+
                 List<Document> doc = Factory.GetDocumentType(FindNeededType());
                 doc.ForEach(x => x.UpdateFile());
             }
@@ -201,6 +206,52 @@ namespace ePubFixer
             return str;
         }
         #endregion
+
+        private void decryptFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Decrypt = decryptFilesToolStripMenuItem.Checked ? true : false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void SettingToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void frmMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Shift:
+                case Keys.LShiftKey:
+                case Keys.RShiftKey:
+                case Keys.ShiftKey:
+                    decryptFilesToolStripMenuItem.Visible = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void frmMain_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Shift:
+                case Keys.LShiftKey:
+                case Keys.RShiftKey:
+                case Keys.ShiftKey:
+                    decryptFilesToolStripMenuItem.Visible = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SettingToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
+        {
+            decryptFilesToolStripMenuItem.Visible = false;
+        }
 
 
 

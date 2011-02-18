@@ -130,5 +130,17 @@ namespace ePubFixer.Properties {
                 this["frmPreview"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Decrypt {
+            get {
+                return ((bool)(this["Decrypt"]));
+            }
+            set {
+                this["Decrypt"] = value;
+            }
+        }
     }
 }

@@ -67,6 +67,9 @@
       <HintPath>Aga.Controls.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Drm">
+      <HintPath>.\Drm.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>HtmlAgilityPack.dll</HintPath>
       <Private>False</Private>
@@ -236,6 +239,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mark.Tidy.dll" />
+    <EmbeddedResource Include="Drm.dll" />
+    <EmbeddedResource Include="BouncyCastle.CryptoExt.dll" />
     <Content Include="libtidy.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

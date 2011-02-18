@@ -43,6 +43,7 @@
             this.SettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sigilPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decryptFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.about = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.cbBackup = new System.Windows.Forms.CheckBox();
@@ -173,10 +174,12 @@
             // 
             this.SettingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sigilPathToolStripMenuItem,
-            this.checkVersionToolStripMenuItem});
+            this.checkVersionToolStripMenuItem,
+            this.decryptFilesToolStripMenuItem});
             this.SettingToolStripMenuItem.Name = "SettingToolStripMenuItem";
             this.SettingToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.SettingToolStripMenuItem.Text = "Settings";
+            this.SettingToolStripMenuItem.DropDownClosed += new System.EventHandler(this.SettingToolStripMenuItem_DropDownClosed);
             // 
             // sigilPathToolStripMenuItem
             // 
@@ -187,13 +190,23 @@
             // 
             // checkVersionToolStripMenuItem
             // 
-            this.checkVersionToolStripMenuItem.Checked = true;
+            this.checkVersionToolStripMenuItem.Checked = global::ePubFixer.Properties.Settings.Default.CheckVersion;
             this.checkVersionToolStripMenuItem.CheckOnClick = true;
             this.checkVersionToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkVersionToolStripMenuItem.Name = "checkVersionToolStripMenuItem";
             this.checkVersionToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.checkVersionToolStripMenuItem.Text = "Check Version";
             this.checkVersionToolStripMenuItem.CheckedChanged += new System.EventHandler(this.checkVersionToolStripMenuItem1_CheckedChanged);
+            // 
+            // decryptFilesToolStripMenuItem
+            // 
+            this.decryptFilesToolStripMenuItem.Checked = global::ePubFixer.Properties.Settings.Default.Decrypt;
+            this.decryptFilesToolStripMenuItem.CheckOnClick = true;
+            this.decryptFilesToolStripMenuItem.Name = "decryptFilesToolStripMenuItem";
+            this.decryptFilesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.decryptFilesToolStripMenuItem.Text = "Decrypt Files";
+            this.decryptFilesToolStripMenuItem.Visible = false;
+            this.decryptFilesToolStripMenuItem.Click += new System.EventHandler(this.decryptFilesToolStripMenuItem_Click);
             // 
             // about
             // 
@@ -232,12 +245,15 @@
             this.Controls.Add(this.btnFiles);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ePub Fixer";
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyUp);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -267,5 +283,6 @@
         private System.Windows.Forms.ToolStripMenuItem checkVersionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem about;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.ToolStripMenuItem decryptFilesToolStripMenuItem;
     }
 }
