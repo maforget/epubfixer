@@ -37,15 +37,18 @@ namespace ePubFixer
 
         public string GetOPFfilename()
         {
-            string ret = "";
+            string ret = "opf";
             XElement x = base.GetXmlElement("rootfiles");
-            foreach (var item in x.Elements())
+            if (x!=null)
             {
-                if (item.Attribute("media-type").Value=="application/oebps-package+xml")
+                foreach (var item in x.Elements())
                 {
-                    ret = item.Attribute("full-path").Value;
-                    break;
-                }
+                    if (item.Attribute("media-type").Value == "application/oebps-package+xml")
+                    {
+                        ret = item.Attribute("full-path").Value;
+                        break;
+                    }
+                } 
             }
             return ret;
 
