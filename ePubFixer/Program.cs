@@ -56,7 +56,7 @@ namespace ePubFixer
             Assembly a1 = Assembly.GetExecutingAssembly(); // Get Executing Assembly 
 
             //Find the Name of the missing Dll to Load
-            string Name = a1.GetName().Name + "." + args.Name.Split(',')[0];
+            string Name = a1.GetName().Name + ".DLL." + args.Name.Split(',')[0];
 
             //Get a List of Embeded Ressources
             string[] str = a1.GetManifestResourceNames();
