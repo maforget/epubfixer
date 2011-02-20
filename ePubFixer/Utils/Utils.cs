@@ -355,7 +355,8 @@ namespace ePubFixer
                     return true;
                 } else
                 {
-                    MessageBox.Show("This File Is Protected By DRM\n\"" + Variables.BookName + "\"", "File Protected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("This File Is Protected By DRM\n\"" + Variables.BookName + "\"", 
+                        "File Protected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return true;
                 }
 
@@ -371,7 +372,8 @@ namespace ePubFixer
                 if (IsEncrypted && !Variables.FileDecrypted)
                 {
                     FolderBrowserDialog save = new FolderBrowserDialog();
-
+                    save.Description = "Please select the folder to save the Decrypted files into.";
+                    
                     if (string.IsNullOrEmpty(SaveDirectory))
                     {
                         if (save.ShowDialog() == DialogResult.OK)
@@ -381,6 +383,13 @@ namespace ePubFixer
                     }
 
                     string NewFilePath = SaveDirectory + "\\" + Variables.BookName;
+                    if (File.Exists(NewFilePath) && 
+                        MessageBox.Show("File Already Exists, Do you want to replace it?\n\"" + Variables.BookName + "\"", 
+                        "File Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+                    {
+                        return false;
+                    }
+
                     string ProtectedFilePath = Variables.Filename;
                     Variables.Filename = NewFilePath;
                     Variables.Filenames[Variables.Filenames.IndexOf(ProtectedFilePath)] = NewFilePath;
