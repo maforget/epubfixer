@@ -71,24 +71,24 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aga.Controls, Version=1.7.0.0, Culture=neutral, PublicKeyToken=fcc90fbf924463a3, processorArchitecture=MSIL">
-      <HintPath>Aga.Controls.dll</HintPath>
+    <Reference Include="Aga.Controls">
+      <HintPath>DLL\Aga.Controls.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Drm">
-      <HintPath>.\Drm.dll</HintPath>
+      <HintPath>DLL\Drm.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>DLL\HtmlAgilityPack.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Ionic.Zip.Reduced">
-      <HintPath>Ionic.Zip.Reduced.dll</HintPath>
+      <HintPath>DLL\Ionic.Zip.Reduced.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Mark.Tidy">
-      <HintPath>.\Mark.Tidy.dll</HintPath>
+      <HintPath>DLL\Mark.Tidy.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -218,13 +218,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ionic.Zip.Reduced.dll" />
+    <EmbeddedResource Include="DLL\Ionic.Zip.Reduced.dll" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="epub.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Aga.Controls.dll" />
+    <EmbeddedResource Include="DLL\Aga.Controls.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -244,13 +244,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="HtmlAgilityPack.dll" />
+    <EmbeddedResource Include="DLL\HtmlAgilityPack.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mark.Tidy.dll" />
-    <EmbeddedResource Include="Drm.dll" />
-    <EmbeddedResource Include="BouncyCastle.CryptoExt.dll" />
-    <Content Include="libtidy.dll">
+    <EmbeddedResource Include="DLL\Mark.Tidy.dll" />
+    <EmbeddedResource Include="DLL\Drm.dll" />
+    <EmbeddedResource Include="DLL\BouncyCastle.CryptoExt.dll" />
+    <Content Include="DLL\libtidy.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="readme.txt">
