@@ -28,6 +28,7 @@ namespace ePubFixer
             Variables.AnchorTextInFile = new Dictionary<string, List<string>>();
             Variables.AnchorsInFile = new Dictionary<string, List<string>>();
             FileList = null;
+            Variables.BackupDone = false;
         }
 
         #endregion
@@ -76,7 +77,8 @@ namespace ePubFixer
                 //frm.AddOwnedForm(frmPreview);
                 Variables.OpenedForm.Add(frmPreview);
                 frmPreview.Show();
-            } catch (Exception)
+            }
+            catch (Exception)
             {
 
             }
@@ -122,7 +124,8 @@ namespace ePubFixer
                     {
                         //File.Delete(file);
                     }
-                } catch (Exception)
+                }
+                catch (Exception)
                 {
                 }
                 file = newFile;
@@ -285,7 +288,8 @@ namespace ePubFixer
                 {
                     Directory.Delete(Variables.TempFolder, true);
                 }
-            } catch (Exception)
+            }
+            catch (Exception)
             {
 
             }
@@ -334,53 +338,73 @@ namespace ePubFixer
         #endregion
 
         #region Decryption
-        internal static bool IsEncrypted()
+        internal static bool IsEncrypted
         {
-            List<string> AdeptFiles = new List<string>() { "META-INF/rights.xml", "META-INF/encryption.xml" };
-
-            foreach (var item in AdeptFiles)
+            get
             {
-                if (string.IsNullOrEmpty(GetFilePathInsideZip(item)))
-                    return false;
-            }
+                List<string> AdeptFiles = new List<string>() { "META-INF/rights.xml", "META-INF/encryption.xml" };
 
-            return true;
+                foreach (var item in AdeptFiles)
+                {
+                    if (string.IsNullOrEmpty(GetFilePathInsideZip(item)))
+                        return false;
+                }
+
+                if (Properties.Settings.Default.Decrypt)
+                {
+                    return true;
+                } else
+                {
+                    MessageBox.Show("This File Is Protected By DRM\n\"" + Variables.BookName + "\"", "File Protected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return true;
+                }
+
+            }
         }
 
-        [System.Diagnostics.Conditional("DRM")]
-        internal static void DecryptFile()
+        public static string SaveDirectory { get; set; }
+        internal static bool DecryptFile()
         {
+#if DRM
             try
             {
-
-                if (Utils.IsEncrypted() && !Variables.FileDecrypted)
+                if (IsEncrypted && !Variables.FileDecrypted)
                 {
-                    SaveFileDialog save = new SaveFileDialog();
-                    save.AddExtension = true;
-                    save.DefaultExt = ".epub";
-                    save.Title = "Select Location of Decrypted file";
-                    save.Filter = "ePub Files (*.epub) | *.epub";
-                    save.FileName = Path.GetFileName(Variables.Filename);
+                    FolderBrowserDialog save = new FolderBrowserDialog();
 
-                    if (save.ShowDialog() == DialogResult.OK)
+                    if (string.IsNullOrEmpty(SaveDirectory))
                     {
-                        string ProtectedFilePath = Variables.Filename;
-                        string NewFilePath = save.FileName;
-                        Variables.Filename = NewFilePath;
-                        Variables.Filenames[Variables.Filenames.IndexOf(ProtectedFilePath)] = NewFilePath;
-                        using (new HourGlass())
-                        {
-                            Variables.FileDecrypted = Drm.Adept.Epub.Strip(ProtectedFilePath, NewFilePath);
-                        }
+                        if (save.ShowDialog() == DialogResult.OK)
+                            SaveDirectory = save.SelectedPath;
+                        else
+                            return false;
                     }
+
+                    string NewFilePath = SaveDirectory + "\\" + Variables.BookName;
+                    string ProtectedFilePath = Variables.Filename;
+                    Variables.Filename = NewFilePath;
+                    Variables.Filenames[Variables.Filenames.IndexOf(ProtectedFilePath)] = NewFilePath;
+                    using (new HourGlass())
+                    {
+                        return Variables.FileDecrypted = Drm.Adept.Epub.Strip(ProtectedFilePath, NewFilePath);
+                    }
+
                 }
-            } catch (Exception e)
+                return true;
+            }
+            catch (Exception e)
             {
                 Variables.FileDecrypted = false;
-                MessageBox.Show("Decryption Failed", "File could not be decrypted\n" + e.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("File could not be decrypted\n" + e.Message, "Decryption Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
+#endif
+
+            return false;
         }
-    } 
+
+
+    }
         #endregion
 
 

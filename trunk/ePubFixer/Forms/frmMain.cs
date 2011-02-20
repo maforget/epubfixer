@@ -64,6 +64,16 @@ namespace ePubFixer
 
             SetToolTips();
 
+#if DRM
+            decryptFilesToolStripMenuItem.Visible = true;
+            decryptFilesToolStripMenuItem.Enabled = true;
+
+#else
+            Properties.Settings.Default.Decrypt = false;
+            Properties.Settings.Default.Save();
+
+#endif
+
         }
 
         private void SetToolTips()
@@ -175,15 +185,16 @@ namespace ePubFixer
                 MessageBox.Show("No ePub Files Found");
             }
 
+            Utils.SaveDirectory = string.Empty;
 
             for (int i = 0; i < Variables.Filenames.Count; i++)
             {
                 string file = Variables.Filenames[i];
                 Utils.NewFilename();
                 Variables.Filename = file;
-                Variables.BackupDone = false;
-                if (Properties.Settings.Default.Decrypt)
-                    Utils.DecryptFile();
+
+                if ((Utils.IsEncrypted && !Properties.Settings.Default.Decrypt) || !Utils.DecryptFile())
+                    continue;
 
                 List<Document> doc = Factory.GetDocumentType(FindNeededType());
                 doc.ForEach(x => x.UpdateFile());
@@ -216,39 +227,39 @@ namespace ePubFixer
 
         private void frmMain_KeyDown(object sender, KeyEventArgs e)
         {
-            #if DRM
-            switch (e.KeyCode)
-            {
-                case Keys.Shift:
-                case Keys.LShiftKey:
-                case Keys.RShiftKey:
-                case Keys.ShiftKey:
-                    decryptFilesToolStripMenuItem.Visible = true;
-                    break;
-                default:
-                    break;
-            } 
-            #endif
+//#if DRM
+//            switch (e.KeyCode)
+//            {
+//                case Keys.Shift:
+//                case Keys.LShiftKey:
+//                case Keys.RShiftKey:
+//                case Keys.ShiftKey:
+//                    decryptFilesToolStripMenuItem.Visible = true;
+//                    break;
+//                default:
+//                    break;
+//            }
+//#endif
         }
 
         private void frmMain_KeyUp(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
-            {
-                case Keys.Shift:
-                case Keys.LShiftKey:
-                case Keys.RShiftKey:
-                case Keys.ShiftKey:
-                    decryptFilesToolStripMenuItem.Visible = false;
-                    break;
-                default:
-                    break;
-            }
+            //switch (e.KeyCode)
+            //{
+            //    case Keys.Shift:
+            //    case Keys.LShiftKey:
+            //    case Keys.RShiftKey:
+            //    case Keys.ShiftKey:
+            //        decryptFilesToolStripMenuItem.Visible = false;
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
         private void SettingToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
         {
-            decryptFilesToolStripMenuItem.Visible = false;
+            //decryptFilesToolStripMenuItem.Visible = false;
         } 
         #endregion
 
