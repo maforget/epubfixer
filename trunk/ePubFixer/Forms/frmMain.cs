@@ -64,17 +64,12 @@ namespace ePubFixer
 
             SetToolTips();
 
-#region Decrypt
-		#if DRM
+            #region Decrypt
+#if DRM
             decryptFilesToolStripMenuItem.Visible = true;
             decryptFilesToolStripMenuItem.Enabled = true;
-
-#else
-            Properties.Settings.Default.Decrypt = false;
-            Properties.Settings.Default.Save();
-
-#endif 
-	#endregion
+#endif
+            #endregion
 
         }
 
@@ -229,19 +224,19 @@ namespace ePubFixer
 
         private void frmMain_KeyDown(object sender, KeyEventArgs e)
         {
-//#if DRM
-//            switch (e.KeyCode)
-//            {
-//                case Keys.Shift:
-//                case Keys.LShiftKey:
-//                case Keys.RShiftKey:
-//                case Keys.ShiftKey:
-//                    decryptFilesToolStripMenuItem.Visible = true;
-//                    break;
-//                default:
-//                    break;
-//            }
-//#endif
+            //#if DRM
+            //            switch (e.KeyCode)
+            //            {
+            //                case Keys.Shift:
+            //                case Keys.LShiftKey:
+            //                case Keys.RShiftKey:
+            //                case Keys.ShiftKey:
+            //                    decryptFilesToolStripMenuItem.Visible = true;
+            //                    break;
+            //                default:
+            //                    break;
+            //            }
+            //#endif
         }
 
         private void frmMain_KeyUp(object sender, KeyEventArgs e)
@@ -262,7 +257,7 @@ namespace ePubFixer
         private void SettingToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
         {
             //decryptFilesToolStripMenuItem.Visible = false;
-        } 
+        }
         #endregion
 
 
