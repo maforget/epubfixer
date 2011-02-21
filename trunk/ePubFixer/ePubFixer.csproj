@@ -78,7 +78,7 @@
       <HintPath>DLL\Aga.Controls.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Drm">
+    <Reference Condition="'$(DRM)' == 'true'" Include="Drm">
       <HintPath>DLL\Drm.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -251,8 +251,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DLL\Mark.Tidy.dll" />
-    <EmbeddedResource Include="DLL\Drm.dll" />
-    <EmbeddedResource Include="DLL\BouncyCastle.CryptoExt.dll" />
+    <EmbeddedResource Condition="'$(DRM)' == 'true'" Include="DLL\Drm.dll" />
+    <EmbeddedResource Condition="'$(DRM)' == 'true'" Include="DLL\BouncyCastle.CryptoExt.dll" />
     <Content Include="libtidy.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
