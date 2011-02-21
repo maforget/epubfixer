@@ -64,7 +64,8 @@ namespace ePubFixer
 
             SetToolTips();
 
-#if DRM
+#region Decrypt
+		#if DRM
             decryptFilesToolStripMenuItem.Visible = true;
             decryptFilesToolStripMenuItem.Enabled = true;
 
@@ -72,7 +73,8 @@ namespace ePubFixer
             Properties.Settings.Default.Decrypt = false;
             Properties.Settings.Default.Save();
 
-#endif
+#endif 
+	#endregion
 
         }
 
@@ -193,7 +195,7 @@ namespace ePubFixer
                 Utils.NewFilename();
                 Variables.Filename = file;
 
-                if ((Utils.IsEncrypted && !Properties.Settings.Default.Decrypt) || !Utils.DecryptFile())
+                if (Utils.IsEncrypted && !Utils.DecryptFile())
                     continue;
 
                 List<Document> doc = Factory.GetDocumentType(FindNeededType());
