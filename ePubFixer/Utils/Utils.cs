@@ -327,15 +327,20 @@ namespace ePubFixer
         #region Upgrade Settings
         internal static void Upgrade()
         {
-            string path = Application.LocalUserAppDataPath;
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + Variables.ApplicationName + "\\";
 
-            if (Settings.Default.UpgradeRequired)
+            if (Properties.Settings.Default.UpgradeRequired)
             {
-                Settings.Default.Upgrade();
+                try
+                {
+                    //Removes old folder settings
+                    Array.ForEach(Directory.GetDirectories(path), item => Directory.Delete(item, true));
+                } catch (Exception)
+                {
+                }
                 Settings.Default.UpgradeRequired = false;
                 Settings.Default.Save();
             }
-
         }
         #endregion
 

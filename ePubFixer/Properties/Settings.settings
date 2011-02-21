@@ -2,34 +2,34 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ePubFixer.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="SigilPath" Type="System.String" Scope="User">
+    <Setting Name="SigilPath" Provider="MySettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="UpgradeRequired" Type="System.Boolean" Scope="User">
+    <Setting Name="UpgradeRequired" Provider="MySettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="CheckVersion" Type="System.Boolean" Scope="User">
+    <Setting Name="CheckVersion" Provider="MySettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="frmAdd" Type="System.String" Scope="User">
+    <Setting Name="frmAdd" Provider="MySettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="BaseForm" Type="System.String" Scope="User">
+    <Setting Name="BaseForm" Provider="MySettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ShowAll" Type="System.Boolean" Scope="User">
+    <Setting Name="ShowAll" Provider="MySettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ShowAnchor" Type="System.Boolean" Scope="User">
+    <Setting Name="ShowAnchor" Provider="MySettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Columns" Type="System.String" Scope="User">
+    <Setting Name="Columns" Provider="MySettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="frmPreview" Type="System.String" Scope="User">
+    <Setting Name="frmPreview" Provider="MySettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Decrypt" Type="System.Boolean" Scope="User">
+    <Setting Name="Decrypt" Provider="MySettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
