@@ -46,6 +46,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;DRM</DefineConstants>
+	<DRM>TRUE</DRM>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -55,6 +56,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
+	<DRM>FALSE</DRM>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -65,6 +67,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release_DRM|AnyCPU'">
     <OutputPath>bin\Release_DRM\</OutputPath>
     <DefineConstants>TRACE;DRM</DefineConstants>
+	<DRM>TRUE</DRM>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -78,7 +81,7 @@
       <HintPath>DLL\Aga.Controls.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Condition="'$(DRM)' == 'true'" Include="Drm">
+    <Reference Condition="$(DRM)==TRUE" Include="Drm">
       <HintPath>DLL\Drm.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -251,8 +254,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DLL\Mark.Tidy.dll" />
-    <EmbeddedResource Condition="'$(DRM)' == 'true'" Include="DLL\Drm.dll" />
-    <EmbeddedResource Condition="'$(DRM)' == 'true'" Include="DLL\BouncyCastle.CryptoExt.dll" />
+    <EmbeddedResource Condition="$(DRM)==TRUE" Include="DLL\Drm.dll" />
+    <EmbeddedResource Condition="$(DRM)==TRUE" Include="DLL\BouncyCastle.CryptoExt.dll" />
     <Content Include="libtidy.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

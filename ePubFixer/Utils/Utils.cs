@@ -327,6 +327,8 @@ namespace ePubFixer
         #region Upgrade Settings
         internal static void Upgrade()
         {
+            string path = Application.LocalUserAppDataPath;
+
             if (Settings.Default.UpgradeRequired)
             {
                 Settings.Default.Upgrade();
@@ -338,11 +340,17 @@ namespace ePubFixer
         #endregion
 
         #region Decryption
+        private static void ShowEncryptedMessage()
+        {
+            MessageBox.Show("This file is protected by DRM\n\"" + Variables.BookName + "\"",
+                                    "File Protected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
         internal static bool IsEncrypted
         {
             get
             {
                 List<string> AdeptFiles = new List<string>() { "META-INF/rights.xml", "META-INF/encryption.xml" };
+
 
                 foreach (var item in AdeptFiles)
                 {
@@ -350,11 +358,14 @@ namespace ePubFixer
                         return false;
                 }
 
+#if !DRM
+                ShowEncryptedMessage();
+#else
                 if (!Properties.Settings.Default.Decrypt)
                 {
-                    MessageBox.Show("This file is protected by DRM\n\"" + Variables.BookName + "\"", 
-                        "File Protected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    ShowEncryptedMessage();
                 }
+#endif
 
                 return true;
 
@@ -405,9 +416,10 @@ namespace ePubFixer
                 MessageBox.Show("File could not be decrypted\n" + e.Message, "Decryption Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-#endif
 
+#else
             return false;
+#endif
         }
 
 
