@@ -23,6 +23,14 @@ namespace ePubFixer
         public static bool FileDecrypted = false;
         public static List<Form> OpenedForm = new List<Form>();
 
+        public static string ApplicationName
+        {
+            get
+            {
+                return (System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+            }
+        }
+
         private static string _NCXFile;
         public static string NCXFile
         {

@@ -46,7 +46,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;DRM</DefineConstants>
-	<DRM>TRUE</DRM>
+    <DRM>TRUE</DRM>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -56,7 +56,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-	<DRM>FALSE</DRM>
+    <DRM>FALSE</DRM>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -67,7 +67,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release_DRM|AnyCPU'">
     <OutputPath>bin\Release_DRM\</OutputPath>
     <DefineConstants>TRACE;DRM</DefineConstants>
-	<DRM>TRUE</DRM>
+    <DRM>TRUE</DRM>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -100,6 +100,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Web" />
@@ -153,6 +154,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Utils\EventArgs.cs" />
     <Compile Include="Utils\Hourglass.cs" />
+    <Compile Include="Utils\MySettingsProvider.cs" />
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="Utils\Variables.cs" />
     <Compile Include="Forms\frmMain.cs">
