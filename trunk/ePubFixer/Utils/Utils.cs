@@ -350,15 +350,13 @@ namespace ePubFixer
                         return false;
                 }
 
-                if (Properties.Settings.Default.Decrypt)
+                if (!Properties.Settings.Default.Decrypt)
                 {
-                    return true;
-                } else
-                {
-                    MessageBox.Show("This File Is Protected By DRM\n\"" + Variables.BookName + "\"", 
+                    MessageBox.Show("This file is protected by DRM\n\"" + Variables.BookName + "\"", 
                         "File Protected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return true;
                 }
+
+                return true;
 
             }
         }
@@ -369,7 +367,7 @@ namespace ePubFixer
 #if DRM
             try
             {
-                if (IsEncrypted && !Variables.FileDecrypted)
+                if (Properties.Settings.Default.Decrypt && IsEncrypted && !Variables.FileDecrypted)
                 {
                     FolderBrowserDialog save = new FolderBrowserDialog();
                     save.Description = "Please select the folder to save the Decrypted files into.";
@@ -399,7 +397,7 @@ namespace ePubFixer
                     }
 
                 }
-                return true;
+                return false;
             }
             catch (Exception e)
             {
