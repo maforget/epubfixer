@@ -26,7 +26,7 @@ namespace ePubFixer
         public TocDocument()
             : base()
         {
-            fileExtractStream = base.GetStream(Variables.NCXFile);
+            fileExtractStream = base.GetStreamOPF(Variables.NCXFile);
             nsIfEmpty = "\"http://www.daisy.org/z3986/2005/ncx/\" version=\"2005-1\" xml:lang=\"en\"";
         } 
         #endregion

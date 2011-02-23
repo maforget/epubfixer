@@ -37,8 +37,6 @@ namespace ePubFixer
         }
         #endregion
 
-
-
         internal abstract void UpdateFile();
 
         #region Get From Zip
@@ -76,11 +74,18 @@ namespace ePubFixer
         #endregion
 
         #region Get Stream
+        public virtual Stream GetStreamOPF(string FilenameInsideEpub)
+        {
+            Stream s = this.OpenZip(e => e.FileName == Variables.OPFpath + FilenameInsideEpub);
+            return s;
+        }
+
         public virtual Stream GetStream(string FilenameInsideEpub)
         {
             Stream s = this.OpenZip(e => e.FileName.EndsWith(FilenameInsideEpub));
             return s;
         }
+
         #endregion
 
         #region Get String From Stream

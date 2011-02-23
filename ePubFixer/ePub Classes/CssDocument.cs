@@ -35,7 +35,7 @@ namespace ePubFixer
         #region Update File
         internal override void UpdateFile()
         {
-            fileExtractStream = base.GetStream("css");
+            fileExtractStream = base.GetStreamOPF("css");
             if (fileExtractStream == null)
             {
                 System.Windows.Forms.MessageBox.Show("No Stylesheet present", Variables.BookName);

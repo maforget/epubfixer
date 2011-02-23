@@ -23,8 +23,6 @@ using System.Xml;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace ePubFixer
-{
     public class MySettingsProvider : SettingsProvider
     {
         // Define some static strings later used in our XML creation
@@ -338,4 +336,3 @@ namespace ePubFixer
             }
         }
     }
-}

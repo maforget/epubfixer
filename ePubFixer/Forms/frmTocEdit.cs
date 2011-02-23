@@ -264,6 +264,8 @@ namespace ePubFixer
                         AddSelectedNode.Nodes.Add(n);
                     }
                 }
+
+                tree.ExpandAll();
             }
 
         }

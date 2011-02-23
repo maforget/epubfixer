@@ -49,7 +49,6 @@ namespace ePubFixer
         #region Update Files
         internal void UpdateFiles()
         {
-            System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
             using (new HourGlass())
             {
                 if (list != null)
@@ -64,8 +63,8 @@ namespace ePubFixer
 
                 } else
                 {
-                    System.Windows.Forms.MessageBox.Show("Splitting Cancelled",
-                        "Please make sure that they are no double entries",
+                    System.Windows.Forms.MessageBox.Show("Please make sure that they are no double entries",
+                        "Splitting Cancelled",
                         System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
                 }
             }
@@ -185,6 +184,7 @@ namespace ePubFixer
             {
                 foreach (string file in FilesTodelete)
                 {
+                    //TODO Remove endswith
                     ZipEntry entryToDel = zip.Where(x => x.FileName.EndsWith(file)).Select(x => x).FirstOrDefault();
                     if (entryToDel != null)
                     {
@@ -266,58 +266,6 @@ namespace ePubFixer
 
         }
 
-        //private void CutFiles(string filename, string id, string prevId, string splitFilename)
-        //{
-        //    MyHtmlDocument htmlDoc = new MyHtmlDocument();
-        //    HtmlDocument html = htmlDoc.GetHtml(filename);
-
-        //    if (html != null)
-        //    {
-        //        HtmlNode Body = html.DocumentNode.SelectSingleNode("//body");
-        //        List<HtmlNode> Node = new List<HtmlNode>();
-
-        //        if (String.IsNullOrEmpty(id))
-        //            // Just for the last file
-        //            Node = Body.DescendantNodes().SkipWhile(x => x.Id != prevId).ToList();
-        //        else
-        //            Node = Body.DescendantNodes().SkipWhile(x => x.Id != prevId)
-        //                            .TakeWhile(x => x.Id != id).ToList();
-
-
-        //        Node = (Node.Where(x => x.ChildNodes.Count <= 6)
-        //            .GroupBy(x => x.InnerText.Trim())
-        //            .Select(g => g.First()))
-        //            .ToList();
-
-
-        //        StringBuilder sb = new StringBuilder();
-        //        Node.ForEach(x => sb.Append(x.OuterHtml));
-        //        string newHtml = sb.ToString();
-        //        Body.InnerHtml = newHtml;
-
-        //        if (newHtml.Trim()==string.Empty)
-        //        {
-        //            splitNumber--;
-        //        } else
-        //        {
-        //            using (Mark.Tidy.Document doc = new Mark.Tidy.Document(html.DocumentNode.OuterHtml))
-        //            {
-        //                doc.ShowWarnings = false;
-        //                doc.Quiet = true;
-        //                doc.OutputXhtml = true;
-        //                doc.IndentAttributes = true;
-        //                doc.IndentBlockElements = Mark.Tidy.AutoBool.Auto;
-        //                doc.CleanAndRepair();
-        //                doc.Save(htmlDoc.fileOutStream);
-        //            }
-
-        //            string file = ZipFileNames.Where(x => x.EndsWith(filename)).Select(x => x).FirstOrDefault().Replace(filename, splitFilename);
-        //            htmlDoc.fileOutName = file;
-        //            htmlDoc.UpdateZip();
-        //        }
-        //    }
-        //}
-
         #region Get Tidy Html
         private Dictionary<string, string> HtmlCache = new Dictionary<string, string>();
         //string BodyHeading = "";
@@ -328,7 +276,7 @@ namespace ePubFixer
 
             string html = "";
             MyHtmlDocument htmlDoc = new MyHtmlDocument();
-            var Stream = htmlDoc.GetStream(filename);
+            var Stream = htmlDoc.GetStreamOPF(filename);
 
             using (Mark.Tidy.Document doc = new Mark.Tidy.Document(Stream))
             {
@@ -396,7 +344,6 @@ namespace ePubFixer
         }
         #endregion
 
-
         private void CutFiles(string filename, string id, string prevId, string splitFilename)
         {
             string html = GetHtml(filename);
@@ -444,6 +391,7 @@ namespace ePubFixer
                         doc.Save(htmlDoc.fileOutStream);
                     }
 
+                    //TODO Remove endswith
                     string file = ZipFileNames.Where(x => x.EndsWith(filename)).Select(x => x).FirstOrDefault().Replace(filename, splitFilename);
                     htmlDoc.fileOutName = file;
                     htmlDoc.UpdateZip();

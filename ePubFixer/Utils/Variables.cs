@@ -36,9 +36,16 @@ namespace ePubFixer
         {
             get
             {
-                OpfDocument doc = new OpfDocument();
-                _NCXFile = doc.GetNCXfilename();
+                if (String.IsNullOrEmpty(_NCXFile))
+                {
+                    OpfDocument doc = new OpfDocument();
+                    _NCXFile = doc.GetNCXfilename();
+                }
                 return _NCXFile;
+            }
+            set
+            {
+                _NCXFile = value;
             }
         }
 
@@ -47,10 +54,38 @@ namespace ePubFixer
         {
             get
             {
-                ContainerDocument doc = new ContainerDocument();
-                _OPFfile = doc.GetOPFfilename();
+                if (String.IsNullOrEmpty(_OPFfile))
+                {
+                    ContainerDocument doc = new ContainerDocument();
+                    _OPFfile = doc.GetOPFfilename();
+                }
                 return _OPFfile;
             }
+            set
+            {
+                _OPFfile = value;
+            }
+        }
+
+        public static string OPFpath
+        {
+            get
+            {
+                return GetPath(OPFfile);
+            }
+        }
+
+        public static string GetPath(string file)
+        {
+            string[] split = file.Split('/');
+            System.Text.StringBuilder pathBuilder = new System.Text.StringBuilder();
+
+            for (int i = 0; i < split.Length - 1; i++)
+            {
+                pathBuilder.Append(split[i] + "/");
+            }
+
+            return pathBuilder.ToString();
         }
 
         #endregion

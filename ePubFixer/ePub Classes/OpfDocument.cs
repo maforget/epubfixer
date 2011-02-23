@@ -215,10 +215,10 @@ namespace ePubFixer
                 nCXfile = Utils.GetSrc(id);
             } else
             {
-                //System.Windows.Forms.MessageBox.Show("There is no reference to your TOC in the \"spine\"\n" +
-                //    "Please open the reading order editor and save to fix the problem.\n" +
-                //    "If you do not your TOC might not be accesible in Calibre and/or Reader/Software", "TOC reference missing",
-                //    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
+                System.Windows.Forms.MessageBox.Show("There is no reference to your TOC in the \"spine\"\n" +
+                    "Please open the reading order editor and save to fix the problem.\n" +
+                    "If you do not your TOC might not be accesible in Calibre and/or Reader/Software", "TOC reference missing",
+                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
 
                 //No reference of TOC in spine look for mime-type
                 string mime = GetFilesList("application/x-dtbncx+xml").FirstOrDefault();
