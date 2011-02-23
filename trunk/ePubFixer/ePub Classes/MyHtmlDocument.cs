@@ -281,7 +281,7 @@ namespace ePubFixer
         {
             try
             {
-                Stream htmlStream = base.GetStream(filename);
+                Stream htmlStream = base.GetStreamOPF(filename);
                 HtmlDocument html = new HtmlDocument();
                 html.Load(htmlStream, Encoding.UTF8);
 

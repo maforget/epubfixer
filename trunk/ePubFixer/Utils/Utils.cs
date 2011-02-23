@@ -29,6 +29,8 @@ namespace ePubFixer
             Variables.AnchorsInFile = new Dictionary<string, List<string>>();
             FileList = null;
             Variables.BackupDone = false;
+            Variables.OPFfile = string.Empty;
+            Variables.NCXFile = string.Empty;
         }
 
         #endregion
@@ -77,8 +79,7 @@ namespace ePubFixer
                 //frm.AddOwnedForm(frmPreview);
                 Variables.OpenedForm.Add(frmPreview);
                 frmPreview.Show();
-            }
-            catch (Exception)
+            } catch (Exception)
             {
 
             }
@@ -124,8 +125,7 @@ namespace ePubFixer
                     {
                         //File.Delete(file);
                     }
-                }
-                catch (Exception)
+                } catch (Exception)
                 {
                 }
                 file = newFile;
@@ -188,22 +188,8 @@ namespace ePubFixer
         #region Verify Files
         public static bool VerifyFileExists(string filename)
         {
-            bool ret = true;
-
-            using (ZipFile zip = ZipFile.Read(Variables.Filename))
-            {
-                var e = from z in zip
-                        where z.FileName.EndsWith(filename)
-                        select z;
-
-                if (e.Count() == 0)
-                    ret = false;
-                else
-                    ret = true;
-            }
-
-            return ret;
-
+            string file = GetFilePathInsideZipOPF(filename);
+            return string.IsNullOrEmpty(file) ? false : true;
         }
 
         public static System.Collections.ObjectModel.Collection<Node> RemoveNonExistantNode(System.Collections.ObjectModel.Collection<Node> NodeCollection)
@@ -253,8 +239,7 @@ namespace ePubFixer
                         //}
                     }
                 }
-            }
-            catch (Exception)
+            } catch (Exception)
             {
                 //NOTE File in use message (extract)
             }
@@ -288,8 +273,7 @@ namespace ePubFixer
                 {
                     Directory.Delete(Variables.TempFolder, true);
                 }
-            }
-            catch (Exception)
+            } catch (Exception)
             {
 
             }
@@ -297,7 +281,7 @@ namespace ePubFixer
 
         internal static string GetTempFilePath(string filename)
         {
-            string file = GetFilePathInsideZip(filename);
+            string file = GetFilePathInsideZipOPF(filename);
             file = file.Replace('/', '\\');
             file = Variables.TempFolder + @"\" + file;
 
@@ -308,6 +292,22 @@ namespace ePubFixer
 
         #endregion
 
+        internal static string GetFilePathInsideZipOPF(string filename)
+        {
+            string file = "";
+            if (!String.IsNullOrEmpty(filename))
+            {
+                using (ZipFile zip = ZipFile.Read(Variables.Filename))
+                {
+                    file = (from z in zip
+                            where z.FileName == Variables.OPFpath + filename
+                            select z.FileName).FirstOrDefault();
+                }
+            }
+
+            return file;
+        }
+
         internal static string GetFilePathInsideZip(string filename)
         {
             string file = "";
@@ -315,10 +315,11 @@ namespace ePubFixer
             {
                 using (ZipFile zip = ZipFile.Read(Variables.Filename))
                 {
-                    file = (from z in zip where z.FileName.EndsWith(filename) select z.FileName).FirstOrDefault();
+                    file = (from z in zip
+                            where z.FileName.EndsWith(filename)
+                            select z.FileName).FirstOrDefault();
                 }
             }
-            //file = file.Replace(opfPath + "/", "");
 
             return file;
         }
@@ -387,7 +388,7 @@ namespace ePubFixer
                 {
                     FolderBrowserDialog save = new FolderBrowserDialog();
                     save.Description = "Please select the folder to save the Decrypted files into.";
-                    
+
                     if (string.IsNullOrEmpty(SaveDirectory))
                     {
                         if (save.ShowDialog() == DialogResult.OK)
@@ -397,8 +398,8 @@ namespace ePubFixer
                     }
 
                     string NewFilePath = SaveDirectory + "\\" + Variables.BookName;
-                    if (File.Exists(NewFilePath) && 
-                        MessageBox.Show("File Already Exists, Do you want to replace it?\n\"" + Variables.BookName + "\"", 
+                    if (File.Exists(NewFilePath) &&
+                        MessageBox.Show("File Already Exists, Do you want to replace it?\n\"" + Variables.BookName + "\"",
                         "File Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
                     {
                         return false;
@@ -414,8 +415,7 @@ namespace ePubFixer
 
                 }
                 return false;
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 Variables.FileDecrypted = false;
                 MessageBox.Show("File could not be decrypted\n" + e.Message, "Decryption Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);

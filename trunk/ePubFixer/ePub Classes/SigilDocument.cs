@@ -30,7 +30,7 @@ namespace ePubFixer
             : base()
         {
             FileList = new List<string>();
-        } 
+        }
         #endregion
 
         #region Update File
@@ -56,7 +56,7 @@ namespace ePubFixer
 
             //GetBackupTOC
             string ncxFile = Variables.NCXFile;
-            Stream BackupTOC = GetStream(ncxFile);
+            Stream BackupTOC = GetStreamOPF(ncxFile);
 
             base.SaveBackup();
             ProcessStartInfo start = new ProcessStartInfo(Properties.Settings.Default.SigilPath);
@@ -68,6 +68,9 @@ namespace ePubFixer
             Cursor.Current = Cursors.Default;
             proc.WaitForExit();
 
+            //TODO if OPF file changes next operation will fail.
+            Variables.OPFfile = string.Empty;
+            Variables.NCXFile = string.Empty;
             OpfDocument doc = new OpfDocument();
             FileList = doc.GetFilesList("html");
 
@@ -80,11 +83,11 @@ namespace ePubFixer
             WriteXML();
 
             //Find toc.ncx path in Zip
-            fileOutName = Utils.GetFilePathInsideZip(ncxFile);
+            fileOutName = Utils.GetFilePathInsideZipOPF(ncxFile);
 
             UpdateZip(fileOutStream);
 
-        } 
+        }
         #endregion
 
         #region Recreate TOC
@@ -120,7 +123,7 @@ namespace ePubFixer
                         Anchor = Anchor == filename ? string.Empty : "#" + Anchor;
 
                         string s = (from f in FileList
-                                    where f.ToLower().EndsWith(filenameONLY.ToLower())
+                                    where f.ToLower().EndsWith((Variables.GetPath(f) + filenameONLY).ToLower())
                                     select f).FirstOrDefault();
 
                         s += Anchor;
@@ -137,7 +140,7 @@ namespace ePubFixer
                 }
             }
 
-        } 
+        }
         #endregion
 
     }

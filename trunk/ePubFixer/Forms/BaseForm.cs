@@ -218,6 +218,7 @@ namespace ePubFixer
                     no.Parent = dropNode;
                 }
                 tree.DropPosition.Node.IsExpanded = true;
+                tree.ExpandAll();
             } else
             {
                 Node parent = dropNode.Parent;
@@ -370,7 +371,6 @@ namespace ePubFixer
             List<string> CleanedFilename = GetFilenames(Model.Nodes, false);
 
             frmAdd frm = new frmAdd(CleanedFilename, add);
-            //this.AddOwnedForm(frm);
             Variables.OpenedForm.Add(frm);
             frm.Show();
             frm.FilesAdded += new EventHandler<FilesAddedArgs>(frm_FilesAdded);
@@ -405,8 +405,7 @@ namespace ePubFixer
                 Node n = (tree.SelectedNode.Tag as Node);
                 statusLabel.Text = (n.Tag as NavDetails).ContentSrc;
                 this.Update();
-            }
-            catch (Exception)
+            } catch (Exception)
             {
             }
         }
@@ -446,7 +445,6 @@ namespace ePubFixer
                 string name = "";
                 name = Clean ? (item.Tag as NavDetails).ContentSrc.Split('#')[0] : (item.Tag as NavDetails).ContentSrc;
 
-                //TODO Only checked files?
                 if (!String.IsNullOrEmpty(name))
                     CleanedFilename.Add(name);
 
