@@ -20,6 +20,7 @@ namespace ePubFixer
         private List<NavDetails> FilesToAdd;
         private Dictionary<string, string> PresentAnchors = new Dictionary<string, string>();
         Dictionary<string, bool> IsNodeExpanded = new Dictionary<string, bool>();
+        Dictionary<string, string> TextSelected = new Dictionary<string, string>();
         private IEnumerable<string> presentFile;
         private AddWindowType AddType;
         #endregion
@@ -103,6 +104,17 @@ namespace ePubFixer
         #endregion
 
         #region Detected TExt
+        private void AddToTextSelected(NavDetails nav)
+        {
+            if (!TextSelected.ContainsKey(nav.ContentSrc))
+            {
+                TextSelected.Add(nav.ContentSrc, nav.Text);
+            } else
+            {
+                TextSelected[nav.ContentSrc] = nav.Text;
+            }
+        }
+
         void nodeDetectedTexts_ChangesApplied(object sender, EventArgs e)
         {
             MyNode n = treeView1.CurrentNode.Tag as MyNode;
@@ -110,6 +122,7 @@ namespace ePubFixer
             if (nav.DetectedTexts != null && nav.DetectedTexts.Count > 0)
             {
                 nav.Text = nodeDetectedTexts.GetValue(treeView1.CurrentNode).ToString();
+                AddToTextSelected(nav);
             }
         }
 
@@ -143,6 +156,7 @@ namespace ePubFixer
                         nav.Text = nav.DetectedTexts[index + 1];
                         n.DetectedText = nav.DetectedTexts[index + 1];
                     }
+                    AddToTextSelected(nav);
                 }
                 treeView1.EndUpdate();
 
@@ -193,6 +207,7 @@ namespace ePubFixer
                     foreach (MyNode item in Model.Nodes)
                     {
                         item.Tag = new NavDetails(Utils.GetId(item.Text, SrcTag), item.Text, item.DetectedCombo);
+                        NavDetails nav = item.Tag as NavDetails;
 
                         if (AddType == AddWindowType.TOCEdit && cbShowAnchors.Checked)
                         {
@@ -201,7 +216,7 @@ namespace ePubFixer
                             if (!cbShowAll.Checked)
                             {
                                 Anchors = (from i in Anchors
-                                           where !PresentAnchors.ContainsValue(i)
+                                           where !PresentAnchors.ContainsKey(nav.File + "#" + i)
                                            select i).ToList();
                             }
 
@@ -221,7 +236,6 @@ namespace ePubFixer
             }
         }
 
-
         /// <summary>
         /// Removes Nodes when there is only an anchor that has no detected text
         /// </summary>
@@ -240,7 +254,6 @@ namespace ePubFixer
                 }
             }
         }
-
 
         private void node_DrawText(object sender, Aga.Controls.Tree.NodeControls.DrawEventArgs e)
         {
@@ -266,6 +279,13 @@ namespace ePubFixer
                 } else
                 {
                     e.Node.Collapse();
+                }
+
+                //Keep SelectedText
+                string text = "";
+                if (TextSelected.TryGetValue(nav.ContentSrc, out text))
+                {
+                    ((MyNode)e.Node.Tag).DetectedText = text;
                 }
             }
         }
@@ -318,20 +338,25 @@ namespace ePubFixer
             {
                 int QtyChecked = treeView1.SelectedNodes.Count(x => (x.Tag as Node).IsChecked == true);
                 int QtyUnChecked = treeView1.SelectedNodes.Count(x => (x.Tag as Node).IsChecked == false);
+                int QtyCollapsed = treeView1.AllNodes.Count(x => x.IsExpanded == false && x.Level==1);
+                int QtyExpanded = treeView1.AllNodes.Count(x => x.IsExpanded == true && x.Level == 1);
 
                 if (QtyChecked == treeView1.SelectedNodes.Count)
                 {
-                    contextMenu.Items.Remove(check);
-                    contextMenu.Items.Add(unCheck);
+                    check.Visible = false;
+                    unCheck.Visible = true;
                 } else if (QtyUnChecked == treeView1.SelectedNodes.Count)
                 {
-                    contextMenu.Items.Remove(unCheck);
-                    contextMenu.Items.Add(check);
+                    unCheck.Visible = false;
+                    check.Visible = true;
                 } else
                 {
-                    contextMenu.Items.Add(unCheck);
-                    contextMenu.Items.Add(check);
+                    check.Visible = true;
+                    unCheck.Visible = true;
                 }
+
+                expandAllToolStripMenuItem.Visible = QtyCollapsed>0 ? cbShowAnchors.Checked : false;
+                collapseAllToolStripMenuItem.Visible = QtyExpanded>0 ? cbShowAnchors.Checked : false;
 
                 check.Text = treeView1.SelectedNodes.Count > 1 ? "Check All Selected" : "Check Selected";
                 unCheck.Text = treeView1.SelectedNodes.Count > 1 ? "Uncheck All Selected" : "Uncheck Selected";
@@ -497,6 +522,20 @@ namespace ePubFixer
                 colDetectedText.Width.ToString();
         }
         #endregion
+
+        #region Expand All
+        private void expandAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            treeView1.ExpandAll();
+        }
+
+        private void collapseAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            treeView1.CollapseAll();
+        }
+        #endregion
+
+        //TODO enable sorting
 
 
 

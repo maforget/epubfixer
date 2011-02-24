@@ -34,6 +34,7 @@ namespace ePubFixer
         #region Update Files
         internal override void UpdateFile()
         {
+            fileExtractStream = base.GetStreamOPF(Variables.NCXFile);
             XElement xml = GetXmlElement("navMap");
 
             frmTocEdit frm = new frmTocEdit(xml);

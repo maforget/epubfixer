@@ -184,8 +184,7 @@ namespace ePubFixer
             {
                 foreach (string file in FilesTodelete)
                 {
-                    //TODO Remove endswith
-                    ZipEntry entryToDel = zip.Where(x => x.FileName.EndsWith(file)).Select(x => x).FirstOrDefault();
+                    ZipEntry entryToDel = zip.Where(x => x.FileName == Variables.OPFpath + file).Select(x => x).FirstOrDefault();
                     if (entryToDel != null)
                     {
                         zip.RemoveEntry(entryToDel);
@@ -391,8 +390,7 @@ namespace ePubFixer
                         doc.Save(htmlDoc.fileOutStream);
                     }
 
-                    //TODO Remove endswith
-                    string file = ZipFileNames.Where(x => x.EndsWith(filename)).Select(x => x).FirstOrDefault().Replace(filename, splitFilename);
+                    string file = ZipFileNames.Where(x => x == Variables.OPFpath + filename).Select(x => x).FirstOrDefault().Replace(filename, splitFilename);
                     htmlDoc.fileOutName = file;
                     htmlDoc.UpdateZip();
                 }

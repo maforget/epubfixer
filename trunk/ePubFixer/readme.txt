@@ -61,6 +61,9 @@ v1.3.6
 	(The default MS was to have a setting file for each location and each version, so moving the executable would have all your setting lost.)
 - Other small tweaks and fixes.
 - A message will popup when opening a protected file, telling you it is protected and preventing you from editing this file.
+- Added a Expand & Collapse All option in the Add window.
+- When adding new Chapters, the text that was already selected in the Add window will now be remembered.
+
 
 v1.3.5
 - No more error when Saving at the same time as extracting, or closing when there are still file activity.
