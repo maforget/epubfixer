@@ -318,7 +318,7 @@ namespace ePubFixer
         {
             if (cbSplit.Checked)
             {
-                Utils.NewFilename();
+                Utils.NewFilename(Variables.BackupDone);
                 Utils.CloseOpenedForms();
 
                 SplitChapters doc = new SplitChapters(GetFilenames(Model.Nodes, false));

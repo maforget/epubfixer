@@ -68,7 +68,6 @@ namespace ePubFixer
             Cursor.Current = Cursors.Default;
             proc.WaitForExit();
 
-            //TODO if OPF file changes next operation will fail.
             Variables.OPFfile = string.Empty;
             Variables.NCXFile = string.Empty;
             OpfDocument doc = new OpfDocument();
@@ -83,7 +82,7 @@ namespace ePubFixer
             WriteXML();
 
             //Find toc.ncx path in Zip
-            fileOutName = Utils.GetFilePathInsideZipOPF(ncxFile);
+            fileOutName = Utils.GetFilePathInsideZip(ncxFile);
 
             UpdateZip(fileOutStream);
 
@@ -123,7 +122,7 @@ namespace ePubFixer
                         Anchor = Anchor == filename ? string.Empty : "#" + Anchor;
 
                         string s = (from f in FileList
-                                    where f.ToLower().EndsWith((Variables.GetPath(f) + filenameONLY).ToLower())
+                                    where f.ToLower() == (Variables.GetPath(f) + filenameONLY).ToLower()
                                     select f).FirstOrDefault();
 
                         s += Anchor;

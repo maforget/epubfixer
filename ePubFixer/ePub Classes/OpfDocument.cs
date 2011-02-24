@@ -38,6 +38,7 @@ namespace ePubFixer
         #region Update
         internal override void UpdateFile()
         {
+            SetFile();
             XElement xml = GetXmlElement("spine");
             //if (xml == null)
             //    return false;

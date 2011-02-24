@@ -107,16 +107,16 @@ namespace ePubFixer
 
             if (QtyChecked == tree.SelectedNodes.Count)
             {
-                contextMenu.Items.Remove(Check);
-                contextMenu.Items.Add(unCheck);
+                Check.Visible = false;
+                unCheck.Visible = true;
             } else if (QtyUnChecked == tree.SelectedNodes.Count)
             {
-                contextMenu.Items.Remove(unCheck);
-                contextMenu.Items.Add(Check);
+                unCheck.Visible = false;
+                Check.Visible = true;
             } else
             {
-                contextMenu.Items.Add(unCheck);
-                contextMenu.Items.Add(Check);
+                Check.Visible = true;
+                unCheck.Visible = true;
             }
 
             Check.Text = tree.SelectedNodes.Count > 1 ? "Check All Selected" : "Check Selected";
