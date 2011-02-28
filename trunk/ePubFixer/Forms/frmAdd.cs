@@ -200,6 +200,8 @@ namespace ePubFixer
                         Model.Nodes.Add(new MyNode(item, det));
                     }
 
+                    SortList();
+
                     Dictionary<string, string> SrcTag = OpfDoc.GetFilesList();
                     foreach (MyNode item in Model.Nodes)
                     {
@@ -335,7 +337,7 @@ namespace ePubFixer
             {
                 int QtyChecked = treeView1.SelectedNodes.Count(x => (x.Tag as Node).IsChecked == true);
                 int QtyUnChecked = treeView1.SelectedNodes.Count(x => (x.Tag as Node).IsChecked == false);
-                int QtyCollapsed = treeView1.AllNodes.Count(x => x.IsExpanded == false && x.Level==1);
+                int QtyCollapsed = treeView1.AllNodes.Count(x => x.IsExpanded == false && x.Level == 1);
                 int QtyExpanded = treeView1.AllNodes.Count(x => x.IsExpanded == true && x.Level == 1);
 
                 if (QtyChecked == treeView1.SelectedNodes.Count)
@@ -352,8 +354,8 @@ namespace ePubFixer
                     unCheck.Visible = true;
                 }
 
-                expandAllToolStripMenuItem.Visible = QtyCollapsed>0 ? cbShowAnchors.Checked : false;
-                collapseAllToolStripMenuItem.Visible = QtyExpanded>0 ? cbShowAnchors.Checked : false;
+                expandAllToolStripMenuItem.Visible = QtyCollapsed > 0 ? cbShowAnchors.Checked : false;
+                collapseAllToolStripMenuItem.Visible = QtyExpanded > 0 ? cbShowAnchors.Checked : false;
 
                 check.Text = treeView1.SelectedNodes.Count > 1 ? "Check All Selected" : "Check Selected";
                 unCheck.Text = treeView1.SelectedNodes.Count > 1 ? "Uncheck All Selected" : "Uncheck Selected";
@@ -532,7 +534,66 @@ namespace ePubFixer
         }
         #endregion
 
-        //TODO enable sorting
+        #region Sorting
+        private void treeView1_ColumnClicked(object sender, TreeColumnEventArgs e)
+        {
+            if (e.Column.SortOrder != SortOrder.Ascending)
+            {
+                e.Column.SortOrder = SortOrder.Ascending;
+            } else
+            {
+                e.Column.SortOrder = SortOrder.Descending;
+            }
+
+            SortList();
+        }
+
+        private void OrderNodes(TreeColumn column)
+        {
+            List<Node> Ordered = new List<Node>();
+
+            if (column.SortOrder == SortOrder.Ascending)
+            {
+                Ordered = Model.Nodes.OrderBy(x => column.Index == 0 ? (x as MyNode).Text : (x as MyNode).DetectedText).ToList();
+            } else
+            {
+                Ordered = Model.Nodes.OrderByDescending(x => column.Index == 0 ? (x as MyNode).Text : (x as MyNode).DetectedText).ToList();
+            }
+
+            treeView1.BeginUpdate();
+            Model.Nodes.Clear();
+            foreach (MyNode item in Ordered)
+            {
+                Model.Nodes.Add(item);
+            }
+            treeView1.EndUpdate();
+
+        }
+
+        private TreeColumn GetSortingColumn()
+        {
+            TreeColumn column = null;
+            if (colFile.SortOrder != SortOrder.None)
+            {
+                column = colFile;
+            } else if (colDetectedText.SortOrder != SortOrder.None)
+            {
+                column = colDetectedText;
+            }
+
+            return column;
+        }
+
+        private void SortList()
+        {
+            TreeColumn column = GetSortingColumn();
+
+            if (column != null)
+            {
+                OrderNodes(column);
+            }
+        } 
+        #endregion
 
 
 
