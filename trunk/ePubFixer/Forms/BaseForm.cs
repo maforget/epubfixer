@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using System.Reflection;
 using Aga.Controls.Tree;
 using Aga.Controls.Tree.NodeControls;
-using System.Threading;
-using Ionic.Zip;
 
 namespace ePubFixer
 {
