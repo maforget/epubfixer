@@ -37,6 +37,8 @@
             this.colCheckbox = new Aga.Controls.Tree.TreeColumn();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.expandAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.collapseAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.check = new System.Windows.Forms.ToolStripMenuItem();
             this.unCheck = new System.Windows.Forms.ToolStripMenuItem();
             this.selectNextTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,8 +47,6 @@
             this.nodeCheckBox1 = new Aga.Controls.Tree.NodeControls.NodeCheckBox();
             this.cbShowAll = new System.Windows.Forms.CheckBox();
             this.cbShowAnchors = new System.Windows.Forms.CheckBox();
-            this.expandAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.collapseAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,6 +101,7 @@
             this.treeView1.Text = "treeViewAdv1";
             this.treeView1.UseColumns = true;
             this.treeView1.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tree_ItemDrag);
+            this.treeView1.ColumnClicked += new System.EventHandler<Aga.Controls.Tree.TreeColumnEventArgs>(this.treeView1_ColumnClicked);
             this.treeView1.DragOver += new System.Windows.Forms.DragEventHandler(this.treeView1_DragOver);
             this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
             // 
@@ -151,6 +152,20 @@
             this.previewToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.previewToolStripMenuItem.Text = "Preview";
             this.previewToolStripMenuItem.Click += new System.EventHandler(this.previewToolStripMenuItem_Click);
+            // 
+            // expandAllToolStripMenuItem
+            // 
+            this.expandAllToolStripMenuItem.Name = "expandAllToolStripMenuItem";
+            this.expandAllToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.expandAllToolStripMenuItem.Text = "Expand All";
+            this.expandAllToolStripMenuItem.Click += new System.EventHandler(this.expandAllToolStripMenuItem_Click);
+            // 
+            // collapseAllToolStripMenuItem
+            // 
+            this.collapseAllToolStripMenuItem.Name = "collapseAllToolStripMenuItem";
+            this.collapseAllToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.collapseAllToolStripMenuItem.Text = "Collapse All";
+            this.collapseAllToolStripMenuItem.Click += new System.EventHandler(this.collapseAllToolStripMenuItem_Click);
             // 
             // check
             // 
@@ -226,20 +241,6 @@
             this.cbShowAnchors.Text = "Show Anchors";
             this.cbShowAnchors.UseVisualStyleBackColor = true;
             this.cbShowAnchors.CheckedChanged += new System.EventHandler(this.cbShowAnchors_CheckedChanged);
-            // 
-            // expandAllToolStripMenuItem
-            // 
-            this.expandAllToolStripMenuItem.Name = "expandAllToolStripMenuItem";
-            this.expandAllToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.expandAllToolStripMenuItem.Text = "Expand All";
-            this.expandAllToolStripMenuItem.Click += new System.EventHandler(this.expandAllToolStripMenuItem_Click);
-            // 
-            // collapseAllToolStripMenuItem
-            // 
-            this.collapseAllToolStripMenuItem.Name = "collapseAllToolStripMenuItem";
-            this.collapseAllToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.collapseAllToolStripMenuItem.Text = "Collapse All";
-            this.collapseAllToolStripMenuItem.Click += new System.EventHandler(this.collapseAllToolStripMenuItem_Click);
             // 
             // frmAdd
             // 
