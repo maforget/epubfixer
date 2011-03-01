@@ -81,8 +81,7 @@ namespace ePubFixer
                 //frm.AddOwnedForm(frmPreview);
                 Variables.OpenedForm.Add(frmPreview);
                 frmPreview.Show();
-            }
-            catch (Exception)
+            } catch (Exception)
             {
 
             }
@@ -122,21 +121,17 @@ namespace ePubFixer
             if (ext == ".xhtml")
             {
                 string newFile = Path.ChangeExtension(file, ".html");
-                try
-                {
-                    if (File.Exists(file))
-                    {
-                        //File.Delete(file);
-                    }
-                }
-                catch (Exception)
-                {
-                }
+                file = newFile;
+            }
+
+            if (ext != ".html")
+            {
+                string newFile = file + ".html";
                 file = newFile;
             }
             #endregion
 
-            File.WriteAllText(file, html.DocumentNode.OuterHtml, Encoding.UTF8);
+                File.WriteAllText(file, html.DocumentNode.OuterHtml, Encoding.UTF8);
 
             return file;
         }
@@ -257,8 +252,7 @@ namespace ePubFixer
                         //}
                     }
                 }
-            }
-            catch (Exception)
+            } catch (Exception)
             {
                 //NOTE File in use message (extract)
             }
@@ -292,8 +286,7 @@ namespace ePubFixer
                 {
                     Directory.Delete(Variables.TempFolder, true);
                 }
-            }
-            catch (Exception)
+            } catch (Exception)
             {
 
             }
@@ -359,7 +352,7 @@ namespace ePubFixer
                     return true;
                 } else
                 {
-                    MessageBox.Show("This File Is Protected By DRM\n\"" + Variables.BookName + "\"", 
+                    MessageBox.Show("This File Is Protected By DRM\n\"" + Variables.BookName + "\"",
                         "File Protected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return true;
                 }
@@ -377,7 +370,7 @@ namespace ePubFixer
                 {
                     FolderBrowserDialog save = new FolderBrowserDialog();
                     save.Description = "Please select the folder to save the Decrypted files into.";
-                    
+
                     if (string.IsNullOrEmpty(SaveDirectory))
                     {
                         if (save.ShowDialog() == DialogResult.OK)
@@ -387,8 +380,8 @@ namespace ePubFixer
                     }
 
                     string NewFilePath = SaveDirectory + "\\" + Variables.BookName;
-                    if (File.Exists(NewFilePath) && 
-                        MessageBox.Show("File Already Exists, Do you want to replace it?\n\"" + Variables.BookName + "\"", 
+                    if (File.Exists(NewFilePath) &&
+                        MessageBox.Show("File Already Exists, Do you want to replace it?\n\"" + Variables.BookName + "\"",
                         "File Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
                     {
                         return false;
@@ -404,8 +397,7 @@ namespace ePubFixer
 
                 }
                 return true;
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 Variables.FileDecrypted = false;
                 MessageBox.Show("File could not be decrypted\n" + e.Message, "Decryption Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
