@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Xml.Linq;
-using HtmlAgilityPack;
 using Ionic.Zip;
+using System.Diagnostics;
+using System.Linq;
+using System.Xml.Linq;
+using System.Xml;
+using HtmlAgilityPack;
+using System.Text;
 
 namespace ePubFixer
 {

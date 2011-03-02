@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Diagnostics;
+using System.Linq;
+using System.Xml;
 using System.Windows.Forms;
 
 public class HourGlass : IDisposable
