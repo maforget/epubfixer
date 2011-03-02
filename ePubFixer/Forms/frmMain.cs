@@ -21,7 +21,7 @@ namespace ePubFixer
         #endregion
 
         #region Files or Folder Button
-        private void btnFiles_Click(object sender, EventArgs e)
+        private void SelectFiles()
         {
             openFileDialog1.Filter = ".epub | *.epub";
             openFileDialog1.Multiselect = true;
@@ -31,21 +31,41 @@ namespace ePubFixer
                 Variables.Filenames.Clear();
                 string[] files = openFileDialog1.FileNames;
                 Variables.Filenames.AddRange(files);
+                SaveRecentFiles();
                 btnGo.Enabled = true;
             }
         }
-
-        private void btnFolder_Click(object sender, EventArgs e)
+        private void SelectFolders()
         {
-
             if (folderBrowser.ShowDialog() == DialogResult.OK)
             {
                 Variables.Filenames.Clear();
                 string[] files = Directory.GetFiles(folderBrowser.SelectedPath, "*.epub", SearchOption.AllDirectories);
                 Variables.Filenames.AddRange(files);
-
+                SaveRecentFiles();
                 btnGo.Enabled = true;
             }
+        }
+
+
+        private void btnFiles_Click(object sender, EventArgs e)
+        {
+            SelectFiles();
+        }
+
+        private void btnFolder_Click(object sender, EventArgs e)
+        {
+            SelectFolders();
+        }
+
+        private void selectFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectFiles();
+        }
+
+        private void selectFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectFolders();
         }
         #endregion
 
@@ -152,7 +172,8 @@ namespace ePubFixer
                     }
                 }
 
-            } catch (Exception)
+            }
+            catch (Exception)
             {
 
             }
@@ -258,6 +279,59 @@ namespace ePubFixer
         {
             //decryptFilesToolStripMenuItem.Visible = false;
         }
+        #endregion
+
+        #region Recent Files
+        private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            recentFilesToolStripMenuItem.DropDownItems.Clear();
+            System.Collections.ArrayList RecentFiles = Properties.Settings.Default.RecentFiles;
+
+            if (RecentFiles != null)
+            {
+                foreach (string item in RecentFiles)
+                {
+                    ToolStripMenuItem menuItem = new ToolStripMenuItem(item);
+                    recentFilesToolStripMenuItem.DropDownItems.Add(menuItem);
+                    menuItem.Click += new EventHandler(menuItem_Click);
+                }
+            }
+        }
+
+        void menuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menu = (ToolStripMenuItem)sender;
+
+            Variables.Filenames.Clear();
+            Variables.Filenames.Add(menu.Text);
+            btnGo.Enabled = true;
+        }
+
+        private void SaveRecentFiles()
+        {
+            if (Properties.Settings.Default.RecentFiles == null)
+                Properties.Settings.Default.RecentFiles = new System.Collections.ArrayList();
+
+            List<string> LastFiles = new List<string>();
+
+            foreach (string item in Properties.Settings.Default.RecentFiles)
+            {
+                LastFiles.Add(item);
+            }
+
+            LastFiles.AddRange(Variables.Filenames);
+            int Qty = LastFiles.Count > 10 ? 10 : LastFiles.Count;
+            LastFiles = LastFiles.GetRange(LastFiles.Count - Qty, Qty);
+            Properties.Settings.Default.RecentFiles.Clear();
+
+            foreach (string item in LastFiles)
+            {
+                if (!Properties.Settings.Default.RecentFiles.Contains(item))
+                    Properties.Settings.Default.RecentFiles.Add(item);
+            }
+
+            Properties.Settings.Default.Save();
+        } 
         #endregion
 
 

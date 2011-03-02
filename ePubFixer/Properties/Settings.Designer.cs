@@ -152,5 +152,17 @@ namespace ePubFixer.Properties {
                 this["Decrypt"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MySettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.ArrayList RecentFiles {
+            get {
+                return ((global::System.Collections.ArrayList)(this["RecentFiles"]));
+            }
+            set {
+                this["RecentFiles"] = value;
+            }
+        }
     }
 }

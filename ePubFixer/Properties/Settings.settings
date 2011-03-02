@@ -32,5 +32,8 @@
     <Setting Name="Decrypt" Provider="MySettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="RecentFiles" Provider="MySettingsProvider" Type="System.Collections.ArrayList" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
