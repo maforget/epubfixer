@@ -20,7 +20,6 @@ namespace ePubFixer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Utils.Upgrade();
             GetArgument(args);
                 
             Application.Run(new frmMain());
