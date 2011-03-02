@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.IO;
-using System.Reflection;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace ePubFixer
@@ -285,11 +286,18 @@ namespace ePubFixer
         private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             recentFilesToolStripMenuItem.DropDownItems.Clear();
-            System.Collections.ArrayList RecentFiles = Properties.Settings.Default.RecentFiles;
+            List<string> LastFiles = null;
 
-            if (RecentFiles != null)
+            if (Properties.Settings.Default.RecentFiles != null)
             {
-                foreach (string item in RecentFiles)
+                LastFiles = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
+                LastFiles = LastFiles.OrderByDescending(x => LastFiles.IndexOf(x)).ToList();
+            }
+
+
+            if (LastFiles != null)
+            {
+                foreach (string item in LastFiles)
                 {
                     ToolStripMenuItem menuItem = new ToolStripMenuItem(item);
                     recentFilesToolStripMenuItem.DropDownItems.Add(menuItem);
@@ -331,7 +339,7 @@ namespace ePubFixer
             }
 
             Properties.Settings.Default.Save();
-        } 
+        }
         #endregion
 
 
