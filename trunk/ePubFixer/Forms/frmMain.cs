@@ -244,6 +244,7 @@ namespace ePubFixer
             Properties.Settings.Default.Save();
         }
 
+        #region Hide Option
         private void frmMain_KeyDown(object sender, KeyEventArgs e)
         {
             //#if DRM
@@ -279,7 +280,8 @@ namespace ePubFixer
         private void SettingToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
         {
             //decryptFilesToolStripMenuItem.Visible = false;
-        }
+        } 
+        #endregion
         #endregion
 
         #region Recent Files
@@ -312,6 +314,7 @@ namespace ePubFixer
 
             Variables.Filenames.Clear();
             Variables.Filenames.Add(menu.Text);
+            SaveRecentFiles();
             btnGo.Enabled = true;
         }
 
@@ -328,18 +331,9 @@ namespace ePubFixer
             }
 
             LastFiles.AddRange(Variables.Filenames);
-            int Qty = LastFiles.Count > 10 ? 10 : LastFiles.Count;
-            LastFiles = LastFiles.GetRange(LastFiles.Count - Qty, Qty);
-            Properties.Settings.Default.RecentFiles.Clear();
-
-            foreach (string item in LastFiles)
-            {
-                if (!Properties.Settings.Default.RecentFiles.Contains(item))
-                    Properties.Settings.Default.RecentFiles.Add(item);
-            }
-
-            Properties.Settings.Default.Save();
+            Utils.SaveRecentFilesSettings(LastFiles);
         }
+
         #endregion
 
 
