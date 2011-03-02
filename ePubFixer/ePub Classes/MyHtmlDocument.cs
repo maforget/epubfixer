@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Text.RegularExpressions;
-using HtmlAgilityPack;
-using System.Xml;
-using System.Xml.XPath;
-using System.Xml.Linq;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.XPath;
+using HtmlAgilityPack;
+using Ionic.Zip;
+using System.Text;
 
 
 namespace ePubFixer

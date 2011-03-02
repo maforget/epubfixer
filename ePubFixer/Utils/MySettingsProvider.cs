@@ -1,18 +1,4 @@
-﻿/*************************************************************
- * PortableSettingsProvider.cs
- * Portable Settings Provider for C# applications
- * 
- * 2010- Michael Nathan
- * http://www.Geek-Republic.com
- * 
- * Licensed under Creative Commons CC BY-SA
- * http://creativecommons.org/licenses/by-sa/3.0/legalcode
- * 
- * 
- * 
- * 
- *************************************************************/
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
