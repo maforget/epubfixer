@@ -328,7 +328,7 @@ namespace ePubFixer
         }
         #endregion
 
-
+        //TODO Deleting in TOC will Add the files if Show All is false (and Reload)
     }
 
 }
