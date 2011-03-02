@@ -57,7 +57,7 @@ v1.3.6
 - Put a Check that will prevent any none html file to be loaded or saved in the TOC.
 - Changed the Version.xml location on the web, so it is more easily changed. Older version might not always show the new version number.
 - Multiple Tweaks to Splitting so more file are compatible and do not crash.
-- Changed the way settings are stored, so they are kept regardless of version, build or file location. All previous setting will be removed.
+- Changed the way settings are stored, so they are kept regardless of version, build or file location. 
 	(The default MS was to have a setting file for each location and each version, so moving the executable would have all your setting lost.)
 - Other small tweaks and fixes.
 - A message will popup when opening a protected file, telling you it is protected and preventing you from editing this file.
