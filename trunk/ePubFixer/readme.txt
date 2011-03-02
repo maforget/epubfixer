@@ -63,8 +63,9 @@ v1.3.6
 - A message will popup when opening a protected file, telling you it is protected and preventing you from editing this file.
 - Added a Expand & Collapse All option in the Add window.
 - When adding new Chapters, the text that was already selected in the Add window will now be remembered.
-- Fixed a Couple a Bug and some tweaks.
 - In the Add window, clicking the columns header will sort the files.
+- Added a Recent Files list under a new File Menu in the Main window.
+- Fixed a Couple a Bug and some tweaks.
 
 
 v1.3.5
