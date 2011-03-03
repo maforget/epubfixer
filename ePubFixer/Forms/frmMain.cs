@@ -211,6 +211,11 @@ namespace ePubFixer
                 string file = Variables.Filenames[i];
                 Utils.NewFilename();
                 Variables.Filename = file;
+                if (!File.Exists(file))
+                {
+                    MessageBox.Show("The file \"" + Variables.BookName + "\" does not exists", "File does not exists", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    continue;
+                } 
 
                 if (Utils.IsEncrypted && !Utils.DecryptFile())
                     continue;
