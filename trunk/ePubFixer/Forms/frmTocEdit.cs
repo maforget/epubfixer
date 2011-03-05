@@ -289,25 +289,57 @@ namespace ePubFixer
                 nodeTextBox.BeginEdit();
             } else
             {
-                List<TreeNodeAdv> NodeToRename = tree.SelectedNodes.OrderBy(x => x.Index).ToList();
-                List<string> TextToSend = NodeToRename.Select(x => (x.Tag as Node).Text).ToList();
+                List<Node> NodeToRename = GetNodesInOrder();
+                List<string> TextToSend = NodeToRename.Select(x => x.Text).ToList();
 
                 frmMassRename frmRename = new frmMassRename(TextToSend);
                 frmRename.ShowDialog();
-                List<string> s = frmRename.RenamedText;
+                List<string> NewText = frmRename.RenamedText;
 
-                if (s.Count == 0)
+                if (NewText.Count == 0)
                     return;
 
+                //Change to the New Text
                 for (int i = 0; i < qtySelected; i++)
                 {
-                    var item = NodeToRename[i];
-                    string text = s[i];
-                    Node n = item.Tag as Node;
-                    n.Text = text;
+                    Node item = NodeToRename[i];
+                    string text = NewText[i];
+                    item.Text = text;
                 }
             }
         }
+
+        List<Node> Order;
+        IEnumerable<Node> SelectedNodes;
+        private List<Node> GetNodesInOrder()
+        {
+            Order = new List<Node>();
+            SelectedNodes = tree.SelectedNodes.Select(x => x.Tag).Cast<Node>();
+
+            foreach (Node item in Model.Nodes)
+            {
+                if (SelectedNodes.Contains(item))
+                {
+                    Order.Add(item);
+                }
+                GetNodesInOrder(item.Nodes);
+            }
+
+            return Order;
+        }
+
+        private void GetNodesInOrder(System.Collections.ObjectModel.Collection<Node> Nodes)
+        {
+            foreach (var item in Nodes)
+            {
+                if (SelectedNodes.Contains(item))
+                {
+                    Order.Add(item);
+                }
+                GetNodesInOrder(item.Nodes);
+            }
+        }
+
         #endregion
 
         #region Split Chapter
