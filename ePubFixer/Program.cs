@@ -21,7 +21,7 @@ namespace ePubFixer
             Application.SetCompatibleTextRenderingDefault(false);
 
             GetArgument(args);
-
+                
             Application.Run(new frmMain());
         }
 
@@ -43,8 +43,6 @@ namespace ePubFixer
                     }
                 }
             }
-
-            Utils.SaveRecentFiles();
         } 
         #endregion
 

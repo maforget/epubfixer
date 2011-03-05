@@ -429,23 +429,6 @@ namespace ePubFixer
 
         #endregion
 
-        #region Save Recent Files
-        public static void SaveRecentFiles()
-        {
-            if (Properties.Settings.Default.RecentFiles == null)
-                Properties.Settings.Default.RecentFiles = new System.Collections.ArrayList();
-
-            List<string> LastFiles = new List<string>();
-
-            foreach (string item in Properties.Settings.Default.RecentFiles)
-            {
-                LastFiles.Add(item);
-            }
-
-            LastFiles.AddRange(Variables.Filenames);
-            Utils.SaveRecentFilesSettings(LastFiles);
-        }
-
         public static void SaveRecentFilesSettings(List<string> LastFiles)
         {
             int Qty = LastFiles.Count > 10 ? 10 : LastFiles.Count;
@@ -466,8 +449,7 @@ namespace ePubFixer
             }
 
             Properties.Settings.Default.Save();
-        } 
-        #endregion
+        }
     }
 }
 

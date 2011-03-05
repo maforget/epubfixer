@@ -32,7 +32,7 @@ namespace ePubFixer
                 Variables.Filenames.Clear();
                 string[] files = openFileDialog1.FileNames;
                 Variables.Filenames.AddRange(files);
-                Utils.SaveRecentFiles();
+                SaveRecentFiles();
                 btnGo.Enabled = true;
             }
         }
@@ -43,7 +43,7 @@ namespace ePubFixer
                 Variables.Filenames.Clear();
                 string[] files = Directory.GetFiles(folderBrowser.SelectedPath, "*.epub", SearchOption.AllDirectories);
                 Variables.Filenames.AddRange(files);
-                Utils.SaveRecentFiles();
+                SaveRecentFiles();
                 btnGo.Enabled = true;
             }
         }
@@ -211,11 +211,6 @@ namespace ePubFixer
                 string file = Variables.Filenames[i];
                 Utils.NewFilename();
                 Variables.Filename = file;
-                if (!File.Exists(file))
-                {
-                    MessageBox.Show("The file \"" + Variables.BookName + "\" does not exists", "File does not exists", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    continue;
-                } 
 
                 if (Utils.IsEncrypted && !Utils.DecryptFile())
                     continue;
@@ -319,8 +314,24 @@ namespace ePubFixer
 
             Variables.Filenames.Clear();
             Variables.Filenames.Add(menu.Text);
-            Utils.SaveRecentFiles();
+            SaveRecentFiles();
             btnGo.Enabled = true;
+        }
+
+        private void SaveRecentFiles()
+        {
+            if (Properties.Settings.Default.RecentFiles == null)
+                Properties.Settings.Default.RecentFiles = new System.Collections.ArrayList();
+
+            List<string> LastFiles = new List<string>();
+
+            foreach (string item in Properties.Settings.Default.RecentFiles)
+            {
+                LastFiles.Add(item);
+            }
+
+            LastFiles.AddRange(Variables.Filenames);
+            Utils.SaveRecentFilesSettings(LastFiles);
         }
 
         #endregion
