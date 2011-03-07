@@ -11,6 +11,7 @@ using System.IO;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 using ePubFixer.Properties;
+using System.Xml.Linq;
 
 namespace ePubFixer
 {
@@ -405,7 +406,7 @@ namespace ePubFixer
                         {
                             Properties.Settings.Default.RecentFiles.Add(NewFilePath);
                             SaveRecentFilesSettings(Properties.Settings.Default.RecentFiles.Cast<string>().ToList());
-                            
+
                         }
                         return Variables.FileDecrypted;
                     }
@@ -466,6 +467,89 @@ namespace ePubFixer
             }
 
             Properties.Settings.Default.Save();
+        }
+        #endregion
+
+        #region Delete Files
+        internal static void DeleteFiles(IEnumerable<string> FilesToDelete)
+        {
+            //Delete Files
+            foreach (string source in FilesToDelete)
+            {
+                try
+                {
+                    using (ZipFile zip = ZipFile.Read(Variables.Filename))
+                    {
+                        zip.RemoveEntry(Variables.OPFpath + source);
+                    }
+                }
+                catch (Exception)
+                {
+                    //File not found in Zip.
+                    continue;
+                }
+            }
+
+
+            //Delete from manifest and spine
+            DeleteFromManifest(FilesToDelete);
+            DeleteFromSpine(FilesToDelete);
+
+        }
+
+        public static void DeleteFromManifest(IEnumerable<string> FilesTodelete)
+        {
+            OpfDocument doc = new OpfDocument();
+            XElement oldManifest = doc.GetXmlElement("manifest");
+            XNamespace ns = oldManifest.Name.Namespace;
+            List<XElement> newItems = new List<XElement>();
+
+            foreach (XElement item in oldManifest.Elements())
+            {
+                string href = item.Attribute("href").Value;
+                string id = item.Attribute("id").Value;
+                string mediaType = item.Attribute("media-type").Value;
+                if (!FilesTodelete.Contains(href))
+                {
+                    newItems.Add(item);
+                }
+            }
+
+            XElement newManifest = new XElement(ns + "manifest", newItems);
+            doc.ReplaceManifest(newManifest);
+        }
+
+        public static void DeleteFromSpine(IEnumerable<string> FilesTodelete)
+        {
+            OpfDocument doc = new OpfDocument();
+            XElement oldSpine = doc.GetXmlElement("spine");
+            XNamespace ns = oldSpine.Name.Namespace;
+            List<XElement> newItems = new List<XElement>();
+
+            foreach (XElement item in oldSpine.Elements())
+            {
+                string id = item.Attribute("idref").Value;
+                if (!FilesTodelete.Contains(GetSrc(id)))
+                {
+                    newItems.Add(item);
+                }
+            }
+
+            IEnumerable<XAttribute> spine = oldSpine.Attributes();
+            XElement newSpine = null;
+
+            if (spine.Count() > 0)
+            {
+                newSpine = new XElement(ns + "spine", spine, newItems);
+            } else
+            {
+                //There is no spine elements
+                XAttribute TocRef = new XAttribute("toc", doc.GetNCXid());
+
+                newSpine = new XElement(ns + "spine", TocRef, newItems);
+            }
+
+            doc.ReplaceSpine(newSpine);
         } 
         #endregion
     }
