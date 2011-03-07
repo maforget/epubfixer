@@ -42,7 +42,8 @@ Functionality
 - Sigil is great to cut chapters, Format the text or to correct some incorrectly cut files, but it is missing a very important function (at least before version v0.4 comes out). It does not keep the Table of COntent that is already present. Using this the book will be opened with Sigil, and when closed (be sure to save the file at the same place) it will replace it with your old Table of Content, Updating the new files location. If you delete or add new Files be sure to also run the table of Content & Reading ORder Editor after it. It will check for any files that are missing when opening and remove them, so just open it and save it again to remove entries.
 
 
-
+You can use the Open With plugin to easily open your file from calibre
+http://www.mobileread.com/forums/showthread.php?t=118761
 
 Nigol
 
