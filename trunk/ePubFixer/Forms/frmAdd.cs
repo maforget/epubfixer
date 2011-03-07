@@ -147,8 +147,9 @@ namespace ePubFixer
                     if (nav.DetectedTexts == null)
                         continue;
 
+                    int QtyMax = n.DetectedCombo.Count - 1;
                     int index = nav.DetectedTexts.IndexOf(n.DetectedText);
-                    if (index >= 0 && index < 4 && nav.DetectedTexts.Count > 1)
+                    if (index >= 0 && index < QtyMax && nav.DetectedTexts.Count > 1)
                     {
                         nav.Text = nav.DetectedTexts[index + 1];
                         n.DetectedText = nav.DetectedTexts[index + 1];
