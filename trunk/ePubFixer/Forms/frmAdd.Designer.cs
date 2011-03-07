@@ -47,6 +47,7 @@
             this.nodeCheckBox1 = new Aga.Controls.Tree.NodeControls.NodeCheckBox();
             this.cbShowAll = new System.Windows.Forms.CheckBox();
             this.cbShowAnchors = new System.Windows.Forms.CheckBox();
+            this.deleteFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -141,50 +142,51 @@
             this.collapseAllToolStripMenuItem,
             this.check,
             this.unCheck,
-            this.selectNextTextToolStripMenuItem});
+            this.selectNextTextToolStripMenuItem,
+            this.deleteFilesToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(185, 158);
+            this.contextMenu.Size = new System.Drawing.Size(186, 180);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // previewToolStripMenuItem
             // 
             this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
-            this.previewToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.previewToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.previewToolStripMenuItem.Text = "Preview";
             this.previewToolStripMenuItem.Click += new System.EventHandler(this.previewToolStripMenuItem_Click);
             // 
             // expandAllToolStripMenuItem
             // 
             this.expandAllToolStripMenuItem.Name = "expandAllToolStripMenuItem";
-            this.expandAllToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.expandAllToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.expandAllToolStripMenuItem.Text = "Expand All";
             this.expandAllToolStripMenuItem.Click += new System.EventHandler(this.expandAllToolStripMenuItem_Click);
             // 
             // collapseAllToolStripMenuItem
             // 
             this.collapseAllToolStripMenuItem.Name = "collapseAllToolStripMenuItem";
-            this.collapseAllToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.collapseAllToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.collapseAllToolStripMenuItem.Text = "Collapse All";
             this.collapseAllToolStripMenuItem.Click += new System.EventHandler(this.collapseAllToolStripMenuItem_Click);
             // 
             // check
             // 
             this.check.Name = "check";
-            this.check.Size = new System.Drawing.Size(184, 22);
+            this.check.Size = new System.Drawing.Size(185, 22);
             this.check.Text = "Check All Selected";
             this.check.Click += new System.EventHandler(this.check_Click);
             // 
             // unCheck
             // 
             this.unCheck.Name = "unCheck";
-            this.unCheck.Size = new System.Drawing.Size(184, 22);
+            this.unCheck.Size = new System.Drawing.Size(185, 22);
             this.unCheck.Text = "unCheck All Selected";
             this.unCheck.Click += new System.EventHandler(this.unCheck_Click);
             // 
             // selectNextTextToolStripMenuItem
             // 
             this.selectNextTextToolStripMenuItem.Name = "selectNextTextToolStripMenuItem";
-            this.selectNextTextToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.selectNextTextToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.selectNextTextToolStripMenuItem.Text = "Select Next Text";
             this.selectNextTextToolStripMenuItem.Click += new System.EventHandler(this.selectNextTextToolStripMenuItem_Click);
             // 
@@ -242,6 +244,13 @@
             this.cbShowAnchors.UseVisualStyleBackColor = true;
             this.cbShowAnchors.CheckedChanged += new System.EventHandler(this.cbShowAnchors_CheckedChanged);
             // 
+            // deleteFilesToolStripMenuItem
+            // 
+            this.deleteFilesToolStripMenuItem.Name = "deleteFilesToolStripMenuItem";
+            this.deleteFilesToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.deleteFilesToolStripMenuItem.Text = "Delete Files";
+            this.deleteFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteFilesToolStripMenuItem_Click);
+            // 
             // frmAdd
             // 
             this.AcceptButton = this.btnOk;
@@ -286,5 +295,6 @@
         private System.Windows.Forms.ToolStripMenuItem selectNextTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem expandAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem collapseAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteFilesToolStripMenuItem;
     }
 }

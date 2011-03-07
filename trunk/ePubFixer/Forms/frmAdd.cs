@@ -230,7 +230,8 @@ namespace ePubFixer
 
                     //Utils.RemoveNonExistantNode(Model.Nodes);
                 }
-            } catch (Exception)
+            }
+            catch (Exception)
             {
 
             }
@@ -593,17 +594,31 @@ namespace ePubFixer
             {
                 OrderNodes(column);
             }
-        } 
+        }
         #endregion
 
+        #region Delete Files
+        private void deleteFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to Remove these files?\nThis can't be undone. You should make sure to backup the file first",
+                "Delete Files", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+            if (result == DialogResult.Yes)
+            {
+                using (new HourGlass())
+                {
+                    var FilesToDelete = from i in treeView1.SelectedNodes
+                                        where i.Level == 1
+                                        select (i.Tag as MyNode).ContentSrc;
 
-        //TODO Add Delete Files
+                    Utils.DeleteFiles(FilesToDelete);
+                }
 
+                LoadFiles();
+            }
 
-
-
-
+        } 
+        #endregion
 
 
 
