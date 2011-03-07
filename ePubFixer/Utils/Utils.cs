@@ -210,7 +210,7 @@ namespace ePubFixer
                 Node item = NodeCollection[i];
                 NavDetails nav = item.Tag as NavDetails;
 
-                if (!Utils.VerifyFileExists(nav.File) | !htmlFiles.Contains(nav.File))
+                if (nav.ContentSrc==null || !Utils.VerifyFileExists(nav.File) | !htmlFiles.Contains(nav.File))
                 {
                     NodeCollection.Remove(item);
                 }
