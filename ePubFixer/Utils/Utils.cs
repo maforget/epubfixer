@@ -492,8 +492,8 @@ namespace ePubFixer
 
 
             //Delete from manifest and spine
-            DeleteFromManifest(FilesToDelete);
             DeleteFromSpine(FilesToDelete);
+            DeleteFromManifest(FilesToDelete);
 
         }
 
