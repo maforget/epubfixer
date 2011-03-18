@@ -189,13 +189,16 @@ namespace ePubFixer
                     return null;
                 }
 
+                //HACK to force xml files v1.1 to be parse
+                Text = Text.Replace("?xml version=\"1.1\"", "?xml version=\"1.0\"");
+
                 OldTOC = XElement.Parse(Text.Trim());
                 ns = OldTOC.Name.Namespace;
 
                 return OldTOC.Elements(ns + TextToFind).FirstOrDefault();
-            } catch (Exception)
+            } catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Invalid File", Variables.BookName);
+                System.Windows.Forms.MessageBox.Show("Invalid File\n" + ex.Message, Variables.BookName);
                 ns = nsIfEmpty;
                 return null;
             }

@@ -53,10 +53,15 @@ Please direct any comment or bugs here : http://code.google.com/p/epubfixer/
 -------------------------------------------
 Change Log
 -------------------------------------------
+
 v1.
+- Using SendTo will Save the most recent files
+- Opening a file that does not exists anymore will not crash the program and a message will warn you. 
 - Added a Delete Files in the Add screen (it will remove the selected files from the ePub and delete entries from the manifest & spine)
 - Fixed a bug with Mass Rename if the entry selected had different "parents".
-- Fixed a crash if a file was in the spine, but not the manifest
+- Fixed a crash if a file was in the spine, but not the manifest.
+- Added a kind of a HACK to force xml files that had v1.1 to be parsed (seems the MS library can't do it)
+
 
 v1.3.6 
 - Put a Check that will prevent any none html file to be loaded or saved in the TOC.
