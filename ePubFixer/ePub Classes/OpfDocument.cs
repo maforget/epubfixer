@@ -80,13 +80,16 @@ namespace ePubFixer
                     return false;
                 }
 
+                //HACK to force xml files v1.1 to be parse
+                Text = Text.Replace("?xml version=\"1.1\"", "?xml version=\"1.0\"");
+
                 OldTOC = XElement.Parse(Text.Trim());
                 ns = OldTOC.Name.Namespace;
                 return true;
-            } catch (Exception)
+            } catch (Exception ex)
             {
 
-                System.Windows.Forms.MessageBox.Show("Invalid Content File", Variables.BookName);
+                System.Windows.Forms.MessageBox.Show("Invalid Content File\n" + ex.Message, Variables.BookName);
                 return false;
             }
         }
@@ -208,7 +211,8 @@ namespace ePubFixer
 
         public string GetNCXfilename()
         {
-            XAttribute att = GetXmlElement("spine").Attribute("toc");
+            XElement spine = GetXmlElement("spine");
+            XAttribute att = spine != null ? spine.Attribute("toc") : null;
             string nCXfile = "ncx";
             if (att != null)
             {
@@ -222,7 +226,8 @@ namespace ePubFixer
                     System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
 
                 //No reference of TOC in spine look for mime-type
-                string mime = GetFilesList("application/x-dtbncx+xml").FirstOrDefault();
+                var list = GetFilesList("application/x-dtbncx+xml");
+                string mime = list != null ? list.FirstOrDefault() : "";
 
                 if (!String.IsNullOrEmpty(mime))
                     nCXfile = mime;
