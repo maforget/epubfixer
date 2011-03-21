@@ -21,7 +21,9 @@ namespace ePubFixer
         protected override XElement NewTOC { get; set; }
         protected override XElement NewNavMap { get; set; }
         protected override XElement OldTOC { get; set; }
-        protected override XNamespace ns { get; set; } 
+        protected override XNamespace ns { get; set; }
+        private string BodyTag = "";
+        private string CSSFile = "css";
         #endregion
 
         #region Constructor
@@ -35,7 +37,12 @@ namespace ePubFixer
         #region Update File
         internal override void UpdateFile()
         {
-            fileExtractStream = base.GetStream("css");
+            //Get the Body Tag and the CSS file from a html file
+            MyHtmlDocument doc = new MyHtmlDocument();
+            BodyTag = doc.FindBodyStyleClass(ref CSSFile);
+
+
+            fileExtractStream = base.GetStream(CSSFile);
             if (fileExtractStream == null)
             {
                 System.Windows.Forms.MessageBox.Show("No Stylesheet present", Variables.BookName);
@@ -71,22 +78,25 @@ namespace ePubFixer
                 using (StringReader sr = new StringReader(ByteToString(fileExtractStream)))
                 {
                     string str;
-                    MyHtmlDocument doc = new MyHtmlDocument();
-                    string body = doc.FindBodyStyleClass();
+                    
+                    
                     while ((str = sr.ReadLine()) != null)
                     {
                         str = str.Trim();
-                        BodyTagSeen = Regex.IsMatch(str, "\\b" + body + "\\b", RegexOptions.IgnoreCase) ? true : BodyTagSeen;
+                        BodyTagSeen = Regex.IsMatch(str, "\\b" + BodyTag + "\\b", RegexOptions.IgnoreCase) ? true : BodyTagSeen;
 
-                        if (str.StartsWith("margin-left:"))
+                        //TODO check for large TOP & Bottom margins (margin-top in %)
+                        Predicate<string> Lines = new Predicate<string>(x => str.StartsWith(x));
+
+                        if (Lines("margin-left:"))
                         {
                             cssOutput.Add(BodyTagSeen ? "margin-left: 5pt;" : "margin-left: 0;");
 
-                        } else if (str.StartsWith("margin-right:"))
+                        } else if (Lines("margin-right:"))
                         {
                             cssOutput.Add(BodyTagSeen ? "margin-right: 5pt;" : "margin-right: 0;");
                             BodyTagSeen = false;
-                        } else if (str.StartsWith("text-indent:"))
+                        } else if (Lines("text-indent:"))
                         {
                             string s = str.Replace("text-indent:", "").Trim();
                             s = s.Replace("pt", "");

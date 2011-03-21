@@ -61,6 +61,8 @@ v1.
 - Fixed a bug with Mass Rename if the entry selected had different "parents".
 - Fixed a crash if a file was in the spine, but not the manifest.
 - Added a kind of a HACK to force xml files that had v1.1 to be parsed (seems the MS library can't do it)
+- If multiple css file are present, It will now (hopefully) select the correct one.
+- The CSS tag being for margins is now determined by the first class attribute seen (previously it was the body tag, now it will look further if not found)
 
 
 v1.3.6 
