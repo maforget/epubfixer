@@ -44,7 +44,7 @@ namespace ePubFixer
         }
 
         #region Find Style Class for Body
-        public string FindBodyStyleClass()
+        public string FindBodyStyleClass(ref string CSSfile)
         {
             OpfDocument doc = new OpfDocument();
             List<string> filelist = doc.GetFilesList("html");
@@ -53,8 +53,17 @@ namespace ePubFixer
 
             HtmlDocument html = GetHtml(file);
 
-            HtmlNode node = html.DocumentNode.SelectSingleNode("//body");
-            return node.GetAttributeValue("class", "");
+            HtmlNode BodyNode = html.DocumentNode.SelectSingleNode("//body//@class");
+            HtmlNode CSSNode = html.DocumentNode.SelectSingleNode("//head/link[@type='text/css']");
+            
+            //Select CSS file
+            if (CSSNode!=null)
+            {
+                CSSfile = CSSNode.GetAttributeValue("href", "css");
+            }
+
+            string tag = BodyNode.GetAttributeValue("class", "");
+            return tag;
 
         }
         #endregion
