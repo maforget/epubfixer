@@ -60,6 +60,8 @@ namespace ePubFixer
             if (CSSNode!=null)
             {
                 CSSfile = CSSNode.GetAttributeValue("href", "css");
+                string[] path = CSSfile.Split('/');
+                CSSfile = path[path.Length - 1];
             }
 
             string tag = BodyNode.GetAttributeValue("class", "");
