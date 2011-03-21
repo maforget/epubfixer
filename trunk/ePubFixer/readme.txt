@@ -56,11 +56,11 @@ Change Log
 
 v1.
 - Using SendTo will Save the most recent files
-- Opening a file that does not exists anymore will not crash the program and a message will warn you. 
+- Opening a file that does not exists anymore will not crash the program and a message will warn you.
 - Added a Delete Files in the Add screen (it will remove the selected files from the ePub and delete entries from the manifest & spine)
 - Fixed a bug with Mass Rename if the entry selected had different "parents".
 - Fixed a crash if a file was in the spine, but not the manifest.
-- Added a kind of a HACK to force xml files that had v1.1 to be parsed (seems the MS library can't do it)
+- Added a kind of a HACK to force files with XML version v1.1 to be parsed.
 - If multiple css file are present, It will now (hopefully) select the correct one.
 - The CSS tag being for margins is now determined by the first class attribute seen (previously it was the body tag, now it will look further if not found)
 
