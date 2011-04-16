@@ -54,7 +54,7 @@ Please direct any comment or bugs here : http://code.google.com/p/epubfixer/
 Change Log
 -------------------------------------------
 
-v1.
+v1.4.0
 - Using SendTo will Save the most recent files
 - Opening a file that does not exists anymore will not crash the program and a message will warn you.
 - Added a Delete Files in the Add screen (it will remove the selected files from the ePub and delete entries from the manifest & spine)
@@ -65,6 +65,10 @@ v1.
 - The CSS tag being for margins is now determined by the first class attribute seen (previously it was the body tag, now it will look further if not found)
 - The Option from the Mass Rename tool-Words are UpperCase-has changed, instead you will have Convert To Uppercase & To Title Case. It will work as Described but now doesn't work only on Number that where converted to Words but on all the text.
 - Removed Wall of Text from the Mass Rename tool and added a help button that will show it for info.
+- Added a Download button in the Add window, that will search the site Kobobooks for the TOC and add the entries found to the detected text menu.
+- Added a Select Next Text (Incremental) in the Add window, to help selecting the chapters when using the Download button.
+	(First item will increment by 1, the second by 2, etc. So use Select Next Text to select up to the first entry of the downloaded text and then choose Select Next Text (Incremental).
+	(When using Select Next Text (Incremental), first item will not increment.)
 
 
 v1.3.6 

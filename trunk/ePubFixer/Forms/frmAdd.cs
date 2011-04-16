@@ -50,6 +50,7 @@ namespace ePubFixer
             {
                 cbShowAll.Visible = false;
                 cbShowAnchors.Visible = false;
+                btnSearchNet.Visible = false;
             }
         }
 
@@ -133,13 +134,25 @@ namespace ePubFixer
                 nodeDetectedTexts.DropDownItems.AddRange(nav.DetectedTexts.ToArray());
             }
         }
+        #endregion
 
         #region Select Next TExt
         private void selectNextTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ChooseTextInDropDown(false);
+        }
+
+        private void selectNextTextIncremental_Click(object sender, EventArgs e)
+        {
+            ChooseTextInDropDown(true);
+        }
+
+        private void ChooseTextInDropDown(bool Incremental)
+        {
             using (new HourGlass())
             {
                 treeView1.BeginUpdate();
+                int Increment = Incremental ? 0 : 1;
                 foreach (var item in treeView1.SelectedNodes)
                 {
                     MyNode n = item.Tag as MyNode;
@@ -149,18 +162,19 @@ namespace ePubFixer
 
                     int QtyMax = n.DetectedCombo.Count - 1;
                     int index = nav.DetectedTexts.IndexOf(n.DetectedText);
-                    if (index >= 0 && index < QtyMax && nav.DetectedTexts.Count > 1)
+                    if (index >= 0 && (index + Increment) <= QtyMax && nav.DetectedTexts.Count > 1)
                     {
-                        nav.Text = nav.DetectedTexts[index + 1];
-                        n.DetectedText = nav.DetectedTexts[index + 1];
+                        nav.Text = nav.DetectedTexts[index + Increment];
+                        n.DetectedText = nav.DetectedTexts[index + Increment];
+
+                        if (Incremental)
+                            Increment++;
                     }
                     AddToTextSelected(nav);
                 }
                 treeView1.EndUpdate();
-
             }
         }
-        #endregion
         #endregion
 
         #region Load
@@ -618,6 +632,26 @@ namespace ePubFixer
                 LoadFiles();
             }
 
+        } 
+        #endregion
+
+        #region Download From Kobo
+        private void btnSearchNet_Click(object sender, EventArgs e)
+        {
+            SiteGraber site = new SiteGraber();
+            List<string> Name = site.Parse();
+
+            if (Name != null)
+            {
+                //Process the names (Add the found TOC to Varaiables.Header)
+                foreach (var item in Variables.HeaderTextInFile)
+                {
+                    item.Value.AddRange(Name);
+                }
+
+                //Reload
+                LoadFiles();
+            }
         } 
         #endregion
 
