@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
+using System.Globalization;
+using System.Text;
 
 namespace ePubFixer
 {
@@ -20,7 +22,7 @@ namespace ePubFixer
         {
             get { return _text; }
             set { _text = value; }
-        } 
+        }
         #endregion
 
         #region Constructor
@@ -30,7 +32,8 @@ namespace ePubFixer
             this.Icon = Utils.GetIcon();
             _text = new List<string>();
             this.InputText = InputText;
-        } 
+        }
+
         #endregion
 
         #region Form Events
@@ -54,15 +57,27 @@ namespace ePubFixer
 
         private void cbConvertToWords_CheckedChanged(object sender, EventArgs e)
         {
-            cbUpperCase.Enabled = cbConvertToWords.Checked ? true : false;
+            //cbUpperCase.Enabled = cbConvertToWords.Checked ? true : false;
             cbRoman.Enabled = cbConvertToWords.Checked ? false : true;
         }
 
         private void cbRoman_CheckedChanged(object sender, EventArgs e)
         {
-            cbUpperCase.Enabled = cbRoman.Checked ? false : true;
+            //cbUpperCase.Enabled = cbRoman.Checked ? false : true;
             cbConvertToWords.Enabled = cbRoman.Checked ? false : true;
 
+        }
+
+        private void cbTitleCase_CheckedChanged(object sender, EventArgs e)
+        {
+            cbUpperCase.Enabled = !cbTitleCase.Checked;
+            cbUpperCase.Checked = false;
+        }
+
+        private void cbUpperCase_CheckedChanged(object sender, EventArgs e)
+        {
+            cbTitleCase.Enabled = !cbUpperCase.Checked;
+            cbTitleCase.Checked = false;
         }
         #endregion
 
@@ -73,6 +88,7 @@ namespace ePubFixer
             string Number = String.Empty;
             string Sufix = String.Empty;
             string Prefix2 = String.Empty;
+            string Number2 = String.Empty;
             string Sufix2 = String.Empty;
 
             Regex regexObj = new Regex(@"(?<Prefix>[^\d]*)(?<Number>\d*)(?<Sufix>.*$)");
@@ -86,7 +102,7 @@ namespace ePubFixer
             if (num <= 0)
                 Number = String.Empty;
 
-
+            bool FirstNumberFound = false;
             for (int i = 0; i < InputText.Count; i++)
             {
 
@@ -94,12 +110,17 @@ namespace ePubFixer
                 if (Prefix.ToUpper().Contains("%T") || Sufix.ToUpper().Contains("%T"))
                 {
                     Prefix2 = regexObj.Match(TextToKeep).Groups["Prefix"].Value;
-                    string Number2 = regexObj.Match(TextToKeep).Groups["Number"].Value;
+                    Number2 = regexObj.Match(TextToKeep).Groups["Number"].Value;
                     Sufix2 = regexObj.Match(TextToKeep).Groups["Sufix"].Value;
 
-                    if (!string.IsNullOrEmpty(Number2) && i == 0)
+                    if (!string.IsNullOrEmpty(Number2) && !FirstNumberFound)
                     {
                         double.TryParse(Number2, out num);
+                        FirstNumberFound = true;
+                    } else if (string.IsNullOrEmpty(Number2) && num > 0)
+                    {
+                        num = 0;
+                        FirstNumberFound = false;
                     }
                 } else
                 {
@@ -107,16 +128,23 @@ namespace ePubFixer
                     Sufix2 = Sufix;
                 }
 
-
-                if (cbConvertToWords.Checked || cbRoman.Checked)
+                if (num > 0)
                 {
-                    Number = cbRoman.Checked ? NumberToWordsConverter.NumberToRoman(num)
-                        : NumberToWordsConverter.NumberToWords(num);
-                    Number = cbUpperCase.Checked ? Number.ToUpper() : Number;
-                } else
-                {
-                    if (num > 0)
-                        Number = num.ToString();
+                    if (cbConvertToWords.Checked || cbRoman.Checked)
+                    {
+                        Number = cbRoman.Checked ? NumberToWordsConverter.NumberToRoman(num)
+                    : NumberToWordsConverter.NumberToWords(num);
+                        //Number = cbUpperCase.Checked ? Number.ToUpper() : Number;  
+                    } else
+                    {
+                        if (Number != string.Empty)
+                        {
+                            Number = num.ToString();
+                        } else if (Number2 != string.Empty)
+                        {
+                            Number = Number2;
+                        }
+                    }
                 }
 
                 _text.Add(Prefix2 + Number + Sufix2);
@@ -124,9 +152,57 @@ namespace ePubFixer
                 {
                     num++;
                 }
+
+                Number = string.Empty;
             }
-        } 
+
+            _text = ConvertCase(_text);
+        }
+
+        private List<string> ConvertCase(List<string> text)
+        {
+            for (int i = 0; i < text.Count; i++)
+            {
+                string item = text[i];
+                CultureInfo cultureInfo = CultureInfo.InvariantCulture;
+                TextInfo textInfo = cultureInfo.TextInfo;
+
+                text[i] = cbUpperCase.Checked ? textInfo.ToUpper(item) :
+                    cbTitleCase.Checked ? textInfo.ToTitleCase(item.ToLower()) : item;
+            }
+
+            return text;
+        }
         #endregion
 
+        void ShowHelp()
+        {
+            string message =
+@"Enter the name for the top item selected. 
+Any number will be automatically incremented. 
+You can also check the number to Words box to 
+Convert the number to Words or Roman Numerals 
+(i.e. Chapter 1 =  Chapter One).
+            
+You can also use the special tag ""%T"",
+that will keep the previous text. 
+(ex : You have a Chapter Named : Atlantis, 
+Typing 1 - %T will change the name to 1 - Atlantis). 
+Also if you have a Chapter 1 entry you can just type %T
+and Number To Words and it will change it to Chapter One.";
+
+            //MessageBox.Show(message);
+            tipHelp.Show(message, LabelHelp);
+
+
+        }
+
+        private void btnShowHelp_Click(object sender, EventArgs e)
+        {
+            ShowHelp();
+        }
+
+
+        //TODO remove text tool
     }
 }

@@ -168,7 +168,7 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point(405, 634);
+            this.btnClose.Location = new System.Drawing.Point(405, 621);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 1;
@@ -179,7 +179,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(324, 634);
+            this.btnSave.Location = new System.Drawing.Point(324, 621);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
@@ -190,7 +190,7 @@
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(243, 634);
+            this.btnApply.Location = new System.Drawing.Point(243, 621);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
             this.btnApply.TabIndex = 2;
@@ -204,7 +204,7 @@
             this.statusLabel,
             this.Progress});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 667);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 658);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(492, 24);
             this.statusStrip1.TabIndex = 3;
@@ -230,7 +230,7 @@
             // 
             this.cbSplit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbSplit.AutoSize = true;
-            this.cbSplit.Location = new System.Drawing.Point(12, 638);
+            this.cbSplit.Location = new System.Drawing.Point(12, 625);
             this.cbSplit.Name = "cbSplit";
             this.cbSplit.Size = new System.Drawing.Size(143, 17);
             this.cbSplit.TabIndex = 4;
@@ -241,10 +241,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 691);
-            this.Controls.Add(this.cbSplit);
-            this.Controls.Add(this.statusStrip1);
+            this.ClientSize = new System.Drawing.Size(492, 682);
             this.Controls.Add(this.tree);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.cbSplit);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnApply);
