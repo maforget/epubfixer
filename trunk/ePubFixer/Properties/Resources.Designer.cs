@@ -59,5 +59,12 @@ namespace ePubFixer.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Bitmap helpToolStripButton_Image {
+            get {
+                object obj = ResourceManager.GetObject("helpToolStripButton.Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

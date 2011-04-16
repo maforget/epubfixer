@@ -63,6 +63,8 @@ v1.
 - Added a kind of a HACK to force files with XML version v1.1 to be parsed.
 - If multiple css file are present, It will now (hopefully) select the correct one.
 - The CSS tag being for margins is now determined by the first class attribute seen (previously it was the body tag, now it will look further if not found)
+- The Option from the Mass Rename tool-Words are UpperCase-has changed, instead you will have Convert To Uppercase & To Title Case. It will work as Described but now doesn't work only on Number that where converted to Words but on all the text.
+- Removed Wall of Text from the Mass Rename tool and added a help button that will show it for info.
 
 
 v1.3.6 

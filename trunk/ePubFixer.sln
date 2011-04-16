@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ePubFixer", "ePubFixer\ePubFixer.csproj", "{5D802A68-8AF6-4B3B-BE1E-A32519B8D9D7}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CalibrePlugin", "CalibrePlugin\CalibrePlugin.pyproj", "{0E180E39-A1B0-4430-9380-EA2E5B1EDE73}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -20,6 +22,9 @@ Global
 		{5D802A68-8AF6-4B3B-BE1E-A32519B8D9D7}.Release_DRM|Any CPU.Build.0 = Release_DRM|Any CPU
 		{5D802A68-8AF6-4B3B-BE1E-A32519B8D9D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D802A68-8AF6-4B3B-BE1E-A32519B8D9D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E180E39-A1B0-4430-9380-EA2E5B1EDE73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E180E39-A1B0-4430-9380-EA2E5B1EDE73}.Release_DRM|Any CPU.ActiveCfg = Release|Any CPU
+		{0E180E39-A1B0-4430-9380-EA2E5B1EDE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
