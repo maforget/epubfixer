@@ -69,6 +69,9 @@ v1.4.0
 - Added a Select Next Text (Incremental) in the Add window, to help selecting the chapters when using the Download button.
 	(First item will increment by 1, the second by 2, etc. So use Select Next Text to select up to the first entry of the downloaded text and then choose Select Next Text (Incremental).
 	(When using Select Next Text (Incremental), first item will not increment.)
+- Enabled Navigation in the preview window. (Note : when using navigation you may see character not correctly displayed, 
+	this is because of IE and when you navigate to it the program does not fix the page, it does not mean that the book will display that way. 
+	Use the preview button to make sure)
 
 
 v1.3.6 
