@@ -42,7 +42,13 @@ namespace ePubFixer
                 NavDetails Newnav = new NavDetails(Guid.NewGuid().ToString(), nav.ContentSrc);
                 newNode.Tag = Newnav;
 
-                n.Parent.Nodes.Insert(index + 1, newNode);
+                if (index<n.Parent.Nodes.Count)
+                {
+                    n.Parent.Nodes.Insert(index + 1, newNode);
+                } else
+                {
+                    n.Parent.Nodes.Add(newNode);
+                }
             }
 
 
