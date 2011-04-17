@@ -80,7 +80,6 @@ namespace ePubFixer
                     return false;
                 }
 
-                //HACK to force xml files v1.1 to be parse
                 Text = Text.Replace("?xml version=\"1.1\"", "?xml version=\"1.0\"");
 
                 OldTOC = XElement.Parse(Text.Trim());

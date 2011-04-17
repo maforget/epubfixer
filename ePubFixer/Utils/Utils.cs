@@ -250,7 +250,6 @@ namespace ePubFixer
             }
             catch (Exception)
             {
-                //NOTE File in use message (extract)
             }
         }
 
