@@ -68,7 +68,6 @@ namespace ePubFixer
             } catch (Exception)
             {
                 return null;
-                //NOTE File in use message (Read)
             }
         }
         #endregion
@@ -127,7 +126,6 @@ namespace ePubFixer
                 }
             } catch (Exception)
             {
-                //NOTE File in use message (Save File)
             }
         }
         #endregion
@@ -189,7 +187,6 @@ namespace ePubFixer
                     return null;
                 }
 
-                //HACK to force xml files v1.1 to be parse
                 Text = Text.Replace("?xml version=\"1.1\"", "?xml version=\"1.0\"");
 
                 OldTOC = XElement.Parse(Text.Trim());
