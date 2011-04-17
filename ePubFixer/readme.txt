@@ -67,7 +67,7 @@ v1.4.0
 - Removed Wall of Text from the Mass Rename tool and added a help button that will show it for info.
 - Added a Download button in the Add window, that will search the site Kobobooks for the TOC and add the entries found to the detected text menu.
 - Added a Select Next Text (Incremental) in the Add window, to help selecting the chapters when using the Download button.
-	(First item will increment by 1, the second by 2, etc. So use Select Next Text to select up to the first entry of the downloaded text and then choose Select Next Text (Incremental).
+	(Second item will increment by 1, the Third by 2, etc. So use Select Next Text to select up to the first entry of the downloaded text and then choose Select Next Text (Incremental).
 	(When using Select Next Text (Incremental), first item will not increment.)
 - Enabled Navigation in the preview window. (Note : when using navigation you may see character not correctly displayed, 
 	this is because of IE and when you navigate to it the program does not fix the page, it does not mean that the book will display that way. 

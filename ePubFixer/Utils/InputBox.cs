@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using ePubFixer;
+using System.IO;
 
 class InputBox
 {
@@ -44,6 +46,7 @@ class InputBox
         form.AcceptButton = buttonOk;
         form.CancelButton = buttonCancel;
 
+        textBox.Text = Path.GetFileNameWithoutExtension(Variables.BookName);
         DialogResult dialogResult = form.ShowDialog();
         Value = textBox.Text;
         return dialogResult;

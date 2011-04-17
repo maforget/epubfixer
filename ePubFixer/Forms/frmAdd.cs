@@ -632,7 +632,7 @@ namespace ePubFixer
                 LoadFiles();
             }
 
-        } 
+        }
         #endregion
 
         #region Download From Kobo
@@ -652,12 +652,10 @@ namespace ePubFixer
                 //Reload
                 LoadFiles();
             }
-        } 
+        }
         #endregion
 
         //TODO Look for links in html files and add a option to see only those (ex : Content with LInks or Footnote)
-
-        //TODO Merge Multiple Detected text entry together
 
     }
 
