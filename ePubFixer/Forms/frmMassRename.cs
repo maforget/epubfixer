@@ -82,78 +82,6 @@ namespace ePubFixer
         #endregion
 
         #region Rename
-        //private void ConvertToText(string text)
-        //{
-        //    string Prefix = String.Empty;
-        //    string Number = String.Empty;
-        //    string Sufix = String.Empty;
-        //    string Prefix2 = String.Empty;
-        //    string Number2 = String.Empty;
-        //    string Sufix2 = String.Empty;
-
-        //    Regex regexObj = new Regex(@"(?<Prefix>[^\d]*)(?<Number>\d*)(?<Sufix>.*$)");
-        //    Prefix = regexObj.Match(text).Groups["Prefix"].Value;
-        //    Number = regexObj.Match(text).Groups["Number"].Value;
-        //    Sufix = regexObj.Match(text).Groups["Sufix"].Value;
-
-        //    double num = 0;
-        //    double.TryParse(Number, out num);
-
-        //    if (num <= 0)
-        //        Number = String.Empty;
-
-        //    bool FirstNumberFound = false;
-        //    for (int i = 0; i < InputText.Count; i++)
-        //    {
-
-        //        string TextToKeep = Regex.Replace(text, "%T", InputText[i], RegexOptions.IgnoreCase);
-        //        if (Prefix.ToUpper().Contains("%T") || Sufix.ToUpper().Contains("%T"))
-        //        {
-        //            Prefix2 = regexObj.Match(TextToKeep).Groups["Prefix"].Value;
-        //            Sufix2 = regexObj.Match(TextToKeep).Groups["Sufix"].Value;
-        //            Number2 = regexObj.Match(TextToKeep).Groups["Number"].Value;
-
-        //            if (!string.IsNullOrEmpty(Number2) && !FirstNumberFound)
-        //            {
-        //                if (double.TryParse(Number2, out num))
-        //                    FirstNumberFound = true;
-
-        //            } else if (string.IsNullOrEmpty(Number2) && num > 0 && string.IsNullOrEmpty(Number))
-        //            {
-        //                num = 0;
-        //                FirstNumberFound = false;
-        //            }
-        //        } else
-        //        {
-        //            Prefix2 = Prefix;
-        //            Sufix2 = Sufix;
-        //        }
-
-        //        if (num > 0)
-        //        {
-        //            if (cbConvertToWords.Checked || cbRoman.Checked)
-        //            {
-        //                Number = cbRoman.Checked ? NumberToWordsConverter.NumberToRoman(num)
-        //            : NumberToWordsConverter.NumberToWords(num);
-        //                //Number = cbUpperCase.Checked ? Number.ToUpper() : Number;  
-        //            } else
-        //            {
-        //                Number = Number2 != string.Empty ? Number2 : num.ToString();
-        //            }
-        //        }
-
-        //        _text.Add(Prefix2 + Number + Sufix2);
-        //        if (num > 0)
-        //        {
-        //            num++;
-        //        }
-
-        //        Number = string.Empty;
-        //    }
-
-        //    ConvertCase(_text);
-        //}
-
         private void ConvertToText(string InText)
         {
             List<string> TextList = ReplaceSpecialTag(InText);
@@ -198,7 +126,7 @@ namespace ePubFixer
                         p.Number = cbRoman.Checked ? NumberToWordsConverter.NumberToRoman(p.num)
                     : NumberToWordsConverter.NumberToWords(p.num);
                         //Number = cbUpperCase.Checked ? Number.ToUpper() : Number;  
-                    } 
+                    }
                 }
 
                 p.FinalText = p.Prefix + p.Number + p.Sufix;
@@ -241,8 +169,37 @@ namespace ePubFixer
                 CultureInfo cultureInfo = CultureInfo.InvariantCulture;
                 TextInfo textInfo = cultureInfo.TextInfo;
 
-                _text.Add(cbUpperCase.Checked ? textInfo.ToUpper(item) :
-                    cbTitleCase.Checked ? textInfo.ToTitleCase(item.ToLower()) : item);
+                string result = cbUpperCase.Checked ? textInfo.ToUpper(item) :
+                    cbTitleCase.Checked ? textInfo.ToTitleCase(item.ToLower()) : item;
+
+                UpperCaseRomanNumeral(item, ref result);
+
+                _text.Add(result);
+            }
+        }
+
+        private static void UpperCaseRomanNumeral(string item, ref string result)
+        {
+            CultureInfo cultureInfo = CultureInfo.InvariantCulture;
+            TextInfo textInfo = cultureInfo.TextInfo;
+
+            List<string> resultList = new List<string>();
+            Regex regexRoman = new Regex(@"(\b(M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})|[IDCXMLV])\b)");
+            Match matchResult = regexRoman.Match(item);
+            while (matchResult.Success)
+            {
+                resultList.Add(matchResult.Value);
+                matchResult = matchResult.NextMatch();
+            }
+            resultList = resultList.Where(x => !string.IsNullOrEmpty(x)).ToList();
+
+            foreach (string Roman in resultList)
+            {
+                if (!string.IsNullOrEmpty(Roman))
+                {
+                    string RomanResult = textInfo.ToTitleCase(Roman.ToLower());
+                    result = result.Replace(RomanResult, Roman);
+                }
             }
         }
         #endregion
