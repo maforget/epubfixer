@@ -657,8 +657,6 @@ namespace ePubFixer
 
         //TODO Look for links in html files and add a option to see only those (ex : Content with LInks or Footnote)
 
-        //TODO Add select previous text (when clicking Shift)
-
         //TODO Select next text incremental should skips to the first downloaded entry
 
         //TODO Select Next Text Incremental should only appear when download is clicked
