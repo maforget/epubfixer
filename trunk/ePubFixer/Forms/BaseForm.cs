@@ -410,6 +410,8 @@ namespace ePubFixer
                 this.Update();
             } catch (Exception)
             {
+                statusLabel.Text = string.Empty;
+                this.Update();
             }
         }
         private void BaseForm_KeyUp(object sender, KeyEventArgs e)
