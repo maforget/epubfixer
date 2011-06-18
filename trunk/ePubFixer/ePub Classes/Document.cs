@@ -22,6 +22,7 @@ namespace ePubFixer
         protected abstract XElement NewNavMap { get; set; }
         protected abstract XElement OldTOC { get; set; }
         protected abstract XNamespace ns { get; set; }
+        public string SaveMessage = "Error : ";
         #endregion
 
         #region Constructor
@@ -111,7 +112,7 @@ namespace ePubFixer
             UpdateZip(this.fileOutStream);
         }
 
-        internal string UpdateZip(Stream fileOutStream)
+        internal void UpdateZip(Stream fileOutStream)
         {
             try
             {
@@ -125,10 +126,10 @@ namespace ePubFixer
                     fileOutStream = null;
                 }
 
-                return "Saved!";
+                SaveMessage = "Saved!";
             } catch (Exception e)
             {
-                return e.Message;
+                SaveMessage += e.Message;
             }
         }
         #endregion

@@ -89,21 +89,6 @@ namespace ePubFixer
                 SetStatus(e.Message);
             }
         }
-
-        private void SetStatus(string Message)
-        {
-            tree.NodeMouseClick -= tree_NodeMouseClick;
-            statusLabel.Text = Message;
-            timer.Start();
-        }
-
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            timer.Stop();
-            tree.NodeMouseClick+=new EventHandler<TreeNodeAdvMouseEventArgs>(tree_NodeMouseClick);
-            SetSelectedStatusSrc();
-        } 
         #endregion
 
         #region Form Events
@@ -440,6 +425,22 @@ namespace ePubFixer
                     break;
             }
         }
+
+
+        private void SetStatus(string Message)
+        {
+            tree.NodeMouseClick -= tree_NodeMouseClick;
+            statusLabel.Text = Message;
+            timer.Start();
+        }
+
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            timer.Stop();
+            tree.NodeMouseClick += new EventHandler<TreeNodeAdvMouseEventArgs>(tree_NodeMouseClick);
+            SetSelectedStatusSrc();
+        } 
         #endregion
 
         #region Get FileNames
