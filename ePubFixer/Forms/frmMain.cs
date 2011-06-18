@@ -325,7 +325,5 @@ namespace ePubFixer
 
         #endregion
 
-        //TODO Add Metadata Renamer (Add Series in Title) & Remove (with Regex)
-
     }
 }
