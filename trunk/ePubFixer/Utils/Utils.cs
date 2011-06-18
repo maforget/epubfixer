@@ -56,9 +56,9 @@ namespace ePubFixer
             String Title = ((AssemblyTitleAttribute)ass.GetCustomAttributes(
                         typeof(AssemblyTitleAttribute), false)[0]).Title;
 
-#if DRM
-            Title += " (DRM Removal)";
-#endif
+//#if DRM
+//            Title += " (DRM Removal)";
+//#endif
 
             return Title + " " + Version;
 
