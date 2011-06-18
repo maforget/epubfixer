@@ -67,8 +67,10 @@ namespace ePubFixer
         public ExportTocEventArgs(XElement xml)
         {
             this.XML = new XElement(xml);
+            this.Message = string.Empty;
         }
 
         public XElement XML { get; set; }
+        public string Message { get; set; }
     }
 }

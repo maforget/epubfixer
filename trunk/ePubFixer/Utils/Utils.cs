@@ -549,6 +549,7 @@ namespace ePubFixer
             }
 
             doc.ReplaceSpine(newSpine);
+            doc.UpdateZip();
         } 
         #endregion
     }

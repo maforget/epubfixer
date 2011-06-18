@@ -50,17 +50,19 @@ namespace ePubFixer
 
         private void frm_Save(object sender, ExportTocEventArgs e)
         {
-            Save(e.XML);
+            e.Message = Save(e.XML);
         }
 
-        private void Save(XElement xml)
+        private string Save(XElement xml)
         {
             NewNavMap = xml;
 
             if (NewNavMap == null)
-                return;
+                return string.Empty;
 
             ReplaceSpine(NewNavMap);
+
+            return base.UpdateZip(fileOutStream);
         }
 
 
@@ -85,7 +87,8 @@ namespace ePubFixer
                 OldTOC = XElement.Parse(Text.Trim());
                 ns = OldTOC.Name.Namespace;
                 return true;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
 
                 System.Windows.Forms.MessageBox.Show("Invalid Content File\n" + ex.Message, Variables.BookName);
@@ -129,7 +132,7 @@ namespace ePubFixer
                 NewTOC = new XElement(OldTOC);
                 NewTOC.Element(ns + "spine").ReplaceWith(newSpine);
                 base.WriteXML();
-                base.UpdateZip(fileOutStream);
+
             } else
             {
                 return null;
@@ -180,7 +183,8 @@ namespace ePubFixer
                            select i.Attribute("href").Value).ToList();
 
                 return ret;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return null;
             }
@@ -196,7 +200,8 @@ namespace ePubFixer
                                                   select i).ToDictionary(x => x.Attribute("id").Value, x => x.Attribute("href").Value);
 
                 return ret;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
 
                 return null;

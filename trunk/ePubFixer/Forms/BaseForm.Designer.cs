@@ -48,6 +48,7 @@
             this.Progress = new System.Windows.Forms.ToolStripProgressBar();
             this.cbSplit = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -55,13 +56,15 @@
             // tree
             // 
             this.tree.AllowDrop = true;
+            this.tree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tree.BackColor = System.Drawing.SystemColors.Window;
             this.tree.Columns.Add(this.TextCol);
             this.tree.Columns.Add(this.CheckCol);
             this.tree.ContextMenuStrip = this.contextMenu;
             this.tree.DefaultToolTipProvider = null;
             this.tree.DisplayDraggingNodes = true;
-            this.tree.Dock = System.Windows.Forms.DockStyle.Top;
             this.tree.DragDropMarkColor = System.Drawing.Color.Black;
             this.tree.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tree.LineColor = System.Drawing.SystemColors.ControlDark;
@@ -237,6 +240,11 @@
             this.cbSplit.Text = "Split Chapter on Anchors";
             this.cbSplit.UseVisualStyleBackColor = true;
             // 
+            // timer
+            // 
+            this.timer.Interval = 5000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,6 +295,7 @@
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         protected System.Windows.Forms.CheckBox cbSplit;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Timer timer;
 
 
     }
