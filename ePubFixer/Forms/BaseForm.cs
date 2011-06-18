@@ -64,6 +64,16 @@ namespace ePubFixer
         }
         #endregion
 
+        #region Save
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            playOrder = 0;
+            Utils.RemoveNonExistantNode(Model.Nodes);
+            TOC = ExportNewTOC();
+            LoadTOC();
+            ExtractFiles();
+        }
+
         internal event EventHandler<ExportTocEventArgs> Save;
 
         //The event-invoking method that derived classes can override.
@@ -76,9 +86,25 @@ namespace ePubFixer
             if (handler != null)
             {
                 handler(this, e);
+                SetStatus(e.Message);
             }
         }
 
+        private void SetStatus(string Message)
+        {
+            tree.NodeMouseClick -= tree_NodeMouseClick;
+            statusLabel.Text = Message;
+            timer.Start();
+        }
+
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            timer.Stop();
+            tree.NodeMouseClick+=new EventHandler<TreeNodeAdvMouseEventArgs>(tree_NodeMouseClick);
+            SetSelectedStatusSrc();
+        } 
+        #endregion
 
         #region Form Events
 
@@ -147,8 +173,13 @@ namespace ePubFixer
             {
                 nodeTextBox.GetToolTip(currentNode);
                 nodeCheckBox.GetToolTip(currentNode);
-                SetSelectedStatusSrc();
+                //SetSelectedStatusSrc();
             }
+        }
+
+        private void tree_NodeMouseClick(object sender, TreeNodeAdvMouseEventArgs e)
+        {
+            SetSelectedStatusSrc();
         }
 
         #endregion
@@ -187,15 +218,6 @@ namespace ePubFixer
         protected virtual XElement ExportNewTOC()
         {
             throw new NotImplementedException();
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            playOrder = 0;
-            Utils.RemoveNonExistantNode(Model.Nodes);
-            TOC = ExportNewTOC();
-            LoadTOC();
-            ExtractFiles();
         }
         #endregion
 
@@ -514,12 +536,9 @@ namespace ePubFixer
             }
         }
 
-        private void tree_NodeMouseClick(object sender, TreeNodeAdvMouseEventArgs e)
-        {
-            SetSelectedStatusSrc();
-        }
 
         #endregion
+
 
 
 

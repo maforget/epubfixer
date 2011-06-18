@@ -111,7 +111,7 @@ namespace ePubFixer
             UpdateZip(this.fileOutStream);
         }
 
-        internal void UpdateZip(Stream fileOutStream)
+        internal string UpdateZip(Stream fileOutStream)
         {
             try
             {
@@ -124,8 +124,11 @@ namespace ePubFixer
                     zip.Save();
                     fileOutStream = null;
                 }
-            } catch (Exception)
+
+                return "Saved!";
+            } catch (Exception e)
             {
+                return e.Message;
             }
         }
         #endregion

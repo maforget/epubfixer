@@ -72,6 +72,7 @@ v1.4.0
 - Enabled Navigation in the preview window. (Note : when using navigation you may see character not correctly displayed, 
 	this is because of IE and when you navigate to it the program does not fix the page, it does not mean that the book will display that way. 
 	Use the preview button to make sure)
+- Added a Saved Message or Error Message when Saving in the status bar. (It will be shown during 5 seconds)
 
 
 v1.3.6 

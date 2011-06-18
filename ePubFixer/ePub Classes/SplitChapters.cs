@@ -127,6 +127,7 @@ namespace ePubFixer
             }
 
             doc.ReplaceSpine(newSpine);
+            doc.UpdateZip();
         }
 
         private void ReplaceManifest()
