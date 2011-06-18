@@ -351,11 +351,14 @@ namespace ePubFixer
                 e.Cancel = true;
             } else
             {
+                int AnchorSelected = treeView1.SelectedNodes.Count(x => x.Level > 1);
+                int FileSelected = treeView1.SelectedNodes.Count(x => x.Level == 1);
                 int QtyChecked = treeView1.SelectedNodes.Count(x => (x.Tag as Node).IsChecked == true);
                 int QtyUnChecked = treeView1.SelectedNodes.Count(x => (x.Tag as Node).IsChecked == false);
                 int QtyCollapsed = treeView1.AllNodes.Count(x => x.IsExpanded == false && x.Level == 1);
                 int QtyExpanded = treeView1.AllNodes.Count(x => x.IsExpanded == true && x.Level == 1);
-                //TODO hide Delete Files when only Anchors selected
+
+                deleteFilesToolStripMenuItem.Visible = FileSelected == 0 && AnchorSelected >= 1 ? false : true;
 
                 if (QtyChecked == treeView1.SelectedNodes.Count)
                 {
