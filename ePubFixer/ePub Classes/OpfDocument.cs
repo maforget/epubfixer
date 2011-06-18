@@ -50,19 +50,18 @@ namespace ePubFixer
 
         private void frm_Save(object sender, ExportTocEventArgs e)
         {
-            e.Message = Save(e.XML);
+            Save(e.XML);
+            e.Message = SaveMessage;
         }
 
-        private string Save(XElement xml)
+        private void Save(XElement xml)
         {
             NewNavMap = xml;
 
             if (NewNavMap == null)
-                return string.Empty;
+                return;
 
             ReplaceSpine(NewNavMap);
-
-            return base.UpdateZip(fileOutStream);
         }
 
 
@@ -132,7 +131,7 @@ namespace ePubFixer
                 NewTOC = new XElement(OldTOC);
                 NewTOC.Element(ns + "spine").ReplaceWith(newSpine);
                 base.WriteXML();
-
+                base.UpdateZip(fileOutStream);
             } else
             {
                 return null;

@@ -43,22 +43,24 @@ namespace ePubFixer
         }
 
         #region Save
-        private string Save(XElement xml)
+        private void Save(XElement xml)
         {
             NewNavMap = xml;
 
             if (NewNavMap == null)
-                return string.Empty;
+                return;
 
             ReplaceNavMap(NewNavMap);
             WriteXML();
 
-            return base.UpdateZip(fileOutStream);
+            base.UpdateZip(fileOutStream);
+
         }
 
         void frm_Save(object sender, ExportTocEventArgs e)
         {
-            e.Message = Save(e.XML);
+            Save(e.XML);
+            e.Message = SaveMessage;
             
         }  
         #endregion

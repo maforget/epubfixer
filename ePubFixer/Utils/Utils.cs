@@ -210,7 +210,7 @@ namespace ePubFixer
                 Node item = NodeCollection[i];
                 NavDetails nav = item.Tag as NavDetails;
 
-                if (nav.ContentSrc==null || !Utils.VerifyFileExists(nav.File) | !htmlFiles.Contains(nav.File))
+                if (nav.ContentSrc == null || !Utils.VerifyFileExists(nav.File) | !htmlFiles.Contains(nav.File))
                 {
                     NodeCollection.Remove(item);
                 }
@@ -479,12 +479,14 @@ namespace ePubFixer
                 {
                     using (ZipFile zip = ZipFile.Read(Variables.Filename))
                     {
-                        zip.RemoveEntry(Variables.OPFpath + source);
+                        string path = Variables.OPFpath + source;
+                        zip.RemoveEntry(path);
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    //File not found in Zip.
+                    //File not found in Zip or Other Error
+                    MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     continue;
                 }
             }
@@ -516,6 +518,9 @@ namespace ePubFixer
 
             XElement newManifest = new XElement(ns + "manifest", newItems);
             doc.ReplaceManifest(newManifest);
+
+            //if (doc.SaveMessage.StartsWith("Error"))
+            //    MessageBox.Show(doc.SaveMessage, "Manifest Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public static void DeleteFromSpine(IEnumerable<string> FilesTodelete)
@@ -549,8 +554,10 @@ namespace ePubFixer
             }
 
             doc.ReplaceSpine(newSpine);
-            doc.UpdateZip();
-        } 
+
+            if (doc.SaveMessage.StartsWith("Error"))
+                MessageBox.Show(doc.SaveMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         #endregion
     }
 }
