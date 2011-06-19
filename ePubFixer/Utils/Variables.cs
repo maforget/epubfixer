@@ -18,11 +18,12 @@ namespace ePubFixer
         public static bool DoBackup { get; set; }
         public static string VersionLocation = @"http://epubfixer.googlecode.com/svn/trunk/ePubFixer/Version.xml";
         public static string DownloadLocation = @"http://code.google.com/p/epubfixer/downloads/list";
-        public static Dictionary<string, List<string>> HeaderTextInFile;
-        public static Dictionary<string, List<string>> AnchorTextInFile;
+        public static Dictionary<string, DetectedHeaders> HeaderTextInFile;
+        public static Dictionary<string, DetectedHeaders> AnchorTextInFile;
         public static Dictionary<string, List<string>> AnchorsInFile;
         public static bool FileDecrypted = false;
         public static List<Form> OpenedForm = new List<Form>();
+        public static bool TOCDownloadedFromNet = false;
 
         public static string ApplicationName
         {

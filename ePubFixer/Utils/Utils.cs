@@ -25,13 +25,14 @@ namespace ePubFixer
         public static void NewFilename(bool BackupDone)
         {
             Variables.FileDecrypted = false;
-            Variables.HeaderTextInFile = new Dictionary<string, List<string>>();
-            Variables.AnchorTextInFile = new Dictionary<string, List<string>>();
+            Variables.HeaderTextInFile = new Dictionary<string, DetectedHeaders>();
+            Variables.AnchorTextInFile = new Dictionary<string, DetectedHeaders>();
             Variables.AnchorsInFile = new Dictionary<string, List<string>>();
             FileList = null;
             Variables.BackupDone = BackupDone;
             Variables.OPFfile = string.Empty;
             Variables.NCXFile = string.Empty;
+            Variables.TOCDownloadedFromNet = false;
         }
 
         public static void NewFilename()

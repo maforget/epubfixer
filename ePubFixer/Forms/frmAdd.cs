@@ -11,6 +11,7 @@ namespace ePubFixer
     public partial class frmAdd : Form
     {
         #region Fields
+
         private List<string> PresentFileList = new List<string>();
         private TreeModel Model;
         internal event EventHandler<FilesAddedArgs> FilesAdded;
@@ -137,38 +138,67 @@ namespace ePubFixer
         #endregion
 
         #region Select Next TExt
-        private void selectNextTextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void selectNext_Click(object sender, EventArgs e)
         {
-            ChooseTextInDropDown(false);
+            ChooseTextInDropDown(SelectDirection.Next, false);
         }
 
-        private void selectNextTextIncremental_Click(object sender, EventArgs e)
+        private void selectNextDownload_Click(object sender, EventArgs e)
         {
-            ChooseTextInDropDown(true);
+            ChooseTextInDropDown(SelectDirection.Next, true);
         }
 
-        private void ChooseTextInDropDown(bool Incremental)
+        private void selectPrevious_Click(object sender, EventArgs e)
+        {
+            ChooseTextInDropDown(SelectDirection.Previous, false);
+        }
+
+        enum SelectDirection
+        {
+            Previous, Next
+        }
+
+        private void ChooseTextInDropDown(SelectDirection dir, bool Incremental)
         {
             using (new HourGlass())
             {
                 treeView1.BeginUpdate();
-                int Increment = Incremental ? 0 : 1;
+                int Increment = 1;
                 foreach (var item in treeView1.SelectedNodes)
                 {
                     MyNode n = item.Tag as MyNode;
                     NavDetails nav = n.Tag as NavDetails;
+                    int Base = Incremental ? n.OriginalCount-1 : 0;
                     if (nav.DetectedTexts == null)
                         continue;
 
                     int QtyMax = n.DetectedCombo.Count - 1;
                     int index = nav.DetectedTexts.IndexOf(n.DetectedText);
-                    if (index >= 0 && (index + Increment) <= QtyMax && nav.DetectedTexts.Count > 1)
+                    if (nav.DetectedTexts.Count > 1)
                     {
-                        nav.Text = nav.DetectedTexts[index + Increment];
-                        n.DetectedText = nav.DetectedTexts[index + Increment];
+                        if (index >= 0 && dir == SelectDirection.Next)
+                        {
+                            int NewIndex = Incremental ? index + Increment + Base : index + Increment;
+                            if (NewIndex > QtyMax)
+                            {
+                                NewIndex = QtyMax;
+                            } 
+
+                            nav.Text = nav.DetectedTexts[NewIndex];
+                            n.DetectedText = nav.DetectedTexts[NewIndex];
+                        } else
+                        {
+                            if (index > 0 && index <= QtyMax)
+                            {
+                                nav.Text = nav.DetectedTexts[index - Increment];
+                                n.DetectedText = nav.DetectedTexts[index - Increment];
+                            }
+                        }
+
 
                         if (Incremental)
                             Increment++;
+
                     }
                     AddToTextSelected(nav);
                 }
@@ -206,13 +236,15 @@ namespace ePubFixer
                     }
 
                     MyHtmlDocument htmlDoc = new MyHtmlDocument();
-                    Dictionary<string, List<string>> DetectText = htmlDoc.FindHeaderTextInFile(t);
+                    Dictionary<string, DetectedHeaders> DetectText = htmlDoc.FindHeaderTextInFile(t);
 
                     foreach (string item in t)
                     {
-                        List<string> det = new List<string>();
+                        DetectedHeaders det = new DetectedHeaders();
                         DetectText.TryGetValue(item, out det);
-                        Model.Nodes.Add(new MyNode(item, det));
+                        MyNode n = new MyNode(item, det.Result);
+                        n.OriginalCount = det.OriginalCount;
+                        Model.Nodes.Add(n);
                     }
 
                     SortList();
@@ -234,7 +266,7 @@ namespace ePubFixer
                                            select i).ToList();
                             }
 
-                            Dictionary<string, List<string>> DetectAnchorText = htmlDoc.FindAchorTextInFile(item.Text, Anchors);
+                            Dictionary<string, DetectedHeaders> DetectAnchorText = htmlDoc.FindAchorTextInFile(item.Text, Anchors);
                             item.AddAnchors(Anchors, DetectAnchorText);
                         }
                     }
@@ -359,6 +391,7 @@ namespace ePubFixer
                 int QtyExpanded = treeView1.AllNodes.Count(x => x.IsExpanded == true && x.Level == 1);
 
                 deleteFilesToolStripMenuItem.Visible = FileSelected == 0 && AnchorSelected >= 1 ? false : true;
+                selectNextTextIncremental.Visible = Variables.TOCDownloadedFromNet ? true : false;
 
                 if (QtyChecked == treeView1.SelectedNodes.Count)
                 {
@@ -649,20 +682,19 @@ namespace ePubFixer
                 //Process the names (Add the found TOC to Varaiables.Header)
                 foreach (var item in Variables.HeaderTextInFile)
                 {
-                    item.Value.AddRange(Name);
+                    item.Value.Result.AddRange(Name);
                 }
 
                 //Reload
                 LoadFiles();
+                Variables.TOCDownloadedFromNet = true;
             }
         }
         #endregion
 
+
         //TODO Look for links in html files and add a option to see only those (ex : Content with LInks or Footnote)
 
-        //TODO Select next text incremental should skips to the first downloaded entry
-
-        //TODO Select Next Text Incremental should only appear when download is clicked
 
     }
 
