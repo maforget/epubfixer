@@ -46,12 +46,12 @@
             this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sigilPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decryptFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.about = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.cbBackup = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.checkVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decryptFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -182,28 +182,28 @@
             this.selectFolderToolStripMenuItem,
             this.recentFilesToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             this.fileToolStripMenuItem.DropDownOpening += new System.EventHandler(this.fileToolStripMenuItem_DropDownOpening);
             // 
             // selectFileToolStripMenuItem
             // 
             this.selectFileToolStripMenuItem.Name = "selectFileToolStripMenuItem";
-            this.selectFileToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.selectFileToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.selectFileToolStripMenuItem.Text = "Select Files ...";
             this.selectFileToolStripMenuItem.Click += new System.EventHandler(this.selectFileToolStripMenuItem_Click);
             // 
             // selectFolderToolStripMenuItem
             // 
             this.selectFolderToolStripMenuItem.Name = "selectFolderToolStripMenuItem";
-            this.selectFolderToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.selectFolderToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.selectFolderToolStripMenuItem.Text = "Select Folder";
             this.selectFolderToolStripMenuItem.Click += new System.EventHandler(this.selectFolderToolStripMenuItem_Click);
             // 
             // recentFilesToolStripMenuItem
             // 
             this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
-            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.recentFilesToolStripMenuItem.Text = "Recent Files";
             // 
             // SettingToolStripMenuItem
@@ -213,42 +213,21 @@
             this.checkVersionToolStripMenuItem,
             this.decryptFilesToolStripMenuItem});
             this.SettingToolStripMenuItem.Name = "SettingToolStripMenuItem";
-            this.SettingToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.SettingToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.SettingToolStripMenuItem.Text = "Settings";
             this.SettingToolStripMenuItem.DropDownClosed += new System.EventHandler(this.SettingToolStripMenuItem_DropDownClosed);
             // 
             // sigilPathToolStripMenuItem
             // 
             this.sigilPathToolStripMenuItem.Name = "sigilPathToolStripMenuItem";
-            this.sigilPathToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.sigilPathToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.sigilPathToolStripMenuItem.Text = "Set Sigil Path ...";
             this.sigilPathToolStripMenuItem.Click += new System.EventHandler(this.sigilPathToolStripMenuItem_Click_1);
-            // 
-            // checkVersionToolStripMenuItem
-            // 
-            this.checkVersionToolStripMenuItem.Checked = global::ePubFixer.Properties.Settings.Default.CheckVersion;
-            this.checkVersionToolStripMenuItem.CheckOnClick = true;
-            this.checkVersionToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkVersionToolStripMenuItem.Name = "checkVersionToolStripMenuItem";
-            this.checkVersionToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.checkVersionToolStripMenuItem.Text = "Check Version";
-            this.checkVersionToolStripMenuItem.CheckedChanged += new System.EventHandler(this.checkVersionToolStripMenuItem1_CheckedChanged);
-            // 
-            // decryptFilesToolStripMenuItem
-            // 
-            this.decryptFilesToolStripMenuItem.Checked = global::ePubFixer.Properties.Settings.Default.Decrypt;
-            this.decryptFilesToolStripMenuItem.CheckOnClick = true;
-            this.decryptFilesToolStripMenuItem.Enabled = false;
-            this.decryptFilesToolStripMenuItem.Name = "decryptFilesToolStripMenuItem";
-            this.decryptFilesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.decryptFilesToolStripMenuItem.Text = "Decrypt Files";
-            this.decryptFilesToolStripMenuItem.Visible = false;
-            this.decryptFilesToolStripMenuItem.Click += new System.EventHandler(this.decryptFilesToolStripMenuItem_Click);
             // 
             // about
             // 
             this.about.Name = "about";
-            this.about.Size = new System.Drawing.Size(48, 20);
+            this.about.Size = new System.Drawing.Size(52, 20);
             this.about.Text = "About";
             this.about.Click += new System.EventHandler(this.about_Click);
             // 
@@ -270,6 +249,28 @@
             // toolTip
             // 
             this.toolTip.ShowAlways = true;
+            // 
+            // checkVersionToolStripMenuItem
+            // 
+            this.checkVersionToolStripMenuItem.Checked = global::ePubFixer.Properties.Settings.Default.CheckVersion;
+            this.checkVersionToolStripMenuItem.CheckOnClick = true;
+            this.checkVersionToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkVersionToolStripMenuItem.Name = "checkVersionToolStripMenuItem";
+            this.checkVersionToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.checkVersionToolStripMenuItem.Text = "Check Version";
+            this.checkVersionToolStripMenuItem.CheckedChanged += new System.EventHandler(this.checkVersionToolStripMenuItem1_CheckedChanged);
+            // 
+            // decryptFilesToolStripMenuItem
+            // 
+            this.decryptFilesToolStripMenuItem.Checked = global::ePubFixer.Properties.Settings.Default.Decrypt;
+            this.decryptFilesToolStripMenuItem.CheckOnClick = true;
+            this.decryptFilesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.decryptFilesToolStripMenuItem.Enabled = false;
+            this.decryptFilesToolStripMenuItem.Name = "decryptFilesToolStripMenuItem";
+            this.decryptFilesToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.decryptFilesToolStripMenuItem.Text = "Decrypt Files";
+            this.decryptFilesToolStripMenuItem.Visible = false;
+            this.decryptFilesToolStripMenuItem.Click += new System.EventHandler(this.decryptFilesToolStripMenuItem_Click);
             // 
             // frmMain
             // 
