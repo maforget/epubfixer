@@ -115,12 +115,17 @@ namespace ePubFixer
         {
             HtmlWeb Site = new HtmlWeb();
             HtmlDocument Page = Site.Load(address);
-            HtmlNodeCollection PageContent = Page.DocumentNode.SelectNodes("//span[@class='SCShortCoverTitle']");
+            HtmlNodeCollection PageContentPaid = Page.DocumentNode.SelectNodes("//span[@class='SCShortCoverTitle']");
+            HtmlNodeCollection PageContentFree = Page.DocumentNode.SelectNodes("//span[@class='SCShortCoverTitleLink']/a");
+            HtmlNodeCollection PageContent = PageContentPaid == null ? PageContentFree : PageContentPaid;
 
-            TOC.AddRange(PageContent.Select(x => x.InnerText));
-            string next = CheckForNextPage(Page, address);
-            if (!string.IsNullOrEmpty(next))
-                Parse(next);
+            if (PageContent!=null)
+            {
+                TOC.AddRange(PageContent.Select(x => x.InnerText));
+                string next = CheckForNextPage(Page, address);
+                if (!string.IsNullOrEmpty(next))
+                    Parse(next); 
+            }
         }
 
         private string CheckForNextPage(HtmlDocument Page, string address)
