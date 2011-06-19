@@ -76,29 +76,36 @@ namespace ePubFixer
         /// </summary>
         /// <param name="filenames">List of Filenames to Check</param>
         /// <returns>Returns The First Line of Text(Value) for each File(Key)</returns>
-        public Dictionary<string, List<string>> FindHeaderTextInFile(List<string> filenames)
+        public Dictionary<string, DetectedHeaders> FindHeaderTextInFile(List<string> filenames)
         {
-            Dictionary<string, List<string>> Result = new Dictionary<string, List<string>>();
+            Dictionary<string, DetectedHeaders> Result = new Dictionary<string, DetectedHeaders>();
             foreach (string path in filenames)
             {
+                DetectedHeaders header = new DetectedHeaders();
                 if (Variables.HeaderTextInFile.ContainsKey(path))
-                {
-                    if (!Result.ContainsKey(path))
-                    {
-                        var clean = (from f in Variables.HeaderTextInFile[path]
-                                     select HttpUtility.HtmlDecode(f)).ToList();
+                {//The file already exists in the cache
 
-                        Result.Add(path, clean);
+                    if (!Result.ContainsKey(path))
+                    {//The cache exists but not into the current memory
+
+                        DetectedHeaders cache = Variables.HeaderTextInFile.Where(x => x.Key == path).Select(x => x.Value).FirstOrDefault();
+
+                        header.Result = (from f in cache.Result
+                                     select HttpUtility.HtmlDecode(f)).ToList();
+                        header.OriginalCount = cache.OriginalCount; 
+
+                        Result.Add(path, header);
                     }
                 } else
                 {
                     HtmlDocument html = GetHtml(path);
                     if (html != null)
                     {
-                        List<string> Found = GetText(html.DocumentNode.SelectSingleNode("//body"));
+                        header.Result = GetText(html.DocumentNode.SelectSingleNode("//body"));
 
-                        Result.Add(path, Found);
-                        Variables.HeaderTextInFile.Add(path, Found);
+                        header.OriginalCount = header.Result.Count;
+                        Result.Add(path, header);
+                        Variables.HeaderTextInFile.Add(path, header);
                     }
                 }
 
@@ -114,22 +121,28 @@ namespace ePubFixer
         /// <param name="path">Path of The file</param>
         /// <param name="Anchors">List of Anchors to Check</param>
         /// <returns>Returns The First Line of Text(Value) after each Anchor(Key)</returns>
-        public Dictionary<string, List<string>> FindAchorTextInFile(string path, List<string> Anchors)
+        public Dictionary<string, DetectedHeaders> FindAchorTextInFile(string path, List<string> Anchors)
         {
-            Dictionary<string, List<string>> Result = new Dictionary<string, List<string>>();
+            Dictionary<string, DetectedHeaders> Result = new Dictionary<string, DetectedHeaders>();
             HtmlDocument html = null;
 
             foreach (string id in Anchors)
             {
+                DetectedHeaders header = new DetectedHeaders();
                 string key = path + "#" + id;
                 if (Variables.AnchorTextInFile.ContainsKey(key))
-                {
-                    if (!Result.ContainsKey(key))
-                    {
-                        var clean = (from f in Variables.AnchorTextInFile[key]
-                                     select HttpUtility.HtmlDecode(f)).ToList();
+                {//The Anchor already exists in the cache
 
-                        Result.Add(key, clean);
+                    if (!Result.ContainsKey(key))
+                    {//The cache exists but not the speficed text, Loding from cache
+
+                        DetectedHeaders cache = Variables.AnchorTextInFile.Where(x=>x.Key==key).Select(x=>x.Value).FirstOrDefault();
+
+                        header.Result = (from f in cache.Result
+                                     select HttpUtility.HtmlDecode(f)).ToList();
+                        header.OriginalCount = cache.OriginalCount;
+
+                        Result.Add(key, header);
                     }
                 } else
                 {
@@ -146,12 +159,16 @@ namespace ePubFixer
                 var body = html.DocumentNode.SelectNodes("//body//*");
                 foreach (string id in Anchors)
                 {
+                    DetectedHeaders header = new DetectedHeaders();
                     string key = path + "#" + id;
                     if (Variables.AnchorTextInFile.ContainsKey(key))
                     {
                         if (!Result.ContainsKey(key))
                         {
-                            Result.Add(key, Variables.AnchorTextInFile[key]);
+                            Variables.AnchorTextInFile.TryGetValue(key,out header);
+                            header.OriginalCount = Variables.AnchorTextInFile.Count;
+
+                            Result.Add(key,header);
                         }
                     } else
                     {
@@ -203,8 +220,10 @@ namespace ePubFixer
                                         break;
                                 }
 
-                                Result.Add(key, t);
-                                Variables.AnchorTextInFile.Add(key, t);
+                                header.Result = t;
+                                header.OriginalCount = t.Count;
+                                Result.Add(key, header);
+                                Variables.AnchorTextInFile.Add(key, header);
                                 break;
                             }
                         }
@@ -217,9 +236,9 @@ namespace ePubFixer
             return Result;
         }
 
-        public Dictionary<string, List<string>> FindAchorTextInFile(string path, string id)
+        public Dictionary<string, DetectedHeaders> FindAchorTextInFile(string path, string id)
         {
-            Dictionary<string, List<string>> Result = new Dictionary<string, List<string>>();
+            Dictionary<string, DetectedHeaders> Result = new Dictionary<string, DetectedHeaders>();
             List<string> Anchors = new List<string>();
             Anchors.Add(id);
 
@@ -404,5 +423,17 @@ namespace ePubFixer
         #endregion
 
 
+    }
+
+    public class DetectedHeaders
+    {
+        public List<string> Result { get; set; }
+        public int OriginalCount { get; set; }
+
+        public DetectedHeaders()
+        {
+            OriginalCount = 0;
+            Result = new List<string>();
+        }
     }
 }

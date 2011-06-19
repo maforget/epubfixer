@@ -63,16 +63,16 @@ v1.4.0
 - Added a kind of a HACK to force files with XML version v1.1 to be parsed.
 - If multiple css file are present, It will now (hopefully) select the correct one.
 - The CSS tag being for margins is now determined by the first class attribute seen (previously it was the body tag, now it will look further if not found)
-- The Option from the Mass Rename tool-Words are UpperCase-has changed, instead you will have Convert To Uppercase & To Title Case. It will work as Described but now doesn't work only on Number that where converted to Words but on all the text.
+- The Option from the Mass Rename tool-Words are UpperCase-has changed, instead you will have Convert To Uppercase & To Title Case. 
+	It will work as Described but now doesn't work only on Number that where converted to Words but on all the text.
 - Removed Wall of Text from the Mass Rename tool and added a help button that will show it for info.
 - Added a Download button in the Add window, that will search the site Kobobooks for the TOC and add the entries found to the detected text menu.
-- Added a Select Next Text (Incremental) in the Add window, to help selecting the chapters when using the Download button.
-	(Second item will increment by 1, the Third by 2, etc. So use Select Next Text to select up to the first entry of the downloaded text and then choose Select Next Text (Incremental).
-	(When using Select Next Text (Incremental), first item will not increment.)
+- Added a Select Download Text in the Add window, to help selecting the chapters when using the Download button.
 - Enabled Navigation in the preview window. (Note : when using navigation you may see character not correctly displayed, 
 	this is because of IE and when you navigate to it the program does not fix the page, it does not mean that the book will display that way. 
 	Use the preview button to make sure)
 - Added a Saved Message or Error Message when Saving in the status bar. (It will be shown during 5 seconds)
+- Added a Select Previous Text option in the Add dialog.
 
 
 v1.3.6 

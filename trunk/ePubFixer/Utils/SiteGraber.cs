@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HtmlAgilityPack;
+using System.Web;
 
 namespace ePubFixer
 {
@@ -29,19 +30,37 @@ namespace ePubFixer
             {
                 using (new HourGlass())
                 {
-                    SearchAddress += input.Value;
+                    SearchAddress += HttpUtility.UrlEncode(input.Value);
                     HtmlWeb Site = new HtmlWeb();
                     HtmlDocument Page = Site.Load(SearchAddress);
                     HtmlNode Link = Page.DocumentNode.SelectSingleNode("//div[@class='SCItemHeader']/h1/a");
+                    HtmlNode Detail = Page.DocumentNode.SelectSingleNode("//div[@class='SCItemSummary']/span");
                     string ret = string.Empty;
+                    string Title = string.Empty;
+                    string Author = string.Empty;
 
                     if (Link != null)
                     {
+                        Author = GetAuthors(Detail);
+                        Title = Link.InnerText.Trim();
                         ret = Link.GetAttributeValue("href", string.Empty);
                         if (!string.IsNullOrEmpty(ret))
                         {
                             ret = site + ret;
                             ret = ret.Replace(@"/mix-", @"/book-");
+                        }
+                    }
+
+                    if (string.IsNullOrEmpty(Title))
+                    {
+                        System.Windows.Forms.MessageBox.Show("No Book Found","Error",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Error);
+                    } else
+                    {
+                        System.Windows.Forms.DialogResult BookIsOk = System.Windows.Forms.MessageBox.Show("Using Book\n" + Title + "\nby " + Author+"\n\nIs this ok?", "Book Found", System.Windows.Forms.MessageBoxButtons.OKCancel, System.Windows.Forms.MessageBoxIcon.Information);
+
+                        if (BookIsOk==System.Windows.Forms.DialogResult.Cancel)
+                        {
+                            ret = string.Empty;
                         }
                     }
 
@@ -51,6 +70,31 @@ namespace ePubFixer
             {
                 return string.Empty;
             }
+        }
+
+        private string GetAuthors(HtmlNode Detail)
+        {
+            StringBuilder sb = new StringBuilder();
+            List<string> list = new List<string>();
+
+            List<string> Unique = (from d in Detail.Descendants("a")
+                                   group d by d.InnerText into g
+                                   select g.Key).ToList();
+
+
+            foreach (string item in Unique)
+            {
+                if (list.Count >= 1)
+                {
+                    list.Add("& ");
+                } 
+
+                list.Add(item+" ");
+            }
+
+            list.ForEach(x => sb.Append(x));
+
+            return sb.ToString().Trim();
         }
 
         public List<string> Parse()
@@ -111,7 +155,5 @@ namespace ePubFixer
 
             return string.Empty;
         }
-
-        //TODO Return the name of the download book
     }
 }

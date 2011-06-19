@@ -82,6 +82,8 @@ namespace ePubFixer
             }
         }
 
+        public int OriginalCount { get; set; }
+
         private List<string> _DetectedCombo;
         public List<string> DetectedCombo
         {
@@ -126,15 +128,18 @@ namespace ePubFixer
             this.DetectedText = detectedCombo == null ? "" : detectedCombo.FirstOrDefault();
         }
 
-        public void AddAnchors(List<string> Anchors, Dictionary<string, List<string>> DetectAnchorText)
+
+
+        public void AddAnchors(List<string> Anchors, Dictionary<string, DetectedHeaders> DetectAnchorText)
         {
             foreach (string anch in Anchors)
             {
-                List<string> det = new List<string>();
+                DetectedHeaders det = new DetectedHeaders();
                 string source = Text + "#" + anch;
                 DetectAnchorText.TryGetValue(source, out det);
-                MyNode n = new MyNode(anch, det);
+                MyNode n = new MyNode(anch, det.Result);
                 n.Tag = new NavDetails(Guid.NewGuid().ToString(), source, n.DetectedCombo);
+                n.OriginalCount = det.OriginalCount;
                 Nodes.Add(n);
             }
         }
