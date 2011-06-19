@@ -73,6 +73,7 @@ v1.4.0
 	Use the preview button to make sure)
 - Added a Saved Message or Error Message when Saving in the status bar. (It will be shown during 5 seconds)
 - Added a Select Previous Text option in the Add dialog.
+- The Decrypt Files setting is now on by default when using a DRM build.
 
 
 v1.3.6 
