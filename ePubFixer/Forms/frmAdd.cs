@@ -242,8 +242,9 @@ namespace ePubFixer
                     {
                         DetectedHeaders det = new DetectedHeaders();
                         DetectText.TryGetValue(item, out det);
-                        MyNode n = new MyNode(item, det.Result);
-                        n.OriginalCount = det.OriginalCount;
+                        List<string> text = det != null ? det.Result : null;
+                        MyNode n = new MyNode(item, text);
+                        n.OriginalCount = det != null ? det.OriginalCount : 0;
                         Model.Nodes.Add(n);
                     }
 

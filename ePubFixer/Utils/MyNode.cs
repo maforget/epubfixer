@@ -137,9 +137,10 @@ namespace ePubFixer
                 DetectedHeaders det = new DetectedHeaders();
                 string source = Text + "#" + anch;
                 DetectAnchorText.TryGetValue(source, out det);
-                MyNode n = new MyNode(anch, det.Result);
+                List<string> text = det != null ? det.Result : null;
+                MyNode n = new MyNode(anch, text);
                 n.Tag = new NavDetails(Guid.NewGuid().ToString(), source, n.DetectedCombo);
-                n.OriginalCount = det.OriginalCount;
+                n.OriginalCount = det != null ? det.OriginalCount : 0;
                 Nodes.Add(n);
             }
         }
