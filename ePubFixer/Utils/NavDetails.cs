@@ -10,6 +10,9 @@ namespace ePubFixer
 {
     public class NavDetails
     {
+        public string Text { get; set; }
+        public List<string> DetectedTexts { get; set; }
+
         public string navPointid { get; set; }
 
         private string _ContentSrc;
@@ -17,14 +20,8 @@ namespace ePubFixer
         {
             get
             {
-                if (Utils.GetFileList().ContainsValue(_ContentSrc))
-                {
-                    return _ContentSrc;
-                } else
-                {
-                    string str = HttpUtility.UrlDecode(_ContentSrc);
-                    return str;
-                }
+                string str = Utils.VerifyFilenameEncoding(_ContentSrc);
+                return str;
             }
             set
             {
@@ -32,8 +29,7 @@ namespace ePubFixer
             }
         }
 
-        public string Text { get; set; }
-        public List<string> DetectedTexts { get; set; }
+
         private string _Anchor = "";
         public string Anchor
         {
@@ -60,6 +56,7 @@ namespace ePubFixer
             navPointid = id;
             ContentSrc = src;
         }
+
         public NavDetails(string id, string src, string Text)
             : this(id, src)
         {

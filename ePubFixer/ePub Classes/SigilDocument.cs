@@ -129,7 +129,7 @@ namespace ePubFixer
 
                         if (!Utils.GetFileList().ContainsValue(s))
                         {
-                            string str = HttpUtility.UrlDecode(s);
+                            string str = Utils.VerifyFilenameEncoding(s);
                             s = str;
                         }
 

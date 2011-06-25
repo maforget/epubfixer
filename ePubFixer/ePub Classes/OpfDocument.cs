@@ -179,9 +179,7 @@ namespace ePubFixer
                            from k in g.DefaultIfEmpty(new KeyValuePair<XAttribute, int>(i.Attribute("id"), dict.Last().Value + 1))
                            where filter.Invoke(i.Attribute("media-type").Value.ToLower()) || filter.Invoke(i.Attribute("href").Value.ToLower())
                            orderby k.Value
-                           select i.Attribute("href").Value).ToList();
-
-                ret = Utils.VerifyFilenameEncoding(ret);
+                           select Utils.VerifyFilenameEncoding(i.Attribute("href").Value)).ToList();
 
                 return ret;
             }
@@ -198,7 +196,8 @@ namespace ePubFixer
             try
             {
                 Dictionary<string, string> ret = (from i in GetManifest().Elements(ns + "item")
-                                                  select i).ToDictionary(x => x.Attribute("id").Value, x => x.Attribute("href").Value);
+                                                  select i).ToDictionary(x => x.Attribute("id").Value, x => Utils.VerifyFilenameEncoding(x.Attribute("href").Value));
+
 
                 return ret;
             }
