@@ -55,7 +55,7 @@ Change Log
 -------------------------------------------
 
 v1.4.1
-- Added support when filenames with spaces were changed to special caracter (ex: %20). It happens usually with Sigil.
+Added support when filenames with spaces were changed to special character (ex: %20). It happens usually with Sigil 4.
 
 
 v1.4.0
