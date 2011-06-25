@@ -54,6 +54,10 @@ Please direct any comment or bugs here : http://code.google.com/p/epubfixer/
 Change Log
 -------------------------------------------
 
+v1.4.1
+- Added support when filenames with spaces were changed to special caracter (ex: %20). It happens usually with Sigil.
+
+
 v1.4.0
 - Using SendTo will Save the most recent files
 - Opening a file that does not exists anymore will not crash the program and a message will warn you.

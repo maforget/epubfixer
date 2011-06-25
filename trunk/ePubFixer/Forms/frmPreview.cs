@@ -19,6 +19,7 @@ namespace ePubFixer
         public frmPreview(string filename, string Chapter)
         {
             InitializeComponent();
+            filename = Utils.VerifyFilenameEncoding(filename);
             file.Text = filename;
             WindowSave.RestoreWindows(Properties.Settings.Default.frmPreview, this);
             this.Icon = Utils.GetIcon();

@@ -181,6 +181,8 @@ namespace ePubFixer
                            orderby k.Value
                            select i.Attribute("href").Value).ToList();
 
+                ret = Utils.VerifyFilenameEncoding(ret);
+
                 return ret;
             }
             catch (Exception)

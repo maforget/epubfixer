@@ -33,6 +33,7 @@ namespace ePubFixer
             Variables.OPFfile = string.Empty;
             Variables.NCXFile = string.Empty;
             Variables.TOCDownloadedFromNet = false;
+            Variables.ZipFileList = new List<string>();
         }
 
         public static void NewFilename()
@@ -57,9 +58,9 @@ namespace ePubFixer
             String Title = ((AssemblyTitleAttribute)ass.GetCustomAttributes(
                         typeof(AssemblyTitleAttribute), false)[0]).Title;
 
-//#if DRM
-//            Title += " (DRM Removal)";
-//#endif
+            //#if DRM
+            //            Title += " (DRM Removal)";
+            //#endif
 
             return Title + " " + Version;
 
@@ -197,26 +198,60 @@ namespace ePubFixer
         public static bool VerifyFileExists(string filename)
         {
             string file = GetFilePathInsideZipOPF(filename);
+            file = string.IsNullOrEmpty(file) ? GetFilePathInsideZipOPF(System.Web.HttpUtility.UrlDecode(filename)) : file;
+            file = string.IsNullOrEmpty(file) ? GetFilePathInsideZipOPF(System.Web.HttpUtility.UrlPathEncode(filename)) : file;
             return string.IsNullOrEmpty(file) ? false : true;
+        }
+
+        public static List<string> VerifyFilenameEncoding(List<string> filename)
+        {
+            List<string> result = new List<string>();
+
+            foreach (string file in filename)
+            {
+                result.Add(VerifyFilenameEncoding(file));
+            }
+
+            return result;
+        }
+
+        public static string VerifyFilenameEncoding(string file)
+        {
+            string EncodedPath = System.Web.HttpUtility.UrlPathEncode(file);
+            string DecodedPath = System.Web.HttpUtility.UrlDecode(file);
+
+            if (Variables.ZipFileList.Contains(Variables.OPFpath + DecodedPath))
+            {
+                return DecodedPath;
+            } else if (Variables.ZipFileList.Contains(Variables.OPFpath + EncodedPath))
+            {
+                return EncodedPath;
+            } else
+            {
+                return file;
+            }
         }
 
 
         public static System.Collections.ObjectModel.Collection<Node> RemoveNonExistantNode(System.Collections.ObjectModel.Collection<Node> NodeCollection)
         {
+            OpfDocument opfDoc = new OpfDocument();
+            List<string> htmlFiles = opfDoc.GetFilesList("html");
+
             for (int i = NodeCollection.Count - 1; i >= 0; i--)
             {
-                OpfDocument opfDoc = new OpfDocument();
-                var htmlFiles = opfDoc.GetFilesList("html");
-
                 Node item = NodeCollection[i];
                 NavDetails nav = item.Tag as NavDetails;
 
-                if (nav.ContentSrc == null || !Utils.VerifyFileExists(nav.File) | !htmlFiles.Contains(nav.File))
+                if (nav.ContentSrc == null || !Utils.VerifyFileExists(nav.File) | !htmlFiles.Contains(VerifyFilenameEncoding(nav.File)))
                 {
                     NodeCollection.Remove(item);
                 }
 
-                RemoveNonExistantNode(item.Nodes);
+                if (item.Nodes.Count > 0)
+                {
+                    RemoveNonExistantNode(item.Nodes);
+                }
             }
 
             return NodeCollection;
@@ -307,12 +342,9 @@ namespace ePubFixer
             string file = "";
             if (!String.IsNullOrEmpty(filename))
             {
-                using (ZipFile zip = ZipFile.Read(Variables.Filename))
-                {
-                    file = (from z in zip
-                            where z.FileName == Variables.OPFpath + filename
-                            select z.FileName).FirstOrDefault();
-                }
+                file = (from z in Variables.ZipFileList
+                        where z == Variables.OPFpath + filename
+                        select z).FirstOrDefault();
             }
 
             return file;
@@ -323,15 +355,24 @@ namespace ePubFixer
             string file = "";
             if (!String.IsNullOrEmpty(filename))
             {
-                using (ZipFile zip = ZipFile.Read(Variables.Filename))
-                {
-                    file = (from z in zip
-                            where z.FileName.EndsWith(filename)
-                            select z.FileName).FirstOrDefault();
-                }
+                file = (from z in Variables.ZipFileList
+                        where z.EndsWith(filename)
+                        select z).FirstOrDefault();
             }
 
             return file;
+        }
+
+        internal static List<string> GetFilesListInsideZip()
+        {
+            List<string> fileLIst = new List<string>();
+
+            using (ZipFile zip = ZipFile.Read(Variables.Filename))
+            {
+                fileLIst = zip.Entries.Select(x => x.FileName).ToList();
+            }
+
+            return fileLIst;
         }
 
         #endregion
@@ -346,6 +387,7 @@ namespace ePubFixer
         {
             get
             {
+                //List<string> AdeptFiles = new List<string>() { "rights.xml"};
                 List<string> AdeptFiles = new List<string>() { "META-INF/rights.xml", "META-INF/encryption.xml" };
 
 

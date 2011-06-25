@@ -137,7 +137,26 @@ namespace ePubFixer
         }
         #endregion
 
+        #region FileInZip
+        private static List<string> _ZipFileList;
+        public static List<string> ZipFileList
+        {
+            get
+            {
+                if (_ZipFileList == null || _ZipFileList.Count==0)
+                {
+                    _ZipFileList = Utils.GetFilesListInsideZip();
+                }
 
+                return _ZipFileList;
+            }
+
+            set
+            {
+                _ZipFileList = value;
+            }
+        } 
+        #endregion
 
 
 
