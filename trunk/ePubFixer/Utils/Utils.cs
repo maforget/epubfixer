@@ -203,18 +203,6 @@ namespace ePubFixer
             return string.IsNullOrEmpty(file) ? false : true;
         }
 
-        public static List<string> VerifyFilenameEncoding(List<string> filename)
-        {
-            List<string> result = new List<string>();
-
-            foreach (string file in filename)
-            {
-                result.Add(VerifyFilenameEncoding(file));
-            }
-
-            return result;
-        }
-
         public static string VerifyFilenameEncoding(string file)
         {
             string EncodedPath = System.Web.HttpUtility.UrlPathEncode(file);
