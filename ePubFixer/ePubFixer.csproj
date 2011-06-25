@@ -270,11 +270,11 @@
 del "$(TargetDir)*.config"
 del "$(TargetDir)*.manifest"
 
-cd "C:\Users\Marc\Sync\Programming\Source Code\My Sources\FileNameVersion\FileNameVersion\bin\Debug\"
+cd "$(SolutionDir)..\FileNameVersion\FileNameVersion\bin\Debug\"
 
 for /f "tokens=*" %25%25a in ('FileNameVersion "$(TargetPath)"') do set MyPath=%25%25a
 
-xcopy /y "$(ProjectDir)$(OutDir)*.*" "C:\Users\Marc\Sync\ePubFixer Executables\%25MyPath%25"
+xcopy /y "$(ProjectDir)$(OutDir)*.*" "%25userprofile%25\Desktop\%25MyPath%25"
 
 :Exit</PostBuildEvent>
   </PropertyGroup>
