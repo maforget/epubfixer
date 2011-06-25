@@ -203,15 +203,24 @@ namespace ePubFixer
             return string.IsNullOrEmpty(file) ? false : true;
         }
 
+        private static bool CheckPath(string Path)
+        {
+            var path = (from f in Variables.ZipFileList
+                        where f.EndsWith(Path)
+                        select f).FirstOrDefault();
+
+            return string.IsNullOrEmpty(path) ? false : true;
+
+        }
         public static string VerifyFilenameEncoding(string file)
         {
             string EncodedPath = System.Web.HttpUtility.UrlPathEncode(file);
             string DecodedPath = System.Web.HttpUtility.UrlDecode(file);
-
-            if (Variables.ZipFileList.Contains(Variables.OPFpath + DecodedPath))
+            
+            if (CheckPath(DecodedPath))
             {
                 return DecodedPath;
-            } else if (Variables.ZipFileList.Contains(Variables.OPFpath + EncodedPath))
+            } else if (CheckPath(EncodedPath))
             {
                 return EncodedPath;
             } else

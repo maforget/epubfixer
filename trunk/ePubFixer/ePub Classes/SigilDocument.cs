@@ -70,6 +70,7 @@ namespace ePubFixer
 
             Variables.OPFfile = string.Empty;
             Variables.NCXFile = string.Empty;
+            Variables.ZipFileList = new List<string>();
             OpfDocument doc = new OpfDocument();
             FileList = doc.GetFilesList("html");
 
@@ -122,7 +123,7 @@ namespace ePubFixer
                         Anchor = Anchor == filename ? string.Empty : "#" + Anchor;
 
                         string s = (from f in FileList
-                                    where f.ToLower() == (Variables.GetPath(f) + filenameONLY).ToLower()
+                                    where f.ToLower() == (Variables.GetPath(f) + Utils.VerifyFilenameEncoding(filenameONLY)).ToLower()
                                     select f).FirstOrDefault();
 
                         s += Anchor;
