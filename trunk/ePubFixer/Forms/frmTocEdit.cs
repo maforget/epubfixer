@@ -201,6 +201,8 @@ namespace ePubFixer
             {
                 Node n = tree.SelectedNodes[i].Tag as Node;
                 NavDetails nav = n.Tag as NavDetails;
+
+                //TODO+ Use an index selecting technique instead of matching source (what if there is duplicate?)
                 int index = CleanedFileName.IndexOf(nav.ContentSrc);
 
                 List<string> Backup = new List<string>();
