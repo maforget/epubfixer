@@ -270,6 +270,12 @@
 del "$(TargetDir)*.config"
 del "$(TargetDir)*.manifest"
 
+cd "C:\Users\Marc\Sync\Programming\Source Code\My Sources\FileNameVersion\FileNameVersion\bin\Debug\"
+
+for /f "tokens=*" %25%25a in ('FileNameVersion "$(TargetPath)"') do set MyPath=%25%25a
+
+xcopy /y "$(ProjectDir)$(OutDir)*.*" "C:\Users\Marc\Sync\ePubFixer Executables\%25MyPath%25"
+
 :Exit</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
