@@ -52,6 +52,7 @@
             this.cbShowAll = new System.Windows.Forms.CheckBox();
             this.cbShowAnchors = new System.Windows.Forms.CheckBox();
             this.btnSearchNet = new System.Windows.Forms.Button();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -142,6 +143,7 @@
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.previewToolStripMenuItem,
+            this.selectAllToolStripMenuItem,
             this.expandAllToolStripMenuItem,
             this.collapseAllToolStripMenuItem,
             this.check,
@@ -150,7 +152,7 @@
             this.selectNextTextIncremental,
             this.deleteFilesToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(188, 202);
+            this.contextMenu.Size = new System.Drawing.Size(188, 224);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // previewToolStripMenuItem
@@ -290,6 +292,13 @@
             this.btnSearchNet.UseVisualStyleBackColor = true;
             this.btnSearchNet.Click += new System.EventHandler(this.btnSearchNet_Click);
             // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
             // frmAdd
             // 
             this.AcceptButton = this.btnOk;
@@ -340,5 +349,6 @@
         private System.Windows.Forms.ToolStripMenuItem selectNextTextIncremental;
         private System.Windows.Forms.ToolStripMenuItem nextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previousToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
     }
 }
