@@ -54,6 +54,9 @@ Please direct any comment or bugs here : http://code.google.com/p/epubfixer/
 Change Log
 -------------------------------------------
 
+v1.4.2
+- Added a Select All option inthe context menu of the Add window. It will select all the nodes that are expanded.
+
 v1.4.1
 Added support when filenames with spaces were changed to special character (ex: %20). It happens usually with Sigil 4.
 
