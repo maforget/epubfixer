@@ -83,7 +83,8 @@ namespace ePubFixer
             WriteXML();
 
             //Find toc.ncx path in Zip
-            fileOutName = Utils.GetFilePathInsideZip(ncxFile);
+            //fileOutName = Utils.GetFilePathInsideZip(ncxFile);
+            fileOutName = Utils.GetFilePathInsideZipOPF(Variables.NCXFile);
 
             UpdateZip(fileOutStream);
 
