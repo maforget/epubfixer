@@ -233,7 +233,7 @@ and Number To Words and it will change it to Chapter One.";
         }
         #endregion
 
-
+        //TODO Bug when rename %t and covert to case all, first chapter is turned to number 2 (With Upper Level to Part 1 for ex:)
 
         //TODO remove text tool
     }
