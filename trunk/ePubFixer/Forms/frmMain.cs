@@ -107,6 +107,7 @@ namespace ePubFixer
             toolTip.SetToolTip(this.cbFixMargins, "Changes all the left and right margins in the CSS to 0\n" +
                                     "Leaving only the body margins to 5pt (Also corrects negative ident)");
             toolTip.SetToolTip(this.cbReadingOrder, "Edit the order the page will be shown in your Book");
+            toolTip.SetToolTip(this.cbCover, "Add or Replace The File used for the Cover");
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -204,7 +205,7 @@ namespace ePubFixer
                 MessageBox.Show("No ePub Files Found");
             }
 
-            Utils.SaveDirectory = string.Empty;
+            Decryption.SaveDirectory = string.Empty;
 
             for (int i = 0; i < Variables.Filenames.Count; i++)
             {
@@ -215,9 +216,9 @@ namespace ePubFixer
                 {
                     MessageBox.Show("The file \"" + Variables.BookName + "\" does not exists", "File does not exists", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     continue;
-                } 
+                }
 
-                if (Utils.IsEncrypted && !Utils.DecryptFile())
+                if (Decryption.IsEncrypted && !Decryption.DecryptFile())
                     continue;
 
                 List<Document> doc = Factory.GetDocumentType(FindNeededType());

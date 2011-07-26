@@ -30,7 +30,7 @@ namespace ePubFixer
                 RequestedAnchor = SplitFileName[1];
             }
             string CleanedFileName = SplitFileName[0];
-            string Path = Utils.GetTempFilePath(CleanedFileName);
+            string Path = Zip.GetTempFilePath(CleanedFileName);
 
             webBrowser1.Navigate(new Uri(Path + "#" + RequestedAnchor));
 

@@ -164,5 +164,17 @@ namespace ePubFixer.Properties {
                 this["RecentFiles"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frmCover {
+            get {
+                return ((string)(this["frmCover"]));
+            }
+            set {
+                this["frmCover"] = value;
+            }
+        }
     }
 }

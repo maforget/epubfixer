@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml;
+using ePubFixer;
 
 namespace ePubFixer
 {
@@ -20,6 +21,14 @@ namespace ePubFixer
         protected override XElement NewNavMap { get; set; }
         protected override XElement OldTOC { get; set; }
         protected override XNamespace ns { get; set; }
+
+        private List<System.Xml.Linq.XAttribute> SpineIDs
+        {
+            get
+            {
+                return GetXmlElement("spine").Elements(ns + "itemref").Attributes("idref").ToList();
+            }
+        }
         #endregion
 
         #region Constructor
@@ -121,17 +130,31 @@ namespace ePubFixer
 
             }
         }
+
+        internal void AddCoverRef(string CoverFile)
+        {
+            var Guide = GetXmlElement("guide");
+
+            Guide.Add(
+                new XElement(ns + "reference",
+                    new XAttribute("type", "cover"),
+                    new XAttribute("title", "Cover"),
+                    new XAttribute("href", CoverFile)));
+
+            ReplaceSection(Guide, "guide");
+
+        }
         #endregion
 
         #region Replace
-        internal XElement ReplaceSpine(XElement newSpine)
+        internal XElement ReplaceSection(XElement newSection,string section)
         {
             if (OldTOC != null)
             {
                 NewTOC = new XElement(OldTOC);
-                NewTOC.Element(ns + "spine").ReplaceWith(newSpine);
+                NewTOC.Element(ns + section).ReplaceWith(newSection);
                 base.WriteXML();
-                base.UpdateZip(fileOutStream);
+                base.UpdateZip();
             } else
             {
                 return null;
@@ -141,22 +164,16 @@ namespace ePubFixer
 
         internal XElement ReplaceManifest(XElement newManifest)
         {
-            if (OldTOC != null)
-            {
-                NewTOC = new XElement(OldTOC);
-                NewTOC.Element(ns + "manifest").ReplaceWith(newManifest);
-                base.WriteXML();
-                base.UpdateZip(fileOutStream);
-            } else
-            {
-                return null;
-            }
-            return NewTOC;
+            return ReplaceSection(newManifest, "manifest");
+        }
+
+        internal XElement ReplaceSpine(XElement newSpine)
+        {
+            return ReplaceSection(newSpine, "spine");
         }
         #endregion
 
-        #region GetFilesList
-
+        #region Get FilesList & General OPF Info
         private XElement GetManifest()
         {
             XElement ret = new XElement(OldTOC.Element(ns + "manifest"));
@@ -167,9 +184,8 @@ namespace ePubFixer
         {
             try
             {
-                var ids = (GetXmlElement("spine").Elements(ns + "itemref").Attributes("idref"));
                 Dictionary<XAttribute, int> dict = new Dictionary<XAttribute, int>();
-                foreach (XAttribute item in ids)
+                foreach (XAttribute item in SpineIDs)
                 {
                     dict.Add(item, dict.Count + 1);
                 }
@@ -252,6 +268,29 @@ namespace ePubFixer
 
             return "";
         }
+
+        public string GetSpineAtIndex(int index)
+        {
+            string ret = string.Empty;
+            if (index <= SpineIDs.Count - 1)
+            {
+                ret = GetFilesList()[SpineIDs[index].Value];
+            }
+
+            return ret;
+
+        }
+
+        public string GetCoverRef()
+        {
+            var manifestGuide = GetXmlElement("guide");
+            string coverRef;
+            coverRef = (from g in manifestGuide.Elements(ns + "reference")
+                        where g.Attribute("type").Value == "cover"
+                        select g.Attribute("href").Value).FirstOrDefault();
+            return coverRef;
+        }
+
         #endregion
     }
 

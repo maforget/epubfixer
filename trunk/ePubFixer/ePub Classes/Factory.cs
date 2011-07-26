@@ -36,6 +36,8 @@ namespace ePubFixer
                         break;
                     case "sigil": _Li.Add(new SigilDocument());
                         break;
+                    case "cover": _Li.Add(new CoverDocument());
+                        break;
                     default:
                         break;
                 }

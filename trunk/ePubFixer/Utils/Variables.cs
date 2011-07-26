@@ -21,7 +21,7 @@ namespace ePubFixer
         public static Dictionary<string, DetectedHeaders> HeaderTextInFile;
         public static Dictionary<string, DetectedHeaders> AnchorTextInFile;
         public static Dictionary<string, List<string>> AnchorsInFile;
-        public static bool FileDecrypted = false;
+
         public static List<Form> OpenedForm = new List<Form>();
         public static bool TOCDownloadedFromNet = false;
 
@@ -145,7 +145,7 @@ namespace ePubFixer
             {
                 if (_ZipFileList == null || _ZipFileList.Count==0)
                 {
-                    _ZipFileList = Utils.GetFilesListInsideZip();
+                    _ZipFileList = Zip.GetFilesListInsideZip();
                 }
 
                 return _ZipFileList;
