@@ -107,7 +107,8 @@ namespace ePubFixer
             toolTip.SetToolTip(this.cbFixMargins, "Changes all the left and right margins in the CSS to 0\n" +
                                     "Leaving only the body margins to 5pt (Also corrects negative ident)");
             toolTip.SetToolTip(this.cbReadingOrder, "Edit the order the page will be shown in your Book");
-            toolTip.SetToolTip(this.cbCover, "Add or Replace The File used for the Cover");
+            toolTip.SetToolTip(this.cbCover, "Replace The File used for the Cover,\n"+
+                                                "Also makes sure that the image is stretched to fit");
         }
 
         private void btnExit_Click(object sender, EventArgs e)

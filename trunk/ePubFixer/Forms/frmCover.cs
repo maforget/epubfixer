@@ -24,8 +24,21 @@ namespace ePubFixer
             this.Icon = Utils.GetIcon();
             WindowSave.RestoreWindows(Properties.Settings.Default.frmCover, this);
             DefaultImage = CoverFile == null ? null : CoverFile;
-            DefaultURL = "DefaultImageStream";
+            DefaultURL = CoverFile == null ? "" : "DefaultImageStream";
+            this.Text += " - " + Variables.BookName;
             ChangeImage(DefaultURL);
+            SetTooltips();
+        }
+
+        private void SetTooltips()
+        {
+            toolTip.SetToolTip(btnFromFolder, "Uses the cover.jpg file that is in the same directory of the Book.\n" +
+                                                "Useful when fetching new covers with Calibre and you just want to\n" +
+                                                "update the cover without having to Convert the file again.");
+            toolTip.SetToolTip(btnReset, "Changes back to the default Cover from the book");
+            toolTip.SetToolTip(btnFile, "Chooses a image file to update the Cover");
+            toolTip.SetToolTip(btnSave, "Will Update the image file and make sure that the cover is stretched to fit.\n"+
+                                        "Also adds the cover to the guide if it was missing");
         }
 
         private void frmCover_FormClosing(object sender, FormClosingEventArgs e)

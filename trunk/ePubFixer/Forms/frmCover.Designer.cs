@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pbCover = new System.Windows.Forms.PictureBox();
             this.openDialog = new System.Windows.Forms.OpenFileDialog();
             this.btnClose = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             this.btnFromFolder = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -175,9 +177,15 @@
             this.lblStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Overflow = System.Windows.Forms.ToolStripItemOverflow.Always;
-            this.lblStatus.Size = new System.Drawing.Size(592, 17);
+            this.lblStatus.Size = new System.Drawing.Size(623, 17);
             this.lblStatus.Spring = true;
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolTip
+            // 
+            this.toolTip.AutoPopDelay = 8000;
+            this.toolTip.InitialDelay = 500;
+            this.toolTip.ReshowDelay = 100;
             // 
             // frmCover
             // 
@@ -200,6 +208,7 @@
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(400, 350);
             this.Name = "frmCover";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cover Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCover_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).EndInit();
@@ -227,5 +236,6 @@
         private System.Windows.Forms.Button btnFromFolder;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
