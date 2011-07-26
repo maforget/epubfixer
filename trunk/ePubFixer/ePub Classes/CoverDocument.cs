@@ -114,6 +114,8 @@ namespace ePubFixer
 
                 //Update the stream and BookImage with the new default
                 GetImage();
+
+                e.ChangedCoverFile = ChangedCoverFile;
             } else
             {
                 e.Message = "Cover is Empty, Aborting";

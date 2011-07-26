@@ -78,11 +78,13 @@ namespace ePubFixer
     {
         public Image Cover { get; set; }
         public string Message { get; set; }
+        public bool ChangedCoverFile { get; set; }
 
         public CoverChangedArgs(Image cover)
         {
             this.Cover = cover;
             this.Message = string.Empty;
+            this.ChangedCoverFile = false;
         }
     }
 }
