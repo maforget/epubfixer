@@ -64,7 +64,7 @@ namespace ePubFixer
         private void btnFromFolder_Click(object sender, EventArgs e)
         {
             string CoverFromFolder = string.Empty;
-            List<string> PossibleNames = new List<string>() { "cover.jpg", "cover.jpeg" };
+            string[] PossibleNames = { "cover.jpg", "cover.jpeg" };
             foreach (var item in PossibleNames)
             {
                 string url = Path.Combine(Path.GetDirectoryName(Variables.Filename), item);

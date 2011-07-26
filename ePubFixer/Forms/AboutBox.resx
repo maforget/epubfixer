@@ -253,7 +253,7 @@
     <value>Create Table of Content from Nothing or just modify your existing one.
 Move your TOC entries or nest them by dragging &amp; dropping.
 Add Table of Content entries by files or by Anchors present in your html file
-Detect texts in your files to use for you TOC entry.
+Detect texts in your files to use for your TOC entry.
 Split your Html file into multiple files when more than 1 chapter per file is found
 Easily Add numbers in front of your TOC entries with Mass rename.
 Modify your CSS margin to 5 pt just for the body
