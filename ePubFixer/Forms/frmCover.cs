@@ -108,7 +108,7 @@ namespace ePubFixer
             if (CoverChanged != null)
             {
                 CoverChanged(this, e);
-                lblStatus.Text = e.Message + SourceMessage;
+                lblStatus.Text = e.ChangedCoverFile ? e.Message + SourceMessage : e.Message;
 
                 //Update the new DefaultImage
                 DefaultImage = e.Cover;
