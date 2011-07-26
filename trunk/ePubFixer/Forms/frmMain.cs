@@ -103,7 +103,8 @@ namespace ePubFixer
                                                 "Split files on Chapters Anchor");
             toolTip.SetToolTip(this.cbSigil, "Makes a Backup of your TOC and opens Sigil\n" +
                                                 "On closing it will restore your Old Table of Content.\n" +
-                                                "You might want to use at the same time with the TOC Editor.");
+                                                "You might want to use at the same time with the TOC Editor.\n\n"+
+                                                "You can also use it with any other external program");
             toolTip.SetToolTip(this.cbFixMargins, "Changes all the left and right margins in the CSS to 0\n" +
                                     "Leaving only the body margins to 5pt (Also corrects negative ident)");
             toolTip.SetToolTip(this.cbReadingOrder, "Edit the order the page will be shown in your Book");

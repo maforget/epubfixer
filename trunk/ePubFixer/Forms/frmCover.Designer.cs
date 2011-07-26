@@ -78,6 +78,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSave.Location = new System.Drawing.Point(24, 597);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
@@ -91,7 +92,7 @@
             this.btnFile.Location = new System.Drawing.Point(24, 13);
             this.btnFile.Name = "btnFile";
             this.btnFile.Size = new System.Drawing.Size(75, 23);
-            this.btnFile.TabIndex = 2;
+            this.btnFile.TabIndex = 4;
             this.btnFile.Text = "Select File";
             this.btnFile.UseVisualStyleBackColor = true;
             this.btnFile.Click += new System.EventHandler(this.btnFile_Click);
@@ -113,7 +114,7 @@
             this.btnReset.Location = new System.Drawing.Point(24, 42);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
-            this.btnReset.TabIndex = 8;
+            this.btnReset.TabIndex = 3;
             this.btnReset.Text = "From Book";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
@@ -157,7 +158,7 @@
             this.btnFromFolder.Location = new System.Drawing.Point(24, 71);
             this.btnFromFolder.Name = "btnFromFolder";
             this.btnFromFolder.Size = new System.Drawing.Size(75, 23);
-            this.btnFromFolder.TabIndex = 13;
+            this.btnFromFolder.TabIndex = 2;
             this.btnFromFolder.Text = "From Folder";
             this.btnFromFolder.UseVisualStyleBackColor = true;
             this.btnFromFolder.Click += new System.EventHandler(this.btnFromFolder_Click);
