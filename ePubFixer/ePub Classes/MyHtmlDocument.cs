@@ -34,7 +34,7 @@ namespace ePubFixer
         public MyHtmlDocument()
             : base()
         {
-            //fileOutStream = new MemoryStream();
+            fileOutStream = new MemoryStream();
         }
         #endregion
 
@@ -314,6 +314,8 @@ namespace ePubFixer
             try
             {
                 Stream htmlStream = base.GetStreamOPF(filename);
+                fileOutStream = htmlStream;
+                fileOutName = Variables.OPFpath + filename;
                 HtmlDocument html = new HtmlDocument();
                 html.Load(htmlStream, Encoding.UTF8);
 

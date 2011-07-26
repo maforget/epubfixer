@@ -37,6 +37,7 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbSigil = new System.Windows.Forms.CheckBox();
+            this.cbCover = new System.Windows.Forms.CheckBox();
             this.cbReadingOrder = new System.Windows.Forms.CheckBox();
             this.btnGo = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -46,12 +47,12 @@
             this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sigilPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decryptFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.about = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.cbBackup = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.checkVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decryptFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -108,7 +109,7 @@
             // btnExit
             // 
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExit.Location = new System.Drawing.Point(217, 157);
+            this.btnExit.Location = new System.Drawing.Point(218, 173);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(85, 27);
             this.btnExit.TabIndex = 3;
@@ -122,9 +123,10 @@
             this.groupBox1.Controls.Add(this.cbSigil);
             this.groupBox1.Controls.Add(this.cbTocEdit);
             this.groupBox1.Controls.Add(this.cbReadingOrder);
+            this.groupBox1.Controls.Add(this.cbCover);
             this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(166, 121);
+            this.groupBox1.Size = new System.Drawing.Size(166, 140);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
@@ -139,6 +141,17 @@
             this.cbSigil.Tag = "sigil";
             this.cbSigil.Text = "Edit In Sigil";
             this.cbSigil.UseVisualStyleBackColor = true;
+            // 
+            // cbCover
+            // 
+            this.cbCover.AutoSize = true;
+            this.cbCover.Location = new System.Drawing.Point(10, 115);
+            this.cbCover.Name = "cbCover";
+            this.cbCover.Size = new System.Drawing.Size(80, 17);
+            this.cbCover.TabIndex = 4;
+            this.cbCover.Tag = "cover";
+            this.cbCover.Text = "Edit Covers";
+            this.cbCover.UseVisualStyleBackColor = true;
             // 
             // cbReadingOrder
             // 
@@ -155,7 +168,7 @@
             // 
             this.btnGo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnGo.Enabled = false;
-            this.btnGo.Location = new System.Drawing.Point(126, 157);
+            this.btnGo.Location = new System.Drawing.Point(127, 173);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(85, 27);
             this.btnGo.TabIndex = 0;
@@ -224,32 +237,6 @@
             this.sigilPathToolStripMenuItem.Text = "Set Sigil Path ...";
             this.sigilPathToolStripMenuItem.Click += new System.EventHandler(this.sigilPathToolStripMenuItem_Click_1);
             // 
-            // about
-            // 
-            this.about.Name = "about";
-            this.about.Size = new System.Drawing.Size(52, 20);
-            this.about.Text = "About";
-            this.about.Click += new System.EventHandler(this.about_Click);
-            // 
-            // folderBrowser
-            // 
-            this.folderBrowser.Description = "Select a folder containing ePubs";
-            // 
-            // cbBackup
-            // 
-            this.cbBackup.AutoSize = true;
-            this.cbBackup.Location = new System.Drawing.Point(22, 163);
-            this.cbBackup.Name = "cbBackup";
-            this.cbBackup.Size = new System.Drawing.Size(93, 17);
-            this.cbBackup.TabIndex = 7;
-            this.cbBackup.Text = "Backup File(s)";
-            this.cbBackup.UseVisualStyleBackColor = true;
-            this.cbBackup.CheckedChanged += new System.EventHandler(this.cbBackup_CheckedChanged);
-            // 
-            // toolTip
-            // 
-            this.toolTip.ShowAlways = true;
-            // 
             // checkVersionToolStripMenuItem
             // 
             this.checkVersionToolStripMenuItem.Checked = global::ePubFixer.Properties.Settings.Default.CheckVersion;
@@ -272,13 +259,39 @@
             this.decryptFilesToolStripMenuItem.Visible = false;
             this.decryptFilesToolStripMenuItem.Click += new System.EventHandler(this.decryptFilesToolStripMenuItem_Click);
             // 
+            // about
+            // 
+            this.about.Name = "about";
+            this.about.Size = new System.Drawing.Size(52, 20);
+            this.about.Text = "About";
+            this.about.Click += new System.EventHandler(this.about_Click);
+            // 
+            // folderBrowser
+            // 
+            this.folderBrowser.Description = "Select a folder containing ePubs";
+            // 
+            // cbBackup
+            // 
+            this.cbBackup.AutoSize = true;
+            this.cbBackup.Location = new System.Drawing.Point(23, 179);
+            this.cbBackup.Name = "cbBackup";
+            this.cbBackup.Size = new System.Drawing.Size(93, 17);
+            this.cbBackup.TabIndex = 7;
+            this.cbBackup.Text = "Backup File(s)";
+            this.cbBackup.UseVisualStyleBackColor = true;
+            this.cbBackup.CheckedChanged += new System.EventHandler(this.cbBackup_CheckedChanged);
+            // 
+            // toolTip
+            // 
+            this.toolTip.ShowAlways = true;
+            // 
             // frmMain
             // 
             this.AcceptButton = this.btnGo;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(314, 196);
+            this.ClientSize = new System.Drawing.Size(314, 212);
             this.Controls.Add(this.cbBackup);
             this.Controls.Add(this.btnGo);
             this.Controls.Add(this.groupBox1);
@@ -330,5 +343,6 @@
         private System.Windows.Forms.ToolStripMenuItem selectFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recentFilesToolStripMenuItem;
+        private System.Windows.Forms.CheckBox cbCover;
     }
 }

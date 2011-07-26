@@ -134,8 +134,8 @@ namespace ePubFixer
         {
             Properties.Settings.Default.BaseForm = WindowSave.SaveWindow(this);
             Properties.Settings.Default.Save();
-            Utils.CloseOpenedForms();
-            Utils.DeleteTemp();
+            Preview.CloseOpenedForms();
+            Zip.DeleteTemp();
         }
 
         private void tree_Collapsed(object sender, TreeViewAdvEventArgs e)
@@ -502,8 +502,8 @@ namespace ePubFixer
         #region Extract Temp Files
         private void ExtractFiles()
         {
-            Utils.ExtractProgress += new EventHandler<ExtractProgressArgs>(Utils_ExtractProgress);
-            Thread t = new Thread(new ThreadStart(Utils.ExtractZip));
+            Zip.ExtractProgress += new EventHandler<ExtractProgressArgs>(Utils_ExtractProgress);
+            Thread t = new Thread(new ThreadStart(Zip.ExtractZip));
             t.IsBackground = true;
             t.Start();
             FilesExtracted = true;

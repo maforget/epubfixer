@@ -102,6 +102,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -111,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ePub Classes\ContainerDocument.cs" />
+    <Compile Include="ePub Classes\CoverDocument.cs" />
     <Compile Include="ePub Classes\SigilDocument.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
@@ -143,6 +145,14 @@
       <DependentUpon>frmAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="ePub Classes\SplitChapters.cs" />
+    <Compile Include="Forms\frmCover.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCover.Designer.cs">
+      <DependentUpon>frmCover.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Decryption.cs" />
+    <Compile Include="Utils\Extensions.cs" />
     <Compile Include="Utils\InputBox.cs" />
     <Compile Include="Utils\NavDetails.cs" />
     <Compile Include="Utils\MyNode.cs" />
@@ -150,6 +160,7 @@
     <Compile Include="Utils\EventArgs.cs" />
     <Compile Include="Utils\Hourglass.cs" />
     <Compile Include="Utils\MySettingsProvider.cs" />
+    <Compile Include="Utils\Preview.cs" />
     <Compile Include="Utils\SiteGraber.cs" />
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="Utils\Variables.cs" />
@@ -181,12 +192,16 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\WindowSave.cs" />
+    <Compile Include="Utils\Zip.cs" />
     <EmbeddedResource Include="Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCover.resx">
+      <DependentUpon>frmCover.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

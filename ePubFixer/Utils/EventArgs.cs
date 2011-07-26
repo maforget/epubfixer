@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using System.Drawing;
 
 namespace ePubFixer
 {
@@ -21,12 +22,12 @@ namespace ePubFixer
             {
                 _Transferred = value;
                 _Pourcentage = Convert.ToInt32((100 * _Transferred / _TotalToTransfer));
-                if (_Pourcentage>=100)
+                if (_Pourcentage >= 100)
                 {
                     _Pourcentage = 100;
-                } else if (_Pourcentage<0)
+                } else if (_Pourcentage < 0)
                 {
-                     _Pourcentage = 0;
+                    _Pourcentage = 0;
                 }
             }
         }
@@ -72,5 +73,16 @@ namespace ePubFixer
 
         public XElement XML { get; set; }
         public string Message { get; set; }
+    }
+    public class CoverChangedArgs : EventArgs
+    {
+        public Image Cover { get; set; }
+        public string Message { get; set; }
+
+        public CoverChangedArgs(Image cover)
+        {
+            this.Cover = cover;
+            this.Message = string.Empty;
+        }
     }
 }
