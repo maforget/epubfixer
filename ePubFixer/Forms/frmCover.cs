@@ -12,6 +12,7 @@ namespace ePubFixer
 {
     public partial class frmCover : Form
     {
+        #region Fields & Constructor
         Image Cover;
         Image DefaultImage;
         string DefaultURL;
@@ -37,10 +38,12 @@ namespace ePubFixer
                                                 "update the cover without having to Convert the file again.");
             toolTip.SetToolTip(btnReset, "Changes back to the default Cover from the book");
             toolTip.SetToolTip(btnFile, "Chooses a image file to update the Cover");
-            toolTip.SetToolTip(btnSave, "Will Update the image file and make sure that the cover is stretched to fit.\n"+
+            toolTip.SetToolTip(btnSave, "Will Update the image file and make sure that the cover is stretched to fit.\n" +
                                         "Also adds the cover to the guide if it was missing");
-        }
+        } 
+        #endregion
 
+        #region Form Events
         private void frmCover_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.frmCover = WindowSave.SaveWindow(this);
@@ -87,6 +90,13 @@ namespace ePubFixer
             ChangeImage(DefaultURL);
         }
 
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            OnCoverChanged(new CoverChangedArgs(Cover));
+        }
+        #endregion
+
         private void ChangeImage(string URL)
         {
             if (!string.IsNullOrEmpty(URL))
@@ -96,11 +106,6 @@ namespace ePubFixer
                 lblHeigth.Text = Cover.Height.ToString();
                 lblWidth.Text = Cover.Width.ToString();
             }
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            OnCoverChanged(new CoverChangedArgs(Cover));
         }
 
         private void OnCoverChanged(CoverChangedArgs e)

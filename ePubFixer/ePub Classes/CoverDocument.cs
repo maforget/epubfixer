@@ -36,11 +36,13 @@ namespace ePubFixer
 
         #endregion
 
+        #region Constructor
         public CoverDocument()
             : base()
         {
             //GetImage();
-        }
+        } 
+        #endregion
 
         internal override void UpdateFile()
         {
@@ -140,7 +142,6 @@ namespace ePubFixer
             return coverRef;
         }
 
-
         private void GetImage()
         {
             CoverFile = GetCoverFile();
@@ -193,9 +194,6 @@ namespace ePubFixer
             {
                 return false;
             }
-
-
-
         }
 
     }
