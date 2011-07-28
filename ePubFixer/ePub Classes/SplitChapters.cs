@@ -139,7 +139,7 @@ namespace ePubFixer
 
             foreach (XElement item in oldManifest.Elements())
             {
-                string href = item.Attribute("href").Value;
+                string href = Utils.VerifyFilenameEncoding(item.Attribute("href").Value);
                 string id = item.Attribute("id").Value;
                 string mediaType = item.Attribute("media-type").Value;
                 if (FilesTodelete.Contains(href))
