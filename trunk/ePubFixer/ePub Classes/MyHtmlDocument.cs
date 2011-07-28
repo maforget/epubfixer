@@ -12,6 +12,7 @@ using System.Xml.XPath;
 using HtmlAgilityPack;
 using Ionic.Zip;
 using System.Text;
+using Tidy = TidyManaged;
 
 
 namespace ePubFixer
@@ -55,9 +56,9 @@ namespace ePubFixer
 
             HtmlNode BodyNode = html.DocumentNode.SelectSingleNode("//body//@class");
             HtmlNode CSSNode = html.DocumentNode.SelectSingleNode("//head/link[@type='text/css']");
-            
+
             //Select CSS file
-            if (CSSNode!=null)
+            if (CSSNode != null)
             {
                 CSSfile = CSSNode.GetAttributeValue("href", "css");
                 string[] path = CSSfile.Split('/');
@@ -91,8 +92,8 @@ namespace ePubFixer
                         DetectedHeaders cache = Variables.HeaderTextInFile.Where(x => x.Key == path).Select(x => x.Value).FirstOrDefault();
 
                         header.Result = (from f in cache.Result
-                                     select HttpUtility.HtmlDecode(f)).ToList();
-                        header.OriginalCount = cache.OriginalCount; 
+                                         select HttpUtility.HtmlDecode(f)).ToList();
+                        header.OriginalCount = cache.OriginalCount;
 
                         Result.Add(path, header);
                     }
@@ -136,10 +137,10 @@ namespace ePubFixer
                     if (!Result.ContainsKey(key))
                     {//The cache exists but not the speficed text, Loding from cache
 
-                        DetectedHeaders cache = Variables.AnchorTextInFile.Where(x=>x.Key==key).Select(x=>x.Value).FirstOrDefault();
+                        DetectedHeaders cache = Variables.AnchorTextInFile.Where(x => x.Key == key).Select(x => x.Value).FirstOrDefault();
 
                         header.Result = (from f in cache.Result
-                                     select HttpUtility.HtmlDecode(f)).ToList();
+                                         select HttpUtility.HtmlDecode(f)).ToList();
                         header.OriginalCount = cache.OriginalCount;
 
                         Result.Add(key, header);
@@ -165,10 +166,10 @@ namespace ePubFixer
                     {
                         if (!Result.ContainsKey(key))
                         {
-                            Variables.AnchorTextInFile.TryGetValue(key,out header);
+                            Variables.AnchorTextInFile.TryGetValue(key, out header);
                             header.OriginalCount = Variables.AnchorTextInFile.Count;
 
-                            Result.Add(key,header);
+                            Result.Add(key, header);
                         }
                     } else
                     {
@@ -320,7 +321,8 @@ namespace ePubFixer
                 html.Load(htmlStream, Encoding.UTF8);
 
                 return html;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return null;
             }
@@ -423,6 +425,32 @@ namespace ePubFixer
         //    return convertStream;
         //} 
         #endregion
+
+        public string TidyHtml(string newHtml)
+        {
+            Stream str = new MemoryStream();
+            string ret = string.Empty;
+
+            using (Tidy.Document doc = Tidy.Document.FromString(newHtml))
+            {
+                doc.ShowWarnings = false;
+                doc.Quiet = true;
+                doc.OutputXhtml = true;
+                doc.InputCharacterEncoding = Tidy.EncodingType.Utf8;
+                doc.OutputCharacterEncoding = Tidy.EncodingType.Utf8;
+                doc.IndentAttributes = false;
+                doc.IndentBlockElements = Tidy.AutoBool.Yes;
+                doc.WrapAt = 0;
+                doc.NewBlockLevelTags = "svg,image";
+                doc.MakeClean = true;
+                doc.CleanAndRepair();
+                doc.Save(str);
+                ret = doc.Save();
+            }
+
+            fileOutStream = str;
+            return ret;
+        }
 
 
     }
