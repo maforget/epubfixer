@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using System.Xml;
 using HtmlAgilityPack;
 using System.Text;
+using Tidy = TidyManaged;
 
 namespace ePubFixer
 {
@@ -279,15 +280,16 @@ namespace ePubFixer
             MyHtmlDocument htmlDoc = new MyHtmlDocument();
             var Stream = htmlDoc.GetStreamOPF(filename);
 
-            using (Mark.Tidy.Document doc = new Mark.Tidy.Document(Stream))
+            using (Tidy.Document doc = Tidy.Document.FromStream(Stream))
             {
                 doc.ShowWarnings = false;
                 doc.Quiet = true;
                 doc.OutputXhtml = true;
-                doc.InputCharacterEncoding = Mark.Tidy.EncodingType.Utf8;
-                doc.OutputCharacterEncoding = Mark.Tidy.EncodingType.Utf8;
+                doc.InputCharacterEncoding = Tidy.EncodingType.Utf8;
+                doc.OutputCharacterEncoding = Tidy.EncodingType.Utf8;
                 doc.IndentAttributes = false;
-                doc.IndentBlockElements = Mark.Tidy.AutoBool.Auto;
+                doc.IndentBlockElements = Tidy.AutoBool.Auto;
+                doc.NewBlockLevelTags = "svg,image";
                 doc.WrapAt = 0;
                 doc.CleanAndRepair();
                 html = doc.Save();
@@ -377,20 +379,7 @@ namespace ePubFixer
                 } else
                 {
                     MyHtmlDocument htmlDoc = new MyHtmlDocument();
-
-                    using (Mark.Tidy.Document doc = new Mark.Tidy.Document(newHtml))
-                    {
-                        doc.ShowWarnings = false;
-                        doc.Quiet = true;
-                        doc.OutputXhtml = true;
-                        doc.InputCharacterEncoding = Mark.Tidy.EncodingType.Utf8;
-                        doc.OutputCharacterEncoding = Mark.Tidy.EncodingType.Utf8;
-                        doc.IndentAttributes = false;
-                        doc.IndentBlockElements = Mark.Tidy.AutoBool.Auto;
-                        doc.WrapAt = 0;
-                        doc.CleanAndRepair();
-                        doc.Save(htmlDoc.fileOutStream);
-                    }
+                    htmlDoc.TidyHtml(newHtml);
 
                     string file = ZipFileNames.Where(x => x == Variables.OPFpath + filename).Select(x => x).FirstOrDefault().Replace(filename, splitFilename);
                     htmlDoc.fileOutName = file;

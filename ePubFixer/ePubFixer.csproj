@@ -93,10 +93,6 @@
       <HintPath>DLL\Ionic.Zip.Reduced.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mark.Tidy">
-      <HintPath>DLL\Mark.Tidy.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -109,6 +105,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TidyManaged, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Libraries\TidyManaged\TidyManaged.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ePub Classes\ContainerDocument.cs" />
@@ -266,9 +266,9 @@
     <EmbeddedResource Include="DLL\HtmlAgilityPack.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DLL\Mark.Tidy.dll" />
     <EmbeddedResource Condition="$(DRM)==TRUE" Include="DLL\Drm.dll" />
     <EmbeddedResource Condition="$(DRM)==TRUE" Include="DLL\BouncyCastle.CryptoExt.dll" />
+    <EmbeddedResource Include="DLL\TidyManaged.dll" />
     <Content Include="libtidy.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
