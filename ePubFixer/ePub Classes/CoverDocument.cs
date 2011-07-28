@@ -62,7 +62,7 @@ namespace ePubFixer
                 #region Replace Existing File with the New One if it is different
                 if (!ImageCompare(e.Cover, BookImage))
                 {
-                    fileOutName = Variables.OPFpath + ImageURL;
+                    fileOutName = Zip.GetFilePathInsideZip(ImageURL);
                     fileOutStream = e.Cover.ToStream(ImageFormat.Jpeg);
                     UpdateZip();
                     e.Message = SaveMessage;
