@@ -314,9 +314,9 @@ namespace ePubFixer
         {
             try
             {
-                Stream htmlStream = base.GetStreamOPF(filename);
+                Stream htmlStream = base.GetStream(filename);
                 fileOutStream = htmlStream;
-                fileOutName = Variables.OPFpath + filename;
+                fileOutName = Utils.VerifyFilenameEncoding(filename);
                 HtmlDocument html = new HtmlDocument();
                 html.Load(htmlStream, Encoding.UTF8);
 

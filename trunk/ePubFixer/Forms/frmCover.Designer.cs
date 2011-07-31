@@ -61,7 +61,7 @@
             // 
             // openDialog
             // 
-            this.openDialog.Filter = "Image Files | *.jpg;*.gif;*.png;*.jpeg";
+            this.openDialog.Filter = "Image Files | *.jpg;*.gif;*.png;*.jpeg;*.bmp";
             // 
             // btnClose
             // 

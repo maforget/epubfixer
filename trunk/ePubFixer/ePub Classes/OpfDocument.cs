@@ -269,7 +269,7 @@ namespace ePubFixer
             return "";
         }
 
-        public string GetSpineAtIndex(int index)
+        public string GetSpineRefAtIndex(int index)
         {
             string ret = string.Empty;
             if (index <= SpineIDs.Count - 1)
