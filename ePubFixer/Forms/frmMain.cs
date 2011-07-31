@@ -185,7 +185,7 @@ namespace ePubFixer
 
         private void checkVersionToolStripMenuItem1_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.CheckVersion = checkVersionToolStripMenuItem.Checked ? true : false;
+            Properties.Settings.Default.CheckVersion = checkVersionToolStripMenuItem.Checked;
             Properties.Settings.Default.Save();
 
             if (Properties.Settings.Default.CheckVersion)
@@ -327,6 +327,12 @@ namespace ePubFixer
         }
 
         #endregion
+
+        private void fixMarginsKoboFixToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.KoboFixMargins = fixMarginsKoboFixToolStripMenuItem.Checked;
+            Properties.Settings.Default.Save();
+        }
 
     }
 }
