@@ -75,11 +75,12 @@ namespace ePubFixer
 
                 #region Make sure it is scaled to fit
                 string[] Name = { "height","width"};
-                string Value = "100%";
+                string Fit = "100%";
 
                 foreach (var item in Name)
                 {
                     string Heigth = ImageNode.GetAttributeValue(item, "");
+                    string Value = item == "height" ? Fit : Fit;
 
                     if (Heigth != Value)
                     {
@@ -97,11 +98,10 @@ namespace ePubFixer
 
                 if (FixedCoverWidth)
                 {
-                    Stream HtmlOutStream = new MemoryStream();
-                    ImageNode.OwnerDocument.Save(HtmlOutStream);
-                    MyHtmlDoc.UpdateZip(HtmlOutStream);
+                    MyHtmlDoc.TidyHtml(ImageNode.OwnerDocument.DocumentNode.OuterHtml);
+                    MyHtmlDoc.UpdateZip();
 
-                    e.Message = !ChangedCoverFile ? "File has not changed, But making sure that it is scaled to fit" : e.Message; 
+                    e.Message = !ChangedCoverFile ? "File has not changed, But making sure that it is scaled to fit" : e.Message;
                 }
                 
                 #endregion
@@ -135,7 +135,7 @@ namespace ePubFixer
 
             //If it does not exist get first page in spine
             if (string.IsNullOrEmpty(coverRef))
-                coverRef = MyOPFDoc.GetSpineAtIndex(0);
+                coverRef = MyOPFDoc.GetSpineRefAtIndex(0);
             else
                 IsGuideEmpty = false;
 
