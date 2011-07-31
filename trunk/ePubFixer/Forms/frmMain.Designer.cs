@@ -37,8 +37,8 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbSigil = new System.Windows.Forms.CheckBox();
-            this.cbCover = new System.Windows.Forms.CheckBox();
             this.cbReadingOrder = new System.Windows.Forms.CheckBox();
+            this.cbCover = new System.Windows.Forms.CheckBox();
             this.btnGo = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +49,7 @@
             this.sigilPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decryptFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fixMarginsKoboFixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.about = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.cbBackup = new System.Windows.Forms.CheckBox();
@@ -142,17 +143,6 @@
             this.cbSigil.Text = "Edit In Sigil";
             this.cbSigil.UseVisualStyleBackColor = true;
             // 
-            // cbCover
-            // 
-            this.cbCover.AutoSize = true;
-            this.cbCover.Location = new System.Drawing.Point(10, 115);
-            this.cbCover.Name = "cbCover";
-            this.cbCover.Size = new System.Drawing.Size(80, 17);
-            this.cbCover.TabIndex = 4;
-            this.cbCover.Tag = "cover";
-            this.cbCover.Text = "Edit Covers";
-            this.cbCover.UseVisualStyleBackColor = true;
-            // 
             // cbReadingOrder
             // 
             this.cbReadingOrder.AutoSize = true;
@@ -163,6 +153,17 @@
             this.cbReadingOrder.Tag = "opf";
             this.cbReadingOrder.Text = "Edit Reading Order";
             this.cbReadingOrder.UseVisualStyleBackColor = true;
+            // 
+            // cbCover
+            // 
+            this.cbCover.AutoSize = true;
+            this.cbCover.Location = new System.Drawing.Point(10, 115);
+            this.cbCover.Name = "cbCover";
+            this.cbCover.Size = new System.Drawing.Size(80, 17);
+            this.cbCover.TabIndex = 4;
+            this.cbCover.Tag = "cover";
+            this.cbCover.Text = "Edit Covers";
+            this.cbCover.UseVisualStyleBackColor = true;
             // 
             // btnGo
             // 
@@ -224,7 +225,8 @@
             this.SettingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sigilPathToolStripMenuItem,
             this.checkVersionToolStripMenuItem,
-            this.decryptFilesToolStripMenuItem});
+            this.decryptFilesToolStripMenuItem,
+            this.fixMarginsKoboFixToolStripMenuItem});
             this.SettingToolStripMenuItem.Name = "SettingToolStripMenuItem";
             this.SettingToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.SettingToolStripMenuItem.Text = "Settings";
@@ -233,7 +235,7 @@
             // sigilPathToolStripMenuItem
             // 
             this.sigilPathToolStripMenuItem.Name = "sigilPathToolStripMenuItem";
-            this.sigilPathToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.sigilPathToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.sigilPathToolStripMenuItem.Text = "Set Sigil Path ...";
             this.sigilPathToolStripMenuItem.Click += new System.EventHandler(this.sigilPathToolStripMenuItem_Click_1);
             // 
@@ -243,7 +245,7 @@
             this.checkVersionToolStripMenuItem.CheckOnClick = true;
             this.checkVersionToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkVersionToolStripMenuItem.Name = "checkVersionToolStripMenuItem";
-            this.checkVersionToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.checkVersionToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.checkVersionToolStripMenuItem.Text = "Check Version";
             this.checkVersionToolStripMenuItem.CheckedChanged += new System.EventHandler(this.checkVersionToolStripMenuItem1_CheckedChanged);
             // 
@@ -254,10 +256,22 @@
             this.decryptFilesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.decryptFilesToolStripMenuItem.Enabled = false;
             this.decryptFilesToolStripMenuItem.Name = "decryptFilesToolStripMenuItem";
-            this.decryptFilesToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.decryptFilesToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.decryptFilesToolStripMenuItem.Text = "Decrypt Files";
             this.decryptFilesToolStripMenuItem.Visible = false;
             this.decryptFilesToolStripMenuItem.Click += new System.EventHandler(this.decryptFilesToolStripMenuItem_Click);
+            // 
+            // fixMarginsKoboFixToolStripMenuItem
+            // 
+            this.fixMarginsKoboFixToolStripMenuItem.Checked = global::ePubFixer.Properties.Settings.Default.KoboFixMargins;
+            this.fixMarginsKoboFixToolStripMenuItem.CheckOnClick = true;
+            this.fixMarginsKoboFixToolStripMenuItem.Name = "fixMarginsKoboFixToolStripMenuItem";
+            this.fixMarginsKoboFixToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.fixMarginsKoboFixToolStripMenuItem.Text = "Fix Margins - Kobo Touch Fix";
+            this.fixMarginsKoboFixToolStripMenuItem.ToolTipText = "This option will remove Margins completely from the CSS file. \r\nIt is use when th" +
+                "e Margins option on the Kobo Touch do not work. \r\n\r\nThis will make the Margins o" +
+                "ption work again.";
+            this.fixMarginsKoboFixToolStripMenuItem.CheckedChanged += new System.EventHandler(this.fixMarginsKoboFixToolStripMenuItem_CheckedChanged);
             // 
             // about
             // 
@@ -344,5 +358,6 @@
         private System.Windows.Forms.ToolStripMenuItem selectFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recentFilesToolStripMenuItem;
         private System.Windows.Forms.CheckBox cbCover;
+        private System.Windows.Forms.ToolStripMenuItem fixMarginsKoboFixToolStripMenuItem;
     }
 }

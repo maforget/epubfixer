@@ -78,23 +78,28 @@ namespace ePubFixer
                 using (StringReader sr = new StringReader(ByteToString(fileExtractStream)))
                 {
                     string str;
-                    
+                    bool KoboFix = Properties.Settings.Default.KoboFixMargins;
                     
                     while ((str = sr.ReadLine()) != null)
                     {
                         str = str.Trim();
                         BodyTagSeen = Regex.IsMatch(str, "\\b" + BodyTag + "\\b", RegexOptions.IgnoreCase) ? true : BodyTagSeen;
 
-                        //TODO check for large TOP & Bottom margins (margin-top in %)
                         Predicate<string> Lines = new Predicate<string>(x => str.StartsWith(x));
 
                         if (Lines("margin-left:"))
                         {
-                            cssOutput.Add(BodyTagSeen ? "margin-left: 5pt;" : "margin-left: 0;");
+                            if (!KoboFix)
+                            {
+                                cssOutput.Add(BodyTagSeen ? "margin-left: 5pt;" : "margin-left: 0;"); 
+                            }
 
                         } else if (Lines("margin-right:"))
                         {
-                            cssOutput.Add(BodyTagSeen ? "margin-right: 5pt;" : "margin-right: 0;");
+                            if (!KoboFix)
+                            {
+                                cssOutput.Add(BodyTagSeen ? "margin-right: 5pt;" : "margin-right: 0;"); 
+                            }
                             BodyTagSeen = false;
                         } else if (Lines("text-indent:"))
                         {

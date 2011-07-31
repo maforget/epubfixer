@@ -176,5 +176,17 @@ namespace ePubFixer.Properties {
                 this["frmCover"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KoboFixMargins {
+            get {
+                return ((bool)(this["KoboFixMargins"]));
+            }
+            set {
+                this["KoboFixMargins"] = value;
+            }
+        }
     }
 }
