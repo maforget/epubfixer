@@ -152,6 +152,7 @@ namespace ePubFixer
             Dictionary<string, string> TagToCheck = new Dictionary<string, string>();
             TagToCheck.Add("img", "src");
             TagToCheck.Add("image", "xlink:href");
+            //TagToCheck.Add("svg:image", "xlink:href");
 
             foreach (var item in TagToCheck)
             {
@@ -168,7 +169,7 @@ namespace ePubFixer
             }
 
             fileExtractStream = GetStream(ImageURL);
-            BookImage = fileExtractStream == null ? null : Image.FromStream(fileExtractStream);
+            BookImage = string.IsNullOrEmpty(ImageURL) ? null : Image.FromStream(fileExtractStream);
         }
 
         public static bool ImageCompare(Image firstImage, Image secondImage)
