@@ -31,7 +31,7 @@ namespace ePubFixer
             : base()
         {
             //fileOutStream = new MemoryStream();
-        } 
+        }
         #endregion
 
         #region Update File
@@ -65,7 +65,7 @@ namespace ePubFixer
             {
                 System.Windows.MessageBox.Show("Your Files are now fixed");
             }
-        } 
+        }
         #endregion
 
         #region Read Css
@@ -79,7 +79,7 @@ namespace ePubFixer
                 {
                     string str;
                     bool KoboFix = Properties.Settings.Default.KoboFixMargins;
-                    
+
                     while ((str = sr.ReadLine()) != null)
                     {
                         str = str.Trim();
@@ -89,17 +89,12 @@ namespace ePubFixer
 
                         if (Lines("margin-left:"))
                         {
-                            if (!KoboFix)
-                            {
-                                cssOutput.Add(BodyTagSeen ? "margin-left: 5pt;" : "margin-left: 0;"); 
-                            }
+                            cssOutput.Add(BodyTagSeen ? !KoboFix ? "margin-left: 5pt;" : "" : "margin-left: 0;");
 
                         } else if (Lines("margin-right:"))
                         {
-                            if (!KoboFix)
-                            {
-                                cssOutput.Add(BodyTagSeen ? "margin-right: 5pt;" : "margin-right: 0;"); 
-                            }
+                            cssOutput.Add(BodyTagSeen ? !KoboFix ? "margin-right: 5pt;" : "" : "margin-right: 0;");
+
                             BodyTagSeen = false;
                         } else if (Lines("text-indent:"))
                         {
@@ -120,8 +115,12 @@ namespace ePubFixer
                     }
 
                 }
+
+                cssOutput = (from i in cssOutput
+                             where !string.IsNullOrEmpty(i)
+                             select i).ToList();
             }
-        } 
+        }
         #endregion
 
         #region Write Css
@@ -143,7 +142,7 @@ namespace ePubFixer
                 //Reset Stream
                 fileOutStream.Seek(0, SeekOrigin.Begin);
             }
-        } 
+        }
         #endregion
 
     }
