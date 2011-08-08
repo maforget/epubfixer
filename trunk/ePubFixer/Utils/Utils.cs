@@ -122,9 +122,9 @@ namespace ePubFixer
         #region Verify Files
         public static bool VerifyFileExists(string filename)
         {
-            string file = Zip.GetFilePathInsideZipOPF(filename);
-            file = string.IsNullOrEmpty(file) ? Zip.GetFilePathInsideZipOPF(System.Web.HttpUtility.UrlDecode(filename)) : file;
-            file = string.IsNullOrEmpty(file) ? Zip.GetFilePathInsideZipOPF(System.Web.HttpUtility.UrlPathEncode(filename)) : file;
+            string file = Zip.GetFilePathInsideZip(filename);
+            file = string.IsNullOrEmpty(file) ? Zip.GetFilePathInsideZip(System.Web.HttpUtility.UrlDecode(filename)) : file;
+            file = string.IsNullOrEmpty(file) ? Zip.GetFilePathInsideZip(System.Web.HttpUtility.UrlPathEncode(filename)) : file;
             return string.IsNullOrEmpty(file) ? false : true;
         }
 
