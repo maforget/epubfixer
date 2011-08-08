@@ -133,7 +133,10 @@ namespace ePubFixer
 
         internal void AddCoverRef(string CoverFile)
         {
-            var Guide = GetXmlElement("guide");
+            XElement Guide = GetXmlElement("guide");
+
+            if (Guide == null)
+                Guide = new XElement(ns + "guide");
 
             Guide.Add(
                 new XElement(ns + "reference",
@@ -147,12 +150,22 @@ namespace ePubFixer
         #endregion
 
         #region Replace
-        internal XElement ReplaceSection(XElement newSection,string section)
+        internal XElement ReplaceSection(XElement newSection, string section)
         {
             if (OldTOC != null)
             {
                 NewTOC = new XElement(OldTOC);
-                NewTOC.Element(ns + section).ReplaceWith(newSection);
+                XElement Section = NewTOC.Element(ns + section);
+
+                if (Section==null)
+                {
+                    //If Section does not exist Add it
+                    NewTOC.Add(newSection);
+                } else
+                {
+                    Section.ReplaceWith(newSection); 
+                }
+
                 base.WriteXML();
                 base.UpdateZip();
             } else
