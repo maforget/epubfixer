@@ -316,7 +316,7 @@ namespace ePubFixer
             {
                 Stream htmlStream = base.GetStream(filename);
                 fileOutStream = htmlStream;
-                fileOutName = Utils.VerifyFilenameEncoding(filename);
+                fileOutName = Zip.GetFilePathInsideZip(filename);
                 HtmlDocument html = new HtmlDocument();
                 html.Load(htmlStream, Encoding.UTF8);
 
@@ -448,6 +448,7 @@ namespace ePubFixer
                 ret = doc.Save();
             }
 
+            fileOutStream = new MemoryStream();
             fileOutStream = str;
             return ret;
         }
