@@ -108,7 +108,6 @@ namespace ePubFixer
         #region Update Zip File
         internal void UpdateZip()
         {
-            fileOutStream.Seek(0, SeekOrigin.Begin);
             UpdateZip(this.fileOutStream);
         }
 
