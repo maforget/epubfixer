@@ -80,7 +80,7 @@ namespace ePubFixer
 
         internal static string GetTempFilePath(string filename)
         {
-            string file = GetFilePathInsideZipOPF(filename);
+            string file = GetFilePathInsideZip(filename);
             file = file.Replace('/', '\\');
             file = Variables.TempFolder + @"\" + file;
 
@@ -91,18 +91,18 @@ namespace ePubFixer
 
         #endregion
 
-        internal static string GetFilePathInsideZipOPF(string filename)
-        {
-            string file = "";
-            if (!String.IsNullOrEmpty(filename))
-            {
-                file = (from z in Variables.ZipFileList
-                        where z == Variables.OPFpath + filename
-                        select z).FirstOrDefault();
-            }
+        //internal static string GetFilePathInsideZipOPF(string filename)
+        //{
+        //    string file = "";
+        //    if (!String.IsNullOrEmpty(filename))
+        //    {
+        //        file = (from z in Variables.ZipFileList
+        //                where z == Variables.OPFpath + filename
+        //                select z).FirstOrDefault();
+        //    }
 
-            return file;
-        }
+        //    return file;
+        //}
 
         internal static string GetFilePathInsideZip(string filename)
         {
