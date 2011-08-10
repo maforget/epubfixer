@@ -304,6 +304,14 @@ namespace ePubFixer
             return coverRef;
         }
 
+        public List<string> GetFilesFromOPF()
+        {
+            var ret = (from i in GetFilesList()
+                       select Path.Combine(Variables.OPFpath, i.Value)).ToList();
+
+            return ret;
+        }
+
         #endregion
     }
 

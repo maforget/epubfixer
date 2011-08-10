@@ -314,7 +314,7 @@ namespace ePubFixer
         {
             try
             {
-                Stream htmlStream = base.GetStream(filename);
+                Stream htmlStream = base.GetStreamOPF(filename);
                 fileOutStream = htmlStream;
                 fileOutName = Zip.GetFilePathInsideZip(filename);
                 HtmlDocument html = new HtmlDocument();
