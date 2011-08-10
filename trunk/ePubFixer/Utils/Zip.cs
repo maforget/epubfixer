@@ -91,27 +91,21 @@ namespace ePubFixer
 
         #endregion
 
-        //internal static string GetFilePathInsideZipOPF(string filename)
-        //{
-        //    string file = "";
-        //    if (!String.IsNullOrEmpty(filename))
-        //    {
-        //        file = (from z in Variables.ZipFileList
-        //                where z == Variables.OPFpath + filename
-        //                select z).FirstOrDefault();
-        //    }
-
-        //    return file;
-        //}
-
         internal static string GetFilePathInsideZip(string filename)
         {
             string file = "";
             if (!String.IsNullOrEmpty(filename))
             {
-                file = (from z in Variables.ZipFileList
-                        where z.EndsWith(filename)
+                file = (from z in Variables.FilesPathFromOPF
+                        where Path.Combine(Variables.OPFpath,filename)==z || filename==z
                         select z).FirstOrDefault();
+
+                if (string.IsNullOrEmpty(file))
+                {
+                    file = (from z in Variables.ZipFileList
+                            where z.EndsWith(filename)
+                            select z).FirstOrDefault();
+                }
             }
 
             return file;

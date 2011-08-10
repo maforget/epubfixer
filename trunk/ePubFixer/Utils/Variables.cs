@@ -90,6 +90,51 @@ namespace ePubFixer
             return pathBuilder.ToString();
         }
 
+
+        #region FileInZip
+        private static List<string> _ZipFileList;
+        public static List<string> ZipFileList
+        {
+            get
+            {
+                if (_ZipFileList == null || _ZipFileList.Count == 0)
+                {
+                    _ZipFileList = Zip.GetFilesListInsideZip();
+                }
+
+                return _ZipFileList;
+            }
+
+            set
+            {
+                _ZipFileList = value;
+            }
+        }
+        #endregion
+
+
+        #region FileInZip
+        private static List<string> _FilesPathFromOPF;
+        public static List<string> FilesPathFromOPF
+        {
+            get
+            {
+                if (_FilesPathFromOPF == null || _FilesPathFromOPF.Count == 0)
+                {
+                    OpfDocument doc = new OpfDocument();
+                    _FilesPathFromOPF = doc.GetFilesFromOPF();
+                }
+
+                return _FilesPathFromOPF;
+            }
+
+            set
+            {
+                _FilesPathFromOPF = value;
+            }
+        }
+        #endregion
+
         #endregion
 
         #region Filenames
@@ -137,26 +182,6 @@ namespace ePubFixer
         }
         #endregion
 
-        #region FileInZip
-        private static List<string> _ZipFileList;
-        public static List<string> ZipFileList
-        {
-            get
-            {
-                if (_ZipFileList == null || _ZipFileList.Count==0)
-                {
-                    _ZipFileList = Zip.GetFilesListInsideZip();
-                }
-
-                return _ZipFileList;
-            }
-
-            set
-            {
-                _ZipFileList = value;
-            }
-        } 
-        #endregion
 
 
 

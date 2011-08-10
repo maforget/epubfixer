@@ -32,6 +32,7 @@ namespace ePubFixer
             Variables.NCXFile = string.Empty;
             Variables.TOCDownloadedFromNet = false;
             Variables.ZipFileList = new List<string>();
+            Variables.FilesPathFromOPF = new List<string>();
         }
 
         public static void NewFilename()

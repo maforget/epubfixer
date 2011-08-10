@@ -361,6 +361,7 @@ namespace ePubFixer
                 SplitChapters doc = new SplitChapters(GetFilenames(Model.Nodes, false));
                 doc.UpdateFiles();
                 Variables.ZipFileList = new List<string>();
+                Variables.FilesPathFromOPF = new List<string>();
                 return doc.list;
             } else
             {

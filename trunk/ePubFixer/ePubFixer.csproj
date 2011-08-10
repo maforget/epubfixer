@@ -105,9 +105,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TidyManaged, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\Libraries\TidyManaged\TidyManaged.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="TidyManaged">
+      <HintPath>DLL\TidyManaged.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

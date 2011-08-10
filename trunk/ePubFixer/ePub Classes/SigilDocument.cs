@@ -71,6 +71,7 @@ namespace ePubFixer
             Variables.OPFfile = string.Empty;
             Variables.NCXFile = string.Empty;
             Variables.ZipFileList = new List<string>();
+            Variables.FilesPathFromOPF = new List<string>();
             OpfDocument doc = new OpfDocument();
             FileList = doc.GetFilesList("html");
 
