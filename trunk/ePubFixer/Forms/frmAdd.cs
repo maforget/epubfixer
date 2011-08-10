@@ -168,7 +168,7 @@ namespace ePubFixer
                 {
                     MyNode n = item.Tag as MyNode;
                     NavDetails nav = n.Tag as NavDetails;
-                    int Base = Incremental ? n.OriginalCount-1 : 0;
+                    int Base = Incremental ? n.OriginalCount - 1 : 0;
                     if (nav.DetectedTexts == null)
                         continue;
 
@@ -182,7 +182,7 @@ namespace ePubFixer
                             if (NewIndex > QtyMax)
                             {
                                 NewIndex = QtyMax;
-                            } 
+                            }
 
                             nav.Text = nav.DetectedTexts[NewIndex];
                             n.DetectedText = nav.DetectedTexts[NewIndex];
@@ -277,8 +277,7 @@ namespace ePubFixer
 
                     //Utils.RemoveNonExistantNode(Model.Nodes);
                 }
-            }
-            catch (Exception)
+            } catch (Exception)
             {
 
             }
@@ -470,6 +469,16 @@ namespace ePubFixer
         private void tree_ItemDrag(object sender, ItemDragEventArgs e)
         {
             treeView1.DoDragDropSelectedNodes(DragDropEffects.Copy);
+            if (cbShowAll.Checked)
+            {
+                TreeNodeAdv[] items = e.Item as TreeNodeAdv[];
+
+                foreach (var item in items)
+                {
+                    MyNode nav = item.Tag as MyNode;
+                    AddPresentFiles(nav.ContentSrc);
+                }
+            }
         }
 
         private void treeView1_DragOver(object sender, DragEventArgs e)
@@ -490,6 +499,7 @@ namespace ePubFixer
 
                 if (cbShowAll.Checked)
                 {
+                    //TODO Reload TOC if Show All is true and using drag drop
                     LoadFiles();
                 }
             }
