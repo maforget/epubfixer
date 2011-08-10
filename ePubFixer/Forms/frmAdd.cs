@@ -703,6 +703,7 @@ namespace ePubFixer
         }
         #endregion
 
+        #region Select All
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             selectAll();
@@ -711,7 +712,8 @@ namespace ePubFixer
         private void selectAll()
         {
             treeView1.SelectAllNodes();
-        }
+        } 
+        #endregion
 
 
         //TODO Look for links in html files and add a option to see only those (ex : Content with LInks or Footnote)

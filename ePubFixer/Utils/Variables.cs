@@ -13,6 +13,7 @@ namespace ePubFixer
     public static class Variables
     {
         #region Fields & Path
+        #region Fields
         public static string SigilDefaultPath = "C:\\Program Files\\Sigil\\Sigil.exe";
         public static bool BackupDone { get; set; }
         public static bool DoBackup { get; set; }
@@ -23,7 +24,8 @@ namespace ePubFixer
         public static Dictionary<string, List<string>> AnchorsInFile;
 
         public static List<Form> OpenedForm = new List<Form>();
-        public static bool TOCDownloadedFromNet = false;
+        public static bool TOCDownloadedFromNet = false; 
+        #endregion
 
         public static string ApplicationName
         {
@@ -112,8 +114,7 @@ namespace ePubFixer
         }
         #endregion
 
-
-        #region FileInZip
+        #region Full Path From OPF
         private static List<string> _FilesPathFromOPF;
         public static List<string> FilesPathFromOPF
         {
@@ -181,9 +182,6 @@ namespace ePubFixer
             return s[s.Length - 1];
         }
         #endregion
-
-
-
 
     }
 

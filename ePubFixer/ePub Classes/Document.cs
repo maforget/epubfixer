@@ -176,6 +176,8 @@ namespace ePubFixer
         }
         #endregion
 
+
+
         #region Get XML Element
         internal XElement GetXmlElement(Stream stream, string TextToFind)
         {
