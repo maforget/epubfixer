@@ -442,14 +442,10 @@ namespace ePubFixer
                 doc.IndentBlockElements = Tidy.AutoBool.Yes;
                 doc.WrapAt = 0;
                 doc.NewBlockLevelTags = "svg,image";
-                doc.MakeClean = true;
                 doc.CleanAndRepair();
-                doc.Save(str);
                 ret = doc.Save();
             }
 
-            fileOutStream = new MemoryStream();
-            fileOutStream = str;
             return ret;
         }
 

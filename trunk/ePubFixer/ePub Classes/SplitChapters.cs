@@ -379,7 +379,8 @@ namespace ePubFixer
                 } else
                 {
                     MyHtmlDocument htmlDoc = new MyHtmlDocument();
-                    htmlDoc.TidyHtml(newHtml);
+                    string TidiedHTML = htmlDoc.TidyHtml(newHtml);
+                    htmlDoc.fileOutStream = TidiedHTML.ToStream();
 
                     string file = ZipFileNames.Where(x => x == Variables.OPFpath + filename).Select(x => x).FirstOrDefault().Replace(filename, splitFilename);
                     htmlDoc.fileOutName = file;
