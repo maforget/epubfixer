@@ -44,6 +44,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.cbPreserveRatio = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -187,6 +188,17 @@
             this.toolTip.InitialDelay = 500;
             this.toolTip.ReshowDelay = 100;
             // 
+            // cbPreserveRatio
+            // 
+            this.cbPreserveRatio.Checked = true;
+            this.cbPreserveRatio.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbPreserveRatio.Location = new System.Drawing.Point(12, 205);
+            this.cbPreserveRatio.Name = "cbPreserveRatio";
+            this.cbPreserveRatio.Size = new System.Drawing.Size(104, 35);
+            this.cbPreserveRatio.TabIndex = 15;
+            this.cbPreserveRatio.Text = "Preserve Aspect Ratio";
+            this.cbPreserveRatio.UseVisualStyleBackColor = true;
+            // 
             // frmCover
             // 
             this.AcceptButton = this.btnSave;
@@ -194,6 +206,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(638, 694);
+            this.Controls.Add(this.cbPreserveRatio);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnFromFolder);
             this.Controls.Add(this.lblHeigth);
@@ -237,5 +250,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.CheckBox cbPreserveRatio;
     }
 }

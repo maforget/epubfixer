@@ -40,7 +40,7 @@ namespace ePubFixer
             toolTip.SetToolTip(btnFile, "Chooses a image file to update the Cover");
             toolTip.SetToolTip(btnSave, "Will Update the image file and make sure that the cover is stretched to fit.\n" +
                                         "Also adds the cover to the guide if it was missing");
-        } 
+        }
         #endregion
 
         #region Form Events
@@ -93,7 +93,7 @@ namespace ePubFixer
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            OnCoverChanged(new CoverChangedArgs(Cover));
+            OnCoverChanged(new CoverChangedArgs(Cover, cbPreserveRatio.Checked));
         }
         #endregion
 

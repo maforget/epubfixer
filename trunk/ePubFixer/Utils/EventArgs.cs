@@ -81,14 +81,22 @@ namespace ePubFixer
         public bool ChangedCoverFile { get; set; }
         public int Heigth { get; set; }
         public int Width { get; set; }
+        public bool PreserveAspectRatio { get; set; }
 
-        public CoverChangedArgs(Image cover)
+        public CoverChangedArgs(Image cover, bool PreserveRatio)
         {
             this.Cover = cover;
             this.Message = string.Empty;
             this.ChangedCoverFile = false;
             this.Heigth = cover.Height;
             this.Width = cover.Width;
+            this.PreserveAspectRatio = PreserveRatio;
         }
+
+        public CoverChangedArgs(Image cover)
+            : this(cover, true)
+        {
+        }
+
     }
 }
