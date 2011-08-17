@@ -85,7 +85,7 @@
       <HintPath>DLL\Drm.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="HtmlAgilityPack">
+    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>DLL\HtmlAgilityPack.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -262,12 +262,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DLL\HtmlAgilityPack.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Condition="$(DRM)==TRUE" Include="DLL\Drm.dll" />
     <EmbeddedResource Condition="$(DRM)==TRUE" Include="DLL\BouncyCastle.CryptoExt.dll" />
     <EmbeddedResource Include="DLL\TidyManaged.dll" />
+    <EmbeddedResource Include="DLL\HtmlAgilityPack.dll" />
     <Content Include="libtidy.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
