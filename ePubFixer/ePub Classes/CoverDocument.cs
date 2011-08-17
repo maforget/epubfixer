@@ -32,6 +32,7 @@ namespace ePubFixer
         private string CoverFile;
         private string ImageURL = string.Empty;
         private Image BookImage = null;
+        private bool ImageIsSVG = false;
         private bool IsGuideEmpty = true;
 
         #endregion
@@ -41,7 +42,7 @@ namespace ePubFixer
             : base()
         {
             //GetImage();
-        } 
+        }
         #endregion
 
         internal override void UpdateFile()
@@ -58,6 +59,7 @@ namespace ePubFixer
             {
                 bool ChangedCoverFile = false;
                 bool FixedCoverWidth = false;
+                bool PreserveAspectRatio = e.PreserveAspectRatio;
 
                 #region Replace Existing File with the New One if it is different
                 if (!ImageCompare(e.Cover, BookImage))
@@ -74,13 +76,18 @@ namespace ePubFixer
                 #endregion
 
                 #region Make sure it is scaled to fit
-                string[] Name = { "height","width"};
+                string[] Name = { "height", "width" };
                 string Fit = "100%";
 
                 foreach (var item in Name)
                 {
                     string Heigth = ImageNode.GetAttributeValue(item, "");
-                    string Value = item == "height" ? Fit : Fit;
+                    string Value;
+                    if (PreserveAspectRatio)
+                        Value = item == "height" ? e.Heigth.ToString() : e.Width.ToString();
+                    else
+                        Value = item == "height" ? Fit : Fit;
+                    //TODO If file has svg change the aspect ratio setting
 
                     if (Heigth != Value)
                     {
@@ -93,7 +100,20 @@ namespace ePubFixer
                         }
 
                         FixedCoverWidth = true;
-                    } 
+
+                        if (ImageIsSVG)
+                        {
+                            HtmlAttribute AspectAttri = ImageNode.ParentNode.Attributes["preserveAspectRatio"];
+
+                            if (AspectAttri != null)
+                            {
+                                AspectAttri.Value = PreserveAspectRatio ? "xMidYMid meet" : "none";
+                                //TODO Bug changes attribute name and removes the case.
+                            }
+
+                            ImageNode.ParentNode.Attributes["viewBox"].Value = "0 0 " + e.Width.ToString() + " " + e.Heigth.ToString();
+                        }
+                    }
                 }
 
                 if (FixedCoverWidth)
@@ -101,9 +121,12 @@ namespace ePubFixer
                     MyHtmlDoc.fileOutStream = MyHtmlDoc.TidyHtml(ImageNode.OwnerDocument.DocumentNode.OuterHtml).ToStream();
                     MyHtmlDoc.UpdateZip();
 
-                    e.Message = !ChangedCoverFile ? "File has not changed, But making sure that it is scaled to fit" : e.Message;
+                    if (PreserveAspectRatio)
+                        e.Message = !ChangedCoverFile ? "File has not changed, But Fixing the dimensions" : e.Message;
+                    else
+                        e.Message = !ChangedCoverFile ? "File has not changed, But making sure that it is scaled to fit" : e.Message;
                 }
-                
+
                 #endregion
 
                 #region If guide is empty add it
@@ -111,7 +134,7 @@ namespace ePubFixer
                 {
                     MyOPFDoc.AddCoverRef(CoverFile);
                     e.Message = !ChangedCoverFile && !FixedCoverWidth ? "File has not changed, But fixing missing Cover Tag in guide" : e.Message;
-                } 
+                }
                 #endregion
 
                 //Update the stream and BookImage with the new default
@@ -152,19 +175,18 @@ namespace ePubFixer
             Dictionary<string, string> TagToCheck = new Dictionary<string, string>();
             TagToCheck.Add("img", "src");
             TagToCheck.Add("image", "xlink:href");
-            //TagToCheck.Add("svg:image", "xlink:href");
 
             foreach (var item in TagToCheck)
             {
                 ImageNode = HtmlDoc.DocumentNode.SelectSingleNode("//" + item.Key);
                 if (ImageNode != null)
                 {
+                    ImageIsSVG = ImageNode.ParentNode.Name == "svg" ? true : false;
                     ImageURL = ImageNode.Attributes[item.Value].Value;
 
                     //Clean URL
                     ImageURL = ImageURL.Replace("../", "");
                     break;
-
                 }
             }
 
