@@ -29,6 +29,19 @@ namespace ePubFixer
         protected override XElement OldTOC { get; set; }
         protected override XNamespace ns { get; set; }
         private List<string> AnchorsInFile;
+
+        const string svgElements = "a,altGlyph,altGlyphDef,altGlyphItem,animate,animateColor,animateMotion" +
+                                            ",animateTransform,circle,clipPath,color-profile,cursor,definition-src,defs,desc" +
+                                            ",ellipse,feBlend,feColorMatrix,feComponentTransfer,feComposite,feConvolveMatrix" +
+                                            ",feDiffuseLighting,feDisplacementMap,feDistantLight,feFlood,feFuncA,feFuncB" +
+                                            ",feFuncG,feFuncR,feGaussianBlur,feImage,feMerg,feMergeNode,feMorphology,feOffset" +
+                                            ",fePointLight,feSpecularLighting,feSpotLight,feTile,feTurbulence,filter" +
+                                            ",font,font-face,font-face-format,font-face-name,font-face-src,font-face-uri" +
+                                            ",foreignObject,g,glyph,glyphRef,hkern,image,line,linearGradient,marker,mask" +
+                                            ",metadata,missing-glyph,mpath,path,pattern,polygon,polyline,radialGradient" +
+                                            ",rect,script,set,stop,style,svg,switch,symbol,text,textPath,title,tref,tspan" +
+                                            ",use,view,vkern";
+
         #endregion
 
         #region Constructor
@@ -318,11 +331,12 @@ namespace ePubFixer
                 fileOutStream = htmlStream;
                 fileOutName = Zip.GetFilePathInsideZip(filename);
                 HtmlDocument html = new HtmlDocument();
+                html.OptionWriteEmptyNodes = true;
+                html.OptionOutputOriginalCase = true;
                 html.Load(htmlStream, Encoding.UTF8);
 
                 return html;
-            }
-            catch (Exception)
+            } catch (Exception)
             {
                 return null;
             }
@@ -428,7 +442,6 @@ namespace ePubFixer
 
         public string TidyHtml(string newHtml)
         {
-            Stream str = new MemoryStream();
             string ret = string.Empty;
 
             using (Tidy.Document doc = Tidy.Document.FromString(newHtml))
@@ -441,7 +454,20 @@ namespace ePubFixer
                 doc.IndentAttributes = false;
                 doc.IndentBlockElements = Tidy.AutoBool.Yes;
                 doc.WrapAt = 0;
-                doc.NewBlockLevelTags = "svg,image";
+                doc.NewBlockLevelTags = svgElements;
+                doc.AddTidyMetaElement = false;
+                doc.MakeClean = true;
+                doc.ForceOutput = true;
+
+                doc.PreserveEntities = true;
+                doc.AnchorAsName = false;
+                doc.EncloseBodyText = true;
+                doc.EnsureLiteralAttributes = true;
+                doc.AddXmlDeclaration = true;
+                doc.LowerCaseLiterals = false;
+                doc.UpperCaseAttributes = true;
+                doc.UpperCaseTags = true;
+
                 doc.CleanAndRepair();
                 ret = doc.Save();
             }
