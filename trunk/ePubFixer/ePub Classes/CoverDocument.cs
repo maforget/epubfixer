@@ -98,7 +98,7 @@ namespace ePubFixer
 
                 if (FixedCoverWidth)
                 {
-                    MyHtmlDoc.TidyHtml(ImageNode.OwnerDocument.DocumentNode.OuterHtml);
+                    MyHtmlDoc.fileOutStream = MyHtmlDoc.TidyHtml(ImageNode.OwnerDocument.DocumentNode.OuterHtml).ToStream();
                     MyHtmlDoc.UpdateZip();
 
                     e.Message = !ChangedCoverFile ? "File has not changed, But making sure that it is scaled to fit" : e.Message;
