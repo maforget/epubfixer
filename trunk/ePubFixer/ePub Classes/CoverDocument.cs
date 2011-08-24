@@ -83,11 +83,12 @@ namespace ePubFixer
                 {
                     string Heigth = ImageNode.GetAttributeValue(item, "");
                     string Value;
+                    string ValueFix = item == "height" ? e.Heigth.ToString() : e.Width.ToString();
+                    string ValueFit = item == "height" ? Fit : Fit;
                     if (PreserveAspectRatio)
-                        Value = item == "height" ? e.Heigth.ToString() : e.Width.ToString();
+                        Value = ValueFix;
                     else
-                        Value = item == "height" ? Fit : Fit;
-                    //TODO If file has svg change the aspect ratio setting
+                        Value = ImageIsSVG ? ValueFix : ValueFit;
 
                     if (Heigth != Value)
                     {
@@ -108,7 +109,6 @@ namespace ePubFixer
                             if (AspectAttri != null)
                             {
                                 AspectAttri.Value = PreserveAspectRatio ? "xMidYMid meet" : "none";
-                                //TODO Bug changes attribute name and removes the case.
                             }
 
                             ImageNode.ParentNode.Attributes["viewBox"].Value = "0 0 " + e.Width.ToString() + " " + e.Heigth.ToString();
