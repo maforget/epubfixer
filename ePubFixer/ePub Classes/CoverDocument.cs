@@ -83,14 +83,22 @@ namespace ePubFixer
                 {
                     string Heigth = ImageNode.GetAttributeValue(item, "");
                     string Value;
+                    string SVGValue;
                     string ValueFix = item == "height" ? e.Heigth.ToString() : e.Width.ToString();
                     string ValueFit = item == "height" ? Fit : Fit;
                     if (PreserveAspectRatio)
+                    {
                         Value = ValueFix;
-                    else
+                        SVGValue = "xMidYMid meet";
+                    } else
+                    {
                         Value = ImageIsSVG ? ValueFix : ValueFit;
+                        SVGValue = "none";
+                    }
 
-                    if (Heigth != Value)
+                    HtmlAttribute AspectAttri = ImageNode.ParentNode.Attributes["preserveAspectRatio"];
+
+                    if (Heigth != Value || (AspectAttri!=null && AspectAttri.Value!=SVGValue))
                     {
                         if (string.IsNullOrEmpty(Heigth))
                         {
@@ -104,12 +112,8 @@ namespace ePubFixer
 
                         if (ImageIsSVG)
                         {
-                            HtmlAttribute AspectAttri = ImageNode.ParentNode.Attributes["preserveAspectRatio"];
-
                             if (AspectAttri != null)
-                            {
-                                AspectAttri.Value = PreserveAspectRatio ? "xMidYMid meet" : "none";
-                            }
+                                AspectAttri.Value = SVGValue;
 
                             ImageNode.ParentNode.Attributes["viewBox"].Value = "0 0 " + e.Width.ToString() + " " + e.Heigth.ToString();
                         }
