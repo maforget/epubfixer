@@ -141,6 +141,9 @@ namespace ePubFixer
                 }
                 #endregion
 
+                //Check to see if the cover file is the first
+                CheckPositionOfCover();
+
                 //Update the stream and BookImage with the new default
                 GetImage();
 
@@ -220,6 +223,16 @@ namespace ePubFixer
             } else
             {
                 return false;
+            }
+        }
+
+        private void CheckPositionOfCover()
+        {
+            string FirstRef = MyOPFDoc.GetSpineRefAtIndex(0);
+            if (FirstRef!=MyOPFDoc.GetCoverRef())
+            {
+                System.Windows.Forms.MessageBox.Show("The Cover File is not the first File\n" +
+                "Please use the Reading Order editor to modify it (id="+Utils.GetId(FirstRef+")"),"Cover is Not the First File",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Information);
             }
         }
 
