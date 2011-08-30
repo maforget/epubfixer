@@ -168,6 +168,7 @@ namespace ePubFixer
 
                 base.WriteXML();
                 base.UpdateZip();
+                SetFile();
             } else
             {
                 return null;
