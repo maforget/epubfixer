@@ -81,12 +81,14 @@
       <HintPath>DLL\Aga.Controls.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Condition="$(DRM)==TRUE" Include="Drm">
+    <Reference Include="Drm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>DLL\Drm.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>DLL\HtmlAgilityPack.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="Ionic.Zip.Reduced">
@@ -107,6 +109,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="TidyManaged">
       <HintPath>DLL\TidyManaged.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
