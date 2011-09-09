@@ -128,7 +128,7 @@ namespace ePubFixer
                 SaveMessage = "Saved!";
             } catch (Exception e)
             {
-                SaveMessage += e.Message;
+                SaveMessage = "Error : " + e.Message;
             }
         }
         #endregion
