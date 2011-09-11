@@ -8,6 +8,7 @@ using System.Xml;
 using HtmlAgilityPack;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text;
 
 namespace ePubFixer
 {
@@ -32,8 +33,15 @@ namespace ePubFixer
         private string CoverFile;
         private string ImageURL = string.Empty;
         private Image BookImage = null;
-        private bool ImageIsSVG = false;
+        private static bool ImageIsSVG = false;
         private bool IsGuideEmpty = true;
+
+        //Settings For MassUpdate
+        internal static bool MassPreserveRatio = true;
+        internal static bool OnlyEditHtml = true;
+        internal static SourceOfCover MassSource = SourceOfCover.FromBook;
+        public static double ImageRatio = 0.75;
+        public enum SourceOfCover { FromFolder, FromBook }
 
         #endregion
 
@@ -53,107 +61,157 @@ namespace ePubFixer
             frm.ShowDialog();
         }
 
-        private void ExportNewCover(object sender, CoverChangedArgs e)
+        public static Image ResizeImage(Image image, double WidthRatioVsHeigth, bool preserveRatio)
         {
-            if (e.Cover != null)
+            int height = image.Height;
+            int Width = image.Width;
+            int ResizedWidth = !preserveRatio ? (int)(height * WidthRatioVsHeigth) : image.Width;
+
+            Bitmap b = new Bitmap(ResizedWidth, height);
+            Graphics g = Graphics.FromImage(b);
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            g.DrawImage(image, 0, 0, ResizedWidth, height);
+            g.Dispose();
+            return b;
+        }
+
+        private string OriginalImageURL;
+        bool PreserveAspectRatio;
+        private bool FixHtml(CoverChangedArgs e)
+        {
+            bool FixedCoverWidth = false;
+            PreserveAspectRatio = e.PreserveAspectRatio;
+
+            string HtmlHeigth = ImageNode.GetAttributeValue("height", "");
+            string HtmlWidth = ImageNode.GetAttributeValue("width", "");
+            string HeigthValue = e.Heigth.ToString();
+            string WidthValue = e.Width.ToString();
+            //string HeigthValue = ImageIsSVG ? e.Heigth.ToString() : "100%";
+            //string WidthValue = ImageIsSVG ? e.Width.ToString() : "100%";
+
+            string SVGAspectValue = PreserveAspectRatio ? "xMidYMid meet" : "none";
+            string SVGHeigthValue = PreserveAspectRatio ? "100%" : "800";
+            string SVGWidthValue = PreserveAspectRatio ? "100%" : "600";
+            HtmlAttribute SVGAspectAttri = ImageNode.ParentNode.Attributes["preserveAspectRatio"];
+            HtmlAttribute SVGHeigthAttri = ImageNode.ParentNode.Attributes["height"];
+            HtmlAttribute SVGWidthAttri = ImageNode.ParentNode.Attributes["width"];
+
+            HtmlNode body = ImageNode.OwnerDocument.DocumentNode.SelectSingleNode("//body");
+            HtmlNodeCollection css = ImageNode.OwnerDocument.DocumentNode.SelectNodes("//head/link");
+            HtmlNode BodyStyle = ImageNode.OwnerDocument.DocumentNode.SelectSingleNode("//head/style");
+            string styleValue = "margin:0; padding: 0; border-width: 0";
+            HtmlAttribute styleAttri = body.Attributes["style"];
+            HtmlAttribute classAttri = body.Attributes["class"];
+
+            if (HtmlHeigth != HeigthValue | HtmlWidth != WidthValue | (SVGAspectAttri != null && SVGAspectAttri.Value != SVGAspectValue) | (SVGHeigthAttri != null && SVGHeigthAttri.Value != SVGHeigthValue) | (SVGWidthAttri != null && SVGWidthAttri.Value != SVGWidthValue) | !ImageIsSVG | (styleAttri != null && styleAttri.Value != styleValue) | styleAttri==null | css!=null | BodyStyle!=null)
             {
-                bool ChangedCoverFile = false;
-                bool FixedCoverWidth = false;
-                bool PreserveAspectRatio = e.PreserveAspectRatio;
-
-                #region Replace Existing File with the New One if it is different
-                if (!ImageCompare(e.Cover, BookImage))
+                try
                 {
-                    fileOutName = Zip.GetFilePathInsideZip(ImageURL);
-                    fileOutStream = e.Cover.ToStream(ImageFormat.Jpeg);
-                    UpdateZip();
-                    e.Message = SaveMessage;
-                    ChangedCoverFile = true;
-                } else
-                {
-                    e.Message = "File has not changed, Aborting";
-                }
-                #endregion
+                    ImageNode.SetAttributeValue("height", HeigthValue);
+                    ImageNode.SetAttributeValue("width", WidthValue);
 
-                #region Make sure it is scaled to fit
-                string[] Name = { "height", "width" };
-                string Fit = "100%";
-
-                foreach (var item in Name)
-                {
-                    string Heigth = ImageNode.GetAttributeValue(item, "");
-                    string Value;
-                    string SVGValue;
-                    string ValueFix = item == "height" ? e.Heigth.ToString() : e.Width.ToString();
-                    string ValueFit = item == "height" ? Fit : Fit;
-                    if (PreserveAspectRatio)
+                    if (ImageIsSVG)
                     {
-                        Value = ValueFix;
-                        SVGValue = "xMidYMid meet";
+                        SVGAspectAttri.Value = SVGAspectValue;
+
+                        ImageNode.ParentNode.Attributes["viewBox"].Value = "0 0 " + e.Width.ToString() + " " + e.Heigth.ToString();
+                        ImageNode.ParentNode.SetAttributeValue("height", SVGHeigthValue);
+                        ImageNode.ParentNode.SetAttributeValue("width", SVGWidthValue);
+
+                        if (css != null)
+                            css.ToList().ForEach(x => x.Remove());//Remove any css or xgpt file
+                        if (BodyStyle != null)
+                            BodyStyle.Remove();//Remove the style element
+                        if(classAttri!=null)
+                            classAttri.Remove();//Delete the class attribute because it is no longer needed
+                        body.SetAttributeValue("style", styleValue);//replace the style class with a style Attribute
+
                     } else
                     {
-                        Value = ImageIsSVG ? ValueFix : ValueFit;
-                        SVGValue = "none";
+
+                        //If file is not SVG base Convert it and rerun the Fix
+                        string SVGhtml = @"<svg xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" height=""800"" preserveAspectRatio=""none"" version=""1.1"" viewBox=""0 0 600 800"" width=""600"">
+      <image height=""800"" width=""600"" xlink:href=""" + this.OriginalImageURL + @"""></image>
+    </svg>";
+                        string newHtml = ImageNode.OwnerDocument.DocumentNode.OuterHtml.Replace(ImageNode.OwnerDocument.DocumentNode.SelectSingleNode("//body").InnerHtml, SVGhtml);
+
+                        //Reload ImageNode
+                        HtmlDocument newDoc = new HtmlDocument();
+                        newDoc.OptionDefaultStreamEncoding = Encoding.UTF8;
+                        newDoc.LoadHtml(newHtml);
+                        ImageNode = newDoc.DocumentNode.SelectSingleNode("//image");
+                        ImageIsSVG = true;
+
+                        FixHtml(e);
                     }
 
-                    HtmlAttribute AspectAttri = ImageNode.ParentNode.Attributes["preserveAspectRatio"];
-
-                    if (Heigth != Value || (AspectAttri!=null && AspectAttri.Value!=SVGValue))
-                    {
-                        if (string.IsNullOrEmpty(Heigth))
-                        {
-                            ImageNode.SetAttributeValue(item, Value);
-                        } else
-                        {
-                            ImageNode.Attributes[item].Value = Value;
-                        }
-
-                        FixedCoverWidth = true;
-
-                        if (ImageIsSVG)
-                        {
-                            if (AspectAttri != null)
-                                AspectAttri.Value = SVGValue;
-
-                            ImageNode.ParentNode.Attributes["viewBox"].Value = "0 0 " + e.Width.ToString() + " " + e.Heigth.ToString();
-                        }
-                    }
+                    FixedCoverWidth = true;
                 }
+                catch (Exception) { }
+            }
 
-                if (FixedCoverWidth)
-                {
-                    MyHtmlDoc.fileOutStream = MyHtmlDoc.TidyHtml(ImageNode.OwnerDocument.DocumentNode.OuterHtml).ToStream();
-                    MyHtmlDoc.UpdateZip();
+            return FixedCoverWidth;
+        }
 
-                    if (PreserveAspectRatio)
-                        e.Message = !ChangedCoverFile ? "File has not changed, But Fixing the dimensions" : e.Message;
-                    else
-                        e.Message = !ChangedCoverFile ? "File has not changed, But making sure that it is scaled to fit" : e.Message;
-                }
-
-                #endregion
-
-                #region If guide is empty add it
-                if (IsGuideEmpty)
-                {
-                    MyOPFDoc.AddCoverRef(CoverFile);
-                    e.Message = !ChangedCoverFile && !FixedCoverWidth ? "File has not changed, But fixing missing Cover Tag in guide" : e.Message;
-                }
-                #endregion
-
-                //Check to see if the cover file is the first
-                CheckPositionOfCover();
-
-                //Update the stream and BookImage with the new default
-                GetImage();
-
-                e.ChangedCoverFile = ChangedCoverFile;
-            } else
+        private void ExportNewCover(object sender, CoverChangedArgs e)
+        {
+            using (new HourGlass())
             {
-                e.Message = "Cover is Empty, Aborting";
+                if (e.Cover != null && ImageNode != null)
+                {
+                    bool ChangedCoverFile = false;
+
+                    #region Replace Existing File with the New One if it is different
+                    if (!ImageCompare(e.Cover, BookImage))
+                    {
+                        fileOutName = Zip.GetFilePathInsideZip(ImageURL);
+                        fileOutStream = e.Cover.ToStream(BookImage.RawFormat);
+                        UpdateZip();
+                        e.Message = SaveMessage;
+                        ChangedCoverFile = true;
+                    } else
+                    {
+                        e.Message = "File has not changed, Aborting";
+                    }
+                    #endregion
+
+                    //Make sure it is scaled to fit
+                    bool FixedCoverWidth = FixHtml(e);
+                      
+                    if (FixedCoverWidth)
+                    {
+                        MyHtmlDoc.fileOutStream = MyHtmlDoc.TidyHtml(ImageNode.OwnerDocument.DocumentNode.OuterHtml).ToStream();
+                        MyHtmlDoc.UpdateZip();
+
+                        if (PreserveAspectRatio)
+                            e.Message = !ChangedCoverFile ? "File has not changed, But Fixing the dimensions" : e.Message;
+                        else
+                            e.Message = !ChangedCoverFile ? "File has not changed, But making sure that it is scaled to fit" : e.Message;
+                    }
+
+                    #region If guide is empty add it
+                    if (IsGuideEmpty)
+                    {
+                        MyOPFDoc.AddCoverRef(CoverFile);
+                        e.Message = !ChangedCoverFile && !FixedCoverWidth ? "File has not changed, But fixing missing Cover Tag in guide" : e.Message;
+                    }
+                    #endregion
+
+                    //Check to see if the cover file is the first
+                    CheckPositionOfCover();
+
+                    //Update the stream and BookImage with the new default
+                    GetImage();
+
+                    e.ChangedCoverFile = ChangedCoverFile;
+                } else
+                {
+                    e.Message = "Cover is Empty, Aborting";
+                }
             }
         }
 
+        #region Get Image From Book
         private string GetCoverFile()
         {
             MyOPFDoc = new OpfDocument();
@@ -192,6 +250,7 @@ namespace ePubFixer
                     ImageURL = ImageNode.Attributes[item.Value].Value;
 
                     //Clean URL
+                    OriginalImageURL = ImageURL;
                     ImageURL = ImageURL.Replace("../", "");
                     break;
                 }
@@ -199,7 +258,8 @@ namespace ePubFixer
 
             fileExtractStream = GetStream(ImageURL);
             BookImage = string.IsNullOrEmpty(ImageURL) ? null : Image.FromStream(fileExtractStream);
-        }
+        } 
+        #endregion
 
         public static bool ImageCompare(Image firstImage, Image secondImage)
         {
@@ -229,10 +289,10 @@ namespace ePubFixer
         private void CheckPositionOfCover()
         {
             string FirstRef = MyOPFDoc.GetSpineRefAtIndex(0);
-            if (FirstRef!=MyOPFDoc.GetCoverRef())
+            if (FirstRef != MyOPFDoc.GetCoverRef())
             {
                 System.Windows.Forms.MessageBox.Show("The Cover File is not the first File\n" +
-                "Please use the Reading Order editor to modify it (id="+Utils.GetId(FirstRef+")"),"Cover is Not the First File",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Information);
+                "Please use the Reading Order editor to modify it (id=" + Utils.GetId(FirstRef + ")"), "Cover is Not the First File", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
             }
         }
 
