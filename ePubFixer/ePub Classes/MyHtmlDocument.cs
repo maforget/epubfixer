@@ -323,6 +323,15 @@ namespace ePubFixer
         #endregion
 
         #region Get Html from File
+
+        private string FixSVGCase(string html)
+        {
+            html = html.Replace("preserveaspectratio", "preserveAspectRatio");
+            html = html.Replace("viewbox", "viewBox");
+
+            return html;
+        }
+
         internal HtmlDocument GetHtml(string filename)
         {
             try
@@ -333,9 +342,10 @@ namespace ePubFixer
                 HtmlDocument html = new HtmlDocument();
                 html.OptionWriteEmptyNodes = true;
                 html.OptionOutputOriginalCase = true;
-                html.Load(htmlStream, Encoding.UTF8);
-
+                //html.OptionOutputAsXml = true;
+                html.Load(htmlStream,Encoding.UTF8);
                 return html;
+
             } catch (Exception)
             {
                 return null;
@@ -449,6 +459,7 @@ namespace ePubFixer
                 doc.ShowWarnings = false;
                 doc.Quiet = true;
                 doc.OutputXhtml = true;
+                doc.CharacterEncoding = Tidy.EncodingType.Utf8;
                 doc.InputCharacterEncoding = Tidy.EncodingType.Utf8;
                 doc.OutputCharacterEncoding = Tidy.EncodingType.Utf8;
                 doc.IndentAttributes = false;
@@ -462,14 +473,16 @@ namespace ePubFixer
                 doc.PreserveEntities = true;
                 doc.AnchorAsName = false;
                 doc.EncloseBodyText = true;
+                doc.EncloseBlockText = true;
                 doc.EnsureLiteralAttributes = true;
                 doc.AddXmlDeclaration = true;
-                doc.LowerCaseLiterals = false;
-                doc.UpperCaseAttributes = true;
-                doc.UpperCaseTags = true;
+                doc.RemoveEndTags = true;
+                doc.UseXmlParser = true;
+                doc.AddXmlSpacePreserve = true;
 
                 doc.CleanAndRepair();
                 ret = doc.Save();
+                ret = FixSVGCase(ret);
             }
 
             return ret;

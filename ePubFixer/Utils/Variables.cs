@@ -22,6 +22,7 @@ namespace ePubFixer
         public static Dictionary<string, DetectedHeaders> HeaderTextInFile;
         public static Dictionary<string, DetectedHeaders> AnchorTextInFile;
         public static Dictionary<string, List<string>> AnchorsInFile;
+        public static bool MassUpdate = false;
 
         public static List<Form> OpenedForm = new List<Form>();
         public static bool TOCDownloadedFromNet = false; 

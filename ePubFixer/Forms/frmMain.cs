@@ -208,6 +208,7 @@ namespace ePubFixer
             }
 
             Decryption.SaveDirectory = string.Empty;
+            Variables.MassUpdate = false;
 
             for (int i = 0; i < Variables.Filenames.Count; i++)
             {

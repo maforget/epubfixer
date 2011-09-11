@@ -91,17 +91,7 @@ namespace ePubFixer
         #region Get String From Stream
         protected string ByteToString(Stream stream)
         {
-            if (stream == null || stream.Length <= 0)
-                return null;
-
-            //Reset Stream Position
-            stream.Seek(0, SeekOrigin.Begin);
-
-            byte[] bytearray = new byte[stream.Length];
-            stream.Read(bytearray, 0, bytearray.Length);
-            string text = System.Text.Encoding.UTF8.GetString(bytearray);
-
-            return text;
+            return stream.ByteToString();
         }
         #endregion
 
