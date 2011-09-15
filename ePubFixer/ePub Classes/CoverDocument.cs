@@ -251,12 +251,15 @@ namespace ePubFixer
                     //Clean URL
                     OriginalImageURL = ImageURL;
                     ImageURL = ImageURL.Replace("../", "");
+                    ImageURL = Utils.VerifyFilenameEncoding(ImageURL);
                     break;
                 }
             }
 
             fileExtractStream = GetStream(ImageURL);
-            BookImage = string.IsNullOrEmpty(ImageURL) ? null : Image.FromStream(fileExtractStream);
+
+            if(fileExtractStream!=null)
+                BookImage = string.IsNullOrEmpty(ImageURL) ? null : Image.FromStream(fileExtractStream);
         }
         #endregion
 
@@ -290,6 +293,7 @@ namespace ePubFixer
             string FirstRef = MyOPFDoc.GetSpineRefAtIndex(0);
             if (FirstRef != MyOPFDoc.GetCoverRef())
             {
+                //TODO Check if linearize = off
                 System.Windows.Forms.MessageBox.Show("The Cover File is not the first File\n" +
                 "Please use the Reading Order editor to modify it (id=" + Utils.GetId(FirstRef + ")"), "Cover is Not the First File", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
             }
