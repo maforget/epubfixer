@@ -103,7 +103,7 @@ namespace ePubFixer
             HtmlAttribute styleAttri = body.Attributes["style"];
             HtmlAttribute classAttri = body.Attributes["class"];
 
-            if (HtmlHeigth != HeigthValue | HtmlWidth != WidthValue | (SVGAspectAttri != null && SVGAspectAttri.Value != SVGAspectValue) | (SVGHeigthAttri != null && SVGHeigthAttri.Value != SVGHeigthValue) | (SVGWidthAttri != null && SVGWidthAttri.Value != SVGWidthValue) | !ImageIsSVG | (styleAttri != null && styleAttri.Value != styleValue) | styleAttri==null | css!=null | BodyStyle!=null)
+            if (HtmlHeigth != HeigthValue | HtmlWidth != WidthValue | (SVGAspectAttri != null && SVGAspectAttri.Value != SVGAspectValue) | (SVGHeigthAttri != null && SVGHeigthAttri.Value != SVGHeigthValue) | (SVGWidthAttri != null && SVGWidthAttri.Value != SVGWidthValue) | !ImageIsSVG | (styleAttri != null && styleAttri.Value != styleValue) | styleAttri == null | css != null | BodyStyle != null)
             {
                 try
                 {
@@ -112,8 +112,7 @@ namespace ePubFixer
 
                     if (ImageIsSVG)
                     {
-                        SVGAspectAttri.Value = SVGAspectValue;
-
+                        ImageNode.ParentNode.SetAttributeValue("preserveAspectRatio", SVGAspectValue);
                         ImageNode.ParentNode.Attributes["viewBox"].Value = "0 0 " + e.Width.ToString() + " " + e.Heigth.ToString();
                         ImageNode.ParentNode.SetAttributeValue("height", SVGHeigthValue);
                         ImageNode.ParentNode.SetAttributeValue("width", SVGWidthValue);
@@ -122,7 +121,7 @@ namespace ePubFixer
                             css.ToList().ForEach(x => x.Remove());//Remove any css or xgpt file
                         if (BodyStyle != null)
                             BodyStyle.Remove();//Remove the style element
-                        if(classAttri!=null)
+                        if (classAttri != null)
                             classAttri.Remove();//Delete the class attribute because it is no longer needed
                         body.SetAttributeValue("style", styleValue);//replace the style class with a style Attribute
 
@@ -177,7 +176,7 @@ namespace ePubFixer
 
                     //Make sure it is scaled to fit
                     bool FixedCoverWidth = FixHtml(e);
-                      
+
                     if (FixedCoverWidth)
                     {
                         MyHtmlDoc.fileOutStream = MyHtmlDoc.TidyHtml(ImageNode.OwnerDocument.DocumentNode.OuterHtml).ToStream();
@@ -258,7 +257,7 @@ namespace ePubFixer
 
             fileExtractStream = GetStream(ImageURL);
             BookImage = string.IsNullOrEmpty(ImageURL) ? null : Image.FromStream(fileExtractStream);
-        } 
+        }
         #endregion
 
         public static bool ImageCompare(Image firstImage, Image secondImage)
