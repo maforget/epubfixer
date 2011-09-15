@@ -57,7 +57,7 @@
             this.pbCover.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbCover.Location = new System.Drawing.Point(0, 0);
             this.pbCover.Name = "pbCover";
-            this.pbCover.Size = new System.Drawing.Size(504, 668);
+            this.pbCover.Size = new System.Drawing.Size(500, 668);
             this.pbCover.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbCover.TabIndex = 0;
             this.pbCover.TabStop = false;
@@ -108,7 +108,7 @@
             this.panel1.Controls.Add(this.pbCover);
             this.panel1.Location = new System.Drawing.Point(142, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(506, 670);
+            this.panel1.Size = new System.Drawing.Size(502, 670);
             this.panel1.TabIndex = 7;
             // 
             // btnReset
