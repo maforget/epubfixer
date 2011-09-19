@@ -65,13 +65,14 @@ namespace ePubFixer
                     OpfDocument doc = new OpfDocument();
                     string file = fileOutName.Replace(Variables.OPFpath, "");
                     doc.AddTOCContentRef(file);
-                    doc.AddHtmlFile(file);
+                    doc.AddHtmlFile(file);//Will also add the spine option
                     Utils.NewFilename();
                 }
             }
 
         }
 
+        #region Create TOC
         private string CreateHtmlTOC()
         {
             HtmlNode Title = Tocdocument.CreateElement("h1");
@@ -122,7 +123,8 @@ namespace ePubFixer
             }
 
             return TopNode;
-        }
+        } 
+        #endregion
     }
 
     class TOCElements
