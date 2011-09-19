@@ -28,7 +28,6 @@ namespace ePubFixer
         private HtmlNode ImageNode;
 
         private OpfDocument MyOPFDoc;
-        private XElement ManifestGuide;
 
         private string CoverFile;
         private string ImageURL = string.Empty;
@@ -61,6 +60,7 @@ namespace ePubFixer
             frm.ShowDialog();
         }
 
+        #region Image
         public static Image ResizeImage(Image image, double WidthRatioVsHeigth, bool preserveRatio)
         {
             int height = image.Height;
@@ -75,6 +75,33 @@ namespace ePubFixer
             return b;
         }
 
+        public static bool ImageCompare(Image firstImage, Image secondImage)
+        {
+            if (firstImage != null && secondImage != null)
+            {
+                MemoryStream ms = new MemoryStream();
+                firstImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                String firstBitmap = Convert.ToBase64String(ms.ToArray());
+                ms.Position = 0;
+
+                secondImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                String secondBitmap = Convert.ToBase64String(ms.ToArray());
+
+                if (firstBitmap.Equals(secondBitmap))
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
+            } else
+            {
+                return false;
+            }
+        } 
+        #endregion
+
+        #region Export NEw COver
         private string OriginalImageURL;
         bool PreserveAspectRatio;
         private bool FixHtml(CoverChangedArgs e)
@@ -208,17 +235,14 @@ namespace ePubFixer
                     e.Message = "Cover is Empty, Aborting";
                 }
             }
-        }
+        } 
+        #endregion
 
         #region Get Image From Book
         private string GetCoverFile()
         {
             MyOPFDoc = new OpfDocument();
-            ManifestGuide = MyOPFDoc.GetXmlElement("guide");
-            string coverRef = string.Empty;
-
-            if (ManifestGuide != null)
-                coverRef = MyOPFDoc.GetCoverRef();
+            string coverRef = MyOPFDoc.GetCoverRef();
 
             //If it does not exist get first page in spine
             if (string.IsNullOrEmpty(coverRef))
@@ -250,7 +274,7 @@ namespace ePubFixer
 
                     //Clean URL
                     OriginalImageURL = ImageURL;
-                    ImageURL = ImageURL.Replace("../", "");
+                    ImageURL = ImageURL.Replace("../", "").Trim();
                     ImageURL = Utils.VerifyFilenameEncoding(ImageURL);
                     break;
                 }
@@ -263,30 +287,7 @@ namespace ePubFixer
         }
         #endregion
 
-        public static bool ImageCompare(Image firstImage, Image secondImage)
-        {
-            if (firstImage != null && secondImage != null)
-            {
-                MemoryStream ms = new MemoryStream();
-                firstImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                String firstBitmap = Convert.ToBase64String(ms.ToArray());
-                ms.Position = 0;
 
-                secondImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                String secondBitmap = Convert.ToBase64String(ms.ToArray());
-
-                if (firstBitmap.Equals(secondBitmap))
-                {
-                    return true;
-                } else
-                {
-                    return false;
-                }
-            } else
-            {
-                return false;
-            }
-        }
 
         private void CheckPositionOfCover()
         {
