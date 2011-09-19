@@ -454,8 +454,9 @@ namespace ePubFixer
         public string TidyHtml(string newHtml)
         {
             string ret = string.Empty;
+            Stream stream = newHtml.ToStream();
 
-            using (Tidy.Document doc = Tidy.Document.FromString(newHtml))
+            using (Tidy.Document doc = Tidy.Document.FromStream(stream))
             {
                 doc.ShowWarnings = false;
                 doc.Quiet = true;
