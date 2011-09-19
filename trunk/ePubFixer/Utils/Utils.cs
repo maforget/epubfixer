@@ -247,6 +247,7 @@ namespace ePubFixer
             //Delete from manifest and spine
             DeleteFromSpine(FilesToDelete);
             DeleteFromManifest(FilesToDelete);
+            DeleteFromGuide(FilesToDelete);
 
         }
 
@@ -309,6 +310,26 @@ namespace ePubFixer
 
             if (doc.SaveMessage.StartsWith("Error"))
                 MessageBox.Show(doc.SaveMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private static void DeleteFromGuide(IEnumerable<string> FilesToDelete)
+        {
+            OpfDocument doc = new OpfDocument();
+            XElement oldManifest = doc.GetXmlElement("guide");
+            XNamespace ns = oldManifest.Name.Namespace;
+            List<XElement> newItems = new List<XElement>();
+
+            foreach (XElement item in oldManifest.Elements())
+            {
+                string href = item.Attribute("href").Value;
+                if (!FilesToDelete.Contains(href))
+                {
+                    newItems.Add(item);
+                }
+            }
+
+            XElement newManifest = new XElement(ns + "guide", newItems);
+            doc.ReplaceSection(newManifest,"guide");
         }
         #endregion
     }
