@@ -37,6 +37,7 @@
             this.colCheckbox = new Aga.Controls.Tree.TreeColumn();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.expandAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.check = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,13 +47,15 @@
             this.previousToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectNextTextIncremental = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setAsTableOfContentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableOfContentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.coverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nodeFile = new Aga.Controls.Tree.NodeControls.NodeTextBox();
             this.nodeDetectedTexts = new Aga.Controls.Tree.NodeControls.NodeComboBox();
             this.nodeCheckBox1 = new Aga.Controls.Tree.NodeControls.NodeCheckBox();
             this.cbShowAll = new System.Windows.Forms.CheckBox();
             this.cbShowAnchors = new System.Windows.Forms.CheckBox();
             this.btnSearchNet = new System.Windows.Forms.Button();
-            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -150,43 +153,51 @@
             this.unCheck,
             this.selectNextTextToolStripMenuItem,
             this.selectNextTextIncremental,
-            this.deleteFilesToolStripMenuItem});
+            this.deleteFilesToolStripMenuItem,
+            this.setAsTableOfContentToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(188, 224);
+            this.contextMenu.Size = new System.Drawing.Size(190, 246);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // previewToolStripMenuItem
             // 
             this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
-            this.previewToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.previewToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.previewToolStripMenuItem.Text = "Preview";
             this.previewToolStripMenuItem.Click += new System.EventHandler(this.previewToolStripMenuItem_Click);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
             // expandAllToolStripMenuItem
             // 
             this.expandAllToolStripMenuItem.Name = "expandAllToolStripMenuItem";
-            this.expandAllToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.expandAllToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.expandAllToolStripMenuItem.Text = "Expand All";
             this.expandAllToolStripMenuItem.Click += new System.EventHandler(this.expandAllToolStripMenuItem_Click);
             // 
             // collapseAllToolStripMenuItem
             // 
             this.collapseAllToolStripMenuItem.Name = "collapseAllToolStripMenuItem";
-            this.collapseAllToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.collapseAllToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.collapseAllToolStripMenuItem.Text = "Collapse All";
             this.collapseAllToolStripMenuItem.Click += new System.EventHandler(this.collapseAllToolStripMenuItem_Click);
             // 
             // check
             // 
             this.check.Name = "check";
-            this.check.Size = new System.Drawing.Size(187, 22);
+            this.check.Size = new System.Drawing.Size(189, 22);
             this.check.Text = "Check All Selected";
             this.check.Click += new System.EventHandler(this.check_Click);
             // 
             // unCheck
             // 
             this.unCheck.Name = "unCheck";
-            this.unCheck.Size = new System.Drawing.Size(187, 22);
+            this.unCheck.Size = new System.Drawing.Size(189, 22);
             this.unCheck.Text = "Uncheck All Selected";
             this.unCheck.Click += new System.EventHandler(this.unCheck_Click);
             // 
@@ -196,36 +207,59 @@
             this.nextToolStripMenuItem,
             this.previousToolStripMenuItem});
             this.selectNextTextToolStripMenuItem.Name = "selectNextTextToolStripMenuItem";
-            this.selectNextTextToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.selectNextTextToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.selectNextTextToolStripMenuItem.Text = "Select Text";
             // 
             // nextToolStripMenuItem
             // 
             this.nextToolStripMenuItem.Name = "nextToolStripMenuItem";
-            this.nextToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.nextToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.nextToolStripMenuItem.Text = "Next";
             this.nextToolStripMenuItem.Click += new System.EventHandler(this.selectNext_Click);
             // 
             // previousToolStripMenuItem
             // 
             this.previousToolStripMenuItem.Name = "previousToolStripMenuItem";
-            this.previousToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.previousToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.previousToolStripMenuItem.Text = "Previous";
             this.previousToolStripMenuItem.Click += new System.EventHandler(this.selectPrevious_Click);
             // 
             // selectNextTextIncremental
             // 
             this.selectNextTextIncremental.Name = "selectNextTextIncremental";
-            this.selectNextTextIncremental.Size = new System.Drawing.Size(187, 22);
+            this.selectNextTextIncremental.Size = new System.Drawing.Size(189, 22);
             this.selectNextTextIncremental.Text = "Select Download Text";
             this.selectNextTextIncremental.Click += new System.EventHandler(this.selectNextDownload_Click);
             // 
             // deleteFilesToolStripMenuItem
             // 
             this.deleteFilesToolStripMenuItem.Name = "deleteFilesToolStripMenuItem";
-            this.deleteFilesToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.deleteFilesToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.deleteFilesToolStripMenuItem.Text = "Delete Files";
             this.deleteFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteFilesToolStripMenuItem_Click);
+            // 
+            // setAsTableOfContentToolStripMenuItem
+            // 
+            this.setAsTableOfContentToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tableOfContentToolStripMenuItem,
+            this.coverToolStripMenuItem});
+            this.setAsTableOfContentToolStripMenuItem.Name = "setAsTableOfContentToolStripMenuItem";
+            this.setAsTableOfContentToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.setAsTableOfContentToolStripMenuItem.Text = "Set as ...";
+            // 
+            // tableOfContentToolStripMenuItem
+            // 
+            this.tableOfContentToolStripMenuItem.Name = "tableOfContentToolStripMenuItem";
+            this.tableOfContentToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.tableOfContentToolStripMenuItem.Text = "Table of Content";
+            this.tableOfContentToolStripMenuItem.Click += new System.EventHandler(this.tableOfContentToolStripMenuItem_Click);
+            // 
+            // coverToolStripMenuItem
+            // 
+            this.coverToolStripMenuItem.Name = "coverToolStripMenuItem";
+            this.coverToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.coverToolStripMenuItem.Text = "Cover";
+            this.coverToolStripMenuItem.Click += new System.EventHandler(this.coverToolStripMenuItem_Click);
             // 
             // nodeFile
             // 
@@ -292,13 +326,6 @@
             this.btnSearchNet.UseVisualStyleBackColor = true;
             this.btnSearchNet.Click += new System.EventHandler(this.btnSearchNet_Click);
             // 
-            // selectAllToolStripMenuItem
-            // 
-            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.selectAllToolStripMenuItem.Text = "Select All";
-            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
-            // 
             // frmAdd
             // 
             this.AcceptButton = this.btnOk;
@@ -350,5 +377,8 @@
         private System.Windows.Forms.ToolStripMenuItem nextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previousToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setAsTableOfContentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tableOfContentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem coverToolStripMenuItem;
     }
 }

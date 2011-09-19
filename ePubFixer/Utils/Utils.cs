@@ -312,7 +312,7 @@ namespace ePubFixer
                 MessageBox.Show(doc.SaveMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private static void DeleteFromGuide(IEnumerable<string> FilesToDelete)
+        public static void DeleteFromGuide(IEnumerable<string> FilesToDelete)
         {
             OpfDocument doc = new OpfDocument();
             XElement oldManifest = doc.GetXmlElement("guide");

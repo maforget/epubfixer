@@ -715,6 +715,24 @@ namespace ePubFixer
         } 
         #endregion
 
+        private void tableOfContentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MyNode node = treeView1.SelectedNode.Tag as MyNode;
+            NavDetails nav = node.Tag as NavDetails;
+
+            OpfDocument doc = new OpfDocument();
+            doc.AddTOCContentRef(nav.File);
+        }
+
+        private void coverToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MyNode node = treeView1.SelectedNode.Tag as MyNode;
+            NavDetails nav = node.Tag as NavDetails;
+
+            OpfDocument doc = new OpfDocument();
+            doc.AddCoverRef(nav.File);
+        }
+
 
         //TODO Look for links in html files and add a option to see only those (ex : Content with LInks or Footnote)
 
