@@ -21,18 +21,7 @@ namespace ePubFixer
         private int textColWidth = 100;
         protected XNamespace ns;
         protected XElement TOC;
-        //protected XElement _NewTOC;
         protected int playOrder = 0;
-        #endregion
-
-        #region Properties
-        //public XElement NewTOC
-        //{
-        //    get
-        //    {
-        //        return _NewTOC;
-        //    }
-        //}
         #endregion
 
         #region Constructor
@@ -133,6 +122,7 @@ namespace ePubFixer
         private void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.BaseForm = WindowSave.SaveWindow(this);
+            Properties.Settings.Default.InsertAnInlineTOC = cbCreateHtmlTOC.Checked;
             Properties.Settings.Default.Save();
             Preview.CloseOpenedForms();
             Zip.DeleteTemp();
