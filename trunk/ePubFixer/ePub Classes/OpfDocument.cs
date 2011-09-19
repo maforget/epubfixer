@@ -150,17 +150,28 @@ namespace ePubFixer
         #region Guide
         private void AddGuideRef(string File, string type)
         {
+            //remove any Reference already existing
+            IEnumerable<string> ExistingRef = GetGuideRefList(type);
+            if (ExistingRef!=null)
+                Utils.DeleteFromGuide(ExistingRef);
+
+            //Reload the Opf
+            SetFile();
+
+            //Load existing Guide
             XElement Guide = GetXmlElement("guide");
 
             if (Guide == null)
                 Guide = new XElement(ns + "guide");
 
+            //Add new item to Guide
             Guide.Add(
                 new XElement(ns + "reference",
                     new XAttribute("type", type),
                     new XAttribute("title", type),
                     new XAttribute("href", File)));
 
+            //Replace and update new guide
             ReplaceSection(Guide, "guide");
         }
 
@@ -339,18 +350,23 @@ namespace ePubFixer
 
         }
 
-        private string GetGuideRef(string type)
+        private IEnumerable<string> GetGuideRefList(string type)
         {
             XElement ManifestGuide = GetXmlElement("guide");
-            string coverRef = string.Empty;
+            IEnumerable<string> coverRef = null;
 
             if (ManifestGuide != null)
             {
                 coverRef = (from g in ManifestGuide.Elements(ns + "reference")
                             where g.Attribute("type").Value == type
-                            select g.Attribute("href").Value).FirstOrDefault();
+                            select g.Attribute("href").Value);
             }
             return coverRef;
+        }
+
+        private string GetGuideRef(string type)
+        {
+            return GetGuideRefList(type).FirstOrDefault();
         }
 
         public string GetCoverRef()
