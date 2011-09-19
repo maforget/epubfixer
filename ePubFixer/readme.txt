@@ -34,7 +34,7 @@ Functionality
 - Delete files from your book along with any associated entries in the OPF file. (Look in the Add windows).
 - Create an inline TOC from your Table of content. 
     - This will check the guide portion of the opf for the "toc" item, and replace it with your new Content file. If this does not exist it will create one at the end, where you can place it where you want.
-	- If you want to edit an existing one, you can use Sigil and the "Add Semantic" button and Table of Content to tell the program that this is your toc, and it will replace it instead of creating a new one.
+	- If you want to edit an existing one, you can use the Add window and the "Set as Table of Content" command, this will set the file and tell the program to replace this file. Or you can use Sigil and the "Add Semantic" button and Table of Content.
 
 
 ** Reading Order Editor **
