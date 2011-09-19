@@ -324,14 +324,6 @@ namespace ePubFixer
 
         #region Get Html from File
 
-        private string FixSVGCase(string html)
-        {
-            html = html.Replace("preserveaspectratio", "preserveAspectRatio");
-            html = html.Replace("viewbox", "viewBox");
-
-            return html;
-        }
-
         internal HtmlDocument GetHtml(string filename)
         {
             try
@@ -450,6 +442,15 @@ namespace ePubFixer
         //} 
         #endregion
 
+        #region Tidy
+        private string FixSVGCase(string html)
+        {
+            html = html.Replace("preserveaspectratio", "preserveAspectRatio");
+            html = html.Replace("viewbox", "viewBox");
+
+            return html;
+        }
+
         public string TidyHtml(string newHtml)
         {
             string ret = string.Empty;
@@ -469,6 +470,7 @@ namespace ePubFixer
                 doc.AddTidyMetaElement = false;
                 doc.MakeClean = true;
                 doc.ForceOutput = true;
+                doc.DocType = Tidy.DocTypeMode.Strict;
 
                 doc.PreserveEntities = true;
                 doc.AnchorAsName = false;
@@ -476,9 +478,8 @@ namespace ePubFixer
                 doc.EncloseBlockText = true;
                 doc.EnsureLiteralAttributes = true;
                 doc.AddXmlDeclaration = true;
-                doc.RemoveEndTags = true;
-                doc.UseXmlParser = true;
-                doc.AddXmlSpacePreserve = true;
+                //doc.RemoveEndTags = true;
+                //doc.UseXmlParser = true;
 
                 doc.CleanAndRepair();
                 ret = doc.Save();
@@ -486,7 +487,8 @@ namespace ePubFixer
             }
 
             return ret;
-        }
+        } 
+        #endregion
 
 
     }
