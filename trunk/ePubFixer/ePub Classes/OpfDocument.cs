@@ -105,33 +105,50 @@ namespace ePubFixer
         }
         #endregion
 
-        #region Create TOC Entry in OPF File
+        #region Create Entries in OPF File
+        #region Manifest
         internal void CreateTocEntry()
         {
             List<string> fileList = GetFilesList("application/x-dtbncx+xml");
 
             if (fileList.Count == 0)
             {
-                XElement tocElement = new XElement(ns + "item",
-                                        new XAttribute("href", "toc.ncx"),
-                                        new XAttribute("media-type", "application/x-dtbncx+xml"),
-                                        new XAttribute("id", "toc.ncx"));
-                if (OldTOC != null)
-                {
-                    NewTOC = new XElement(OldTOC);
-                    NewTOC.Element(ns + "manifest").Add(tocElement);
-                    base.WriteXML();
-                    base.UpdateZip(fileOutStream);
-
-                } else
-                {
-                    return;
-                }
-
+                AddManifestEntry("application/x-dtbncx+xml", "toc.ncx", "toc.ncx");
             }
         }
 
-        internal void AddCoverRef(string CoverFile)
+        private void AddManifestEntry(string MediaType, string FileName, string id)
+        {
+            XElement tocElement = new XElement(ns + "item",
+                                                    new XAttribute("href", FileName),
+                                                    new XAttribute("media-type", MediaType),
+                                                    new XAttribute("id", id));
+            if (OldTOC != null)
+            {
+                NewTOC = new XElement(OldTOC);
+                NewTOC.Element(ns + "manifest").Add(tocElement);
+                base.WriteXML();
+                base.UpdateZip();
+                SetFile();
+
+            } else
+            {
+                return;
+            }
+        }
+
+        internal void AddHtmlFile(string filename)
+        {
+            string id = Guid.NewGuid().ToString();
+            AddManifestEntry("application/xhtml+xml", filename, id);
+
+            //Also Add it to Spine
+            AddSpineElement(id);
+        }
+        #endregion
+
+        #region Guide
+        private void AddGuideRef(string File, string type)
         {
             XElement Guide = GetXmlElement("guide");
 
@@ -140,13 +157,40 @@ namespace ePubFixer
 
             Guide.Add(
                 new XElement(ns + "reference",
-                    new XAttribute("type", "cover"),
-                    new XAttribute("title", "Cover"),
-                    new XAttribute("href", CoverFile)));
+                    new XAttribute("type", type),
+                    new XAttribute("title", type),
+                    new XAttribute("href", File)));
 
             ReplaceSection(Guide, "guide");
-
         }
+
+        internal void AddCoverRef(string CoverFile)
+        {
+            AddGuideRef(CoverFile, "cover");
+        }
+
+        internal void AddTOCContentRef(string ContentFile)
+        {
+            AddGuideRef(ContentFile, "toc");
+        }
+        #endregion
+
+        #region Spine
+        private void AddSpineElement(string id)
+        {
+            XElement Spine = GetXmlElement("spine");
+
+            if (Spine == null)
+                Spine = new XElement(ns + "spine", new XAttribute("toc", GetNCXid()));
+
+            Spine.Add(
+                new XElement(ns + "itemref",
+                    new XAttribute("idref", id)));
+
+            ReplaceSpine(Spine);
+        } 
+        #endregion
+
         #endregion
 
         #region Replace
@@ -157,13 +201,13 @@ namespace ePubFixer
                 NewTOC = new XElement(OldTOC);
                 XElement Section = NewTOC.Element(ns + section);
 
-                if (Section==null)
+                if (Section == null)
                 {
                     //If Section does not exist Add it
                     NewTOC.Add(newSection);
                 } else
                 {
-                    Section.ReplaceWith(newSection); 
+                    Section.ReplaceWith(newSection);
                 }
 
                 base.WriteXML();
@@ -295,14 +339,28 @@ namespace ePubFixer
 
         }
 
+        private string GetGuideRef(string type)
+        {
+            XElement ManifestGuide = GetXmlElement("guide");
+            string coverRef = string.Empty;
+
+            if (ManifestGuide != null)
+            {
+                coverRef = (from g in ManifestGuide.Elements(ns + "reference")
+                            where g.Attribute("type").Value == type
+                            select g.Attribute("href").Value).FirstOrDefault();
+            }
+            return coverRef;
+        }
+
         public string GetCoverRef()
         {
-            var manifestGuide = GetXmlElement("guide");
-            string coverRef;
-            coverRef = (from g in manifestGuide.Elements(ns + "reference")
-                        where g.Attribute("type").Value == "cover"
-                        select g.Attribute("href").Value).FirstOrDefault();
-            return coverRef;
+            return GetGuideRef("cover");
+        }
+
+        public string GetHtmlTOCRef()
+        {
+            return GetGuideRef("toc");
         }
 
         public List<string> GetFilesFromOPF()

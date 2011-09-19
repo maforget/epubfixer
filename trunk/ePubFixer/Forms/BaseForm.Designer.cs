@@ -49,6 +49,7 @@
             this.cbSplit = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.cbCreateHtmlTOC = new System.Windows.Forms.CheckBox();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -234,7 +235,7 @@
             // 
             this.cbSplit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbSplit.AutoSize = true;
-            this.cbSplit.Location = new System.Drawing.Point(12, 625);
+            this.cbSplit.Location = new System.Drawing.Point(12, 627);
             this.cbSplit.Name = "cbSplit";
             this.cbSplit.Size = new System.Drawing.Size(143, 17);
             this.cbSplit.TabIndex = 4;
@@ -246,6 +247,17 @@
             this.timer.Interval = 5000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // cbCreateHtmlTOC
+            // 
+            this.cbCreateHtmlTOC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbCreateHtmlTOC.AutoSize = true;
+            this.cbCreateHtmlTOC.Location = new System.Drawing.Point(12, 604);
+            this.cbCreateHtmlTOC.Name = "cbCreateHtmlTOC";
+            this.cbCreateHtmlTOC.Size = new System.Drawing.Size(116, 17);
+            this.cbCreateHtmlTOC.TabIndex = 5;
+            this.cbCreateHtmlTOC.Text = "Insert an Html TOC";
+            this.cbCreateHtmlTOC.UseVisualStyleBackColor = true;
+            // 
             // BaseForm
             // 
             this.AcceptButton = this.btnSave;
@@ -254,6 +266,7 @@
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(492, 682);
             this.Controls.Add(this.tree);
+            this.Controls.Add(this.cbCreateHtmlTOC);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cbSplit);
             this.Controls.Add(this.btnClose);
@@ -299,6 +312,7 @@
         protected System.Windows.Forms.CheckBox cbSplit;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Timer timer;
+        protected System.Windows.Forms.CheckBox cbCreateHtmlTOC;
 
 
     }

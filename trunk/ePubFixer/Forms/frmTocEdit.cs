@@ -42,7 +42,7 @@ namespace ePubFixer
                 NavDetails Newnav = new NavDetails(Guid.NewGuid().ToString(), nav.ContentSrc);
                 newNode.Tag = Newnav;
 
-                if (index<n.Parent.Nodes.Count)
+                if (index < n.Parent.Nodes.Count)
                 {
                     n.Parent.Nodes.Insert(index + 1, newNode);
                 } else
@@ -147,7 +147,7 @@ namespace ePubFixer
             }
 
             XElement navMap = new XElement(ns + "navMap", list);
-            OnSave(new ExportTocEventArgs(navMap));
+            OnSave(new ExportTocEventArgs(navMap, cbCreateHtmlTOC.Checked));
 
             //_NewTOC = navMap;
             return navMap;
