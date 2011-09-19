@@ -147,7 +147,7 @@ namespace ePubFixer
         #endregion
 
         #region Guide
-        private void AddGuideRef(string File, string type)
+        private void AddGuideRef(string File, string type,string Title)
         {
             using (new HourGlass())
             {
@@ -165,11 +165,12 @@ namespace ePubFixer
                         ExistingRef.Contains(x.Attribute("href").Value)).Remove();
                 }
 
+
                 //Add new item to Guide
                 Guide.Add(
                     new XElement(ns + "reference",
                         new XAttribute("type", type),
-                        new XAttribute("title", type),
+                        new XAttribute("title", Title),
                         new XAttribute("href", File)));
 
                 //Replace and update new guide
@@ -179,12 +180,12 @@ namespace ePubFixer
 
         internal void AddCoverRef(string CoverFile)
         {
-            AddGuideRef(CoverFile, "cover");
+            AddGuideRef(CoverFile, "cover","Cover");
         }
 
         internal void AddTOCContentRef(string ContentFile)
         {
-            AddGuideRef(ContentFile, "toc");
+            AddGuideRef(ContentFile, "toc","Table of Content");
         }
         #endregion
 
