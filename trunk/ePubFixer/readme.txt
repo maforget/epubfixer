@@ -64,6 +64,7 @@ Functionality
 - Resize the Cover so that it fits the screen of your eReader.
 	- Note that this has been tested on the Kobo Touch, it resizes the cover in a way that will have the Kobo created a cover without borders, but it might look weird in other viewer like calibre, etc (because it forces a Screen of 800 X 600)
 - Update all will use the selected settings for all the book that where selected, useful too update multiple covers at once.
+- Note that if the Cover is not explicitly set inside the opf file, it will use the first file in the book. (You can set it in the Add window)
 
 Nigol
 
@@ -81,6 +82,7 @@ v1.5.0
 - Added an option in the setting menu will let you remove margins in the body Style instead of zeroing them. (usefull with the Kobo Touch when margins can not the modified in book.)
 - Added support when only .NET 4 was installed (only XP computers, since other already have .NET 3.5 preinstalled)
 - Support when Sigil encodes filenames like URLs, they will now be decoded.
+- You can set the type of file (Cover & Table of COntent) in the Add windows, this is used with the Inline TOC & Cover Editor.
 - Other small fix.
 
 
