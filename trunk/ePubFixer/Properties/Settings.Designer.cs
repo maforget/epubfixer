@@ -188,5 +188,17 @@ namespace ePubFixer.Properties {
                 this["KoboFixMargins"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InsertAnInlineTOC {
+            get {
+                return ((bool)(this["InsertAnInlineTOC"]));
+            }
+            set {
+                this["InsertAnInlineTOC"] = value;
+            }
+        }
     }
 }

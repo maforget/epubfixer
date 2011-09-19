@@ -251,6 +251,8 @@
             // 
             this.cbCreateHtmlTOC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbCreateHtmlTOC.AutoSize = true;
+            this.cbCreateHtmlTOC.Checked = global::ePubFixer.Properties.Settings.Default.InsertAnInlineTOC;
+            this.cbCreateHtmlTOC.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ePubFixer.Properties.Settings.Default, "InsertAnInlineTOC", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cbCreateHtmlTOC.Location = new System.Drawing.Point(12, 604);
             this.cbCreateHtmlTOC.Name = "cbCreateHtmlTOC";
             this.cbCreateHtmlTOC.Size = new System.Drawing.Size(116, 17);
