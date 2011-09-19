@@ -95,8 +95,7 @@ namespace ePubFixer
                 OldTOC = XElement.Parse(Text.Trim());
                 ns = OldTOC.Name.Namespace;
                 return true;
-            }
-            catch (Exception ex)
+            } catch (Exception ex)
             {
 
                 System.Windows.Forms.MessageBox.Show("Invalid Content File\n" + ex.Message, Variables.BookName);
@@ -150,29 +149,32 @@ namespace ePubFixer
         #region Guide
         private void AddGuideRef(string File, string type)
         {
-            //remove any Reference already existing
-            IEnumerable<string> ExistingRef = GetGuideRefList(type);
-            if (ExistingRef!=null)
-                Utils.DeleteFromGuide(ExistingRef);
+            using (new HourGlass())
+            {
+                //Load existing Guide
+                XElement Guide = GetXmlElement("guide");
 
-            //Reload the Opf
-            SetFile();
+                if (Guide == null)
+                    Guide = new XElement(ns + "guide");
 
-            //Load existing Guide
-            XElement Guide = GetXmlElement("guide");
+                //remove any Reference already existing
+                IEnumerable<string> ExistingRef = GetGuideRefList(type);
+                if (ExistingRef != null)
+                {
+                    Guide.Descendants().Where(x => x.Attribute("type").Value == type &&
+                        ExistingRef.Contains(x.Attribute("href").Value)).Remove();
+                }
 
-            if (Guide == null)
-                Guide = new XElement(ns + "guide");
+                //Add new item to Guide
+                Guide.Add(
+                    new XElement(ns + "reference",
+                        new XAttribute("type", type),
+                        new XAttribute("title", type),
+                        new XAttribute("href", File)));
 
-            //Add new item to Guide
-            Guide.Add(
-                new XElement(ns + "reference",
-                    new XAttribute("type", type),
-                    new XAttribute("title", type),
-                    new XAttribute("href", File)));
-
-            //Replace and update new guide
-            ReplaceSection(Guide, "guide");
+                //Replace and update new guide
+                ReplaceSection(Guide, "guide");
+            }
         }
 
         internal void AddCoverRef(string CoverFile)
@@ -199,7 +201,7 @@ namespace ePubFixer
                     new XAttribute("idref", id)));
 
             ReplaceSpine(Spine);
-        } 
+        }
         #endregion
 
         #endregion
@@ -267,8 +269,7 @@ namespace ePubFixer
                            select Utils.VerifyFilenameEncoding(i.Attribute("href").Value)).ToList();
 
                 return ret;
-            }
-            catch (Exception)
+            } catch (Exception)
             {
                 return null;
             }
@@ -285,8 +286,7 @@ namespace ePubFixer
 
 
                 return ret;
-            }
-            catch (Exception)
+            } catch (Exception)
             {
 
                 return null;
