@@ -84,7 +84,10 @@ namespace ePubFixer
                 indent = 0;
 
                 HtmlNode itemNode = CreateHtmlTOC(item);
-                Tocdocument.DocumentNode.AppendChild(itemNode);
+                if (itemNode!=null)
+                {
+                    Tocdocument.DocumentNode.AppendChild(itemNode); 
+                }
             }
 
             MyHtmlDocument doc = new MyHtmlDocument();
@@ -108,6 +111,9 @@ namespace ePubFixer
             node.Attributes.Add("href", source);
 
             HtmlNode text = HtmlTextNode.CreateNode(ele.Text);
+            if (text == null)
+                return null;
+
             node.AppendChild(text);
             TopNode.AppendChild(node);
 
@@ -118,7 +124,10 @@ namespace ePubFixer
                 foreach (XElement item in toc.Descendants(ns + "navPoint"))
                 {
                     HtmlNode itemNode = CreateHtmlTOC(item);
-                    TopNode.AppendChild(itemNode);
+                    if (itemNode!=null)
+                    {
+                        TopNode.AppendChild(itemNode); 
+                    }
                 }
             }
 
