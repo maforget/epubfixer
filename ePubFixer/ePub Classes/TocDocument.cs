@@ -60,6 +60,12 @@ namespace ePubFixer
         void frm_Save(object sender, ExportTocEventArgs e)
         {
             Save(e.XML);
+            if (e.CreateHtmlTOC)
+            {
+                HtmlTOCDocument doc = new HtmlTOCDocument(NewNavMap);
+                doc.UpdateFile();
+            }
+
             e.Message = SaveMessage;
             
         }  

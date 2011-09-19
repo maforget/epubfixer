@@ -17,6 +17,7 @@ namespace ePubFixer
         {
             InitializeComponent();
             base.cbSplit.Visible = false;
+            base.cbCreateHtmlTOC.Visible = false;
             ns = TOC == null ? "\"http://www.idpf.org/2007/opf\"" : TOC.Name.Namespace;
 
         }

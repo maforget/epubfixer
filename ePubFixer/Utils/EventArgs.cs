@@ -65,12 +65,14 @@ namespace ePubFixer
 
     public class ExportTocEventArgs : EventArgs
     {
-        public ExportTocEventArgs(XElement xml)
+        public ExportTocEventArgs(XElement xml,bool createHtmlTOC=false)
         {
             this.XML = new XElement(xml);
             this.Message = string.Empty;
+            this.CreateHtmlTOC = createHtmlTOC;
         }
 
+        public bool CreateHtmlTOC { get; set; }
         public XElement XML { get; set; }
         public string Message { get; set; }
     }

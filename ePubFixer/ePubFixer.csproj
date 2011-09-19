@@ -115,6 +115,7 @@
   <ItemGroup>
     <Compile Include="ePub Classes\ContainerDocument.cs" />
     <Compile Include="ePub Classes\CoverDocument.cs" />
+    <Compile Include="ePub Classes\HtmlTOCDocument.cs" />
     <Compile Include="ePub Classes\SigilDocument.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
