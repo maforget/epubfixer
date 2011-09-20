@@ -101,7 +101,7 @@ namespace ePubFixer
         private HtmlNode CreateHtmlTOC(XElement toc)
         {
             TOCElements ele = new TOCElements(toc);
-            string source = fileOutName.Contains(Variables.OPFpath) ? "../" + ele.Source : ele.Source;
+            string source = GetSource(ele.Source);
 
             HtmlNode TopNode = Tocdocument.CreateElement("p");
             string style = "margin:0; padding: 0;" + "text-indent:" + indent.ToString() + "pt;";
@@ -132,6 +132,20 @@ namespace ePubFixer
             }
 
             return TopNode;
+        }
+
+        private string GetSource(string path)
+        {
+            try
+            {
+                string relative = RelativePath.GetRelativePath(fileOutName, Zip.GetFilePathInsideZip(path));
+                return relative;
+            }
+            catch (Exception)
+            {
+
+                return path;
+            }
         } 
         #endregion
     }
