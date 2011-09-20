@@ -298,7 +298,7 @@ namespace ePubFixer
                 HtmlDocument html = GetHtml(filename);
                 if (html != null)
                 {
-                    var elements = html.DocumentNode.DescendantNodes();
+                    var elements = html.DocumentNode.SelectSingleNode("//body").DescendantNodesAndSelf();
                     foreach (HtmlNode item in elements)
                     {
                         FindAnchorsInFile(item);
