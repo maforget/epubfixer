@@ -63,7 +63,7 @@ namespace ePubFixer
                 {
                     //We need to add the new file inside the spine and manifest and guide
                     OpfDocument doc = new OpfDocument();
-                    string file = fileOutName.Replace(Variables.OPFpath, "");
+                    string file = Variables.OPFpath.Length==0 ? fileOutName : fileOutName.Replace(Variables.OPFpath, "");
                     doc.AddTOCContentRef(file);
                     doc.AddHtmlFile(file);//Will also add the spine option
                 }
