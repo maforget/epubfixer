@@ -41,7 +41,6 @@ namespace ePubFixer
         } 
         #endregion
 
-
         #region Get Icon & Title
         public static string GetTitle()
         {
@@ -233,6 +232,7 @@ namespace ePubFixer
                     {
                         string path = Variables.OPFpath + source;
                         zip.RemoveEntry(path);
+                        zip.Save();
                     }
                 }
                 catch (Exception e)
