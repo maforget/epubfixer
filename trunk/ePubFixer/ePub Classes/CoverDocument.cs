@@ -292,11 +292,11 @@ namespace ePubFixer
         private void CheckPositionOfCover()
         {
             string FirstRef = MyOPFDoc.GetSpineRefAtIndex(0);
-            if (FirstRef != MyOPFDoc.GetCoverRef())
+            if (FirstRef != CoverFile)
             {
                 //TODO Check if linearize = off
                 System.Windows.Forms.MessageBox.Show("The Cover File is not the first File\n" +
-                "Please use the Reading Order editor to modify it (id=" + Utils.GetId(FirstRef + ")"), "Cover is Not the First File", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
+                "Please use the Reading Order editor to modify it (id=" + Utils.GetId(CoverFile) + ")", "Cover is Not the First File", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
             }
         }
 
