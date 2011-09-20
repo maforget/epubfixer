@@ -141,9 +141,12 @@ namespace ePubFixer
             {
                 BackupCoverHtml = new Bitmap(Cover);
                 BackupCover = new Bitmap(Cover);
-                double d = (double)Cover.Width / (double)Cover.Height;
-                double ratio = cbOnlyEditHtml.Checked ? d : CoverDocument.ImageRatio;
-                ChangeImage(CoverDocument.ResizeImage(Cover, ratio, cbPreserveRatio.Checked));
+                double ratio = (double)Cover.Width / (double)Cover.Height;
+                if (cbOnlyEditHtml.Checked || ratio != CoverDocument.ImageRatio)
+                {
+                    Image img = CoverDocument.ResizeImage(Cover, CoverDocument.ImageRatio, cbPreserveRatio.Checked);
+                    ChangeImage(img); 
+                }
                 BackupDone = true;
             } else if (BackupDone)
             {
