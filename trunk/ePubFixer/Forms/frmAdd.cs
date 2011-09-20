@@ -279,7 +279,7 @@ namespace ePubFixer
                 }
             } catch (Exception)
             {
-
+                treeView1.EndUpdate();
             }
         }
 
@@ -712,7 +712,7 @@ namespace ePubFixer
         private void selectAll()
         {
             treeView1.SelectAllNodes();
-        } 
+        }
         #endregion
 
         #region Set as ...
@@ -732,7 +732,7 @@ namespace ePubFixer
 
             OpfDocument doc = new OpfDocument();
             doc.AddCoverRef(nav.File);
-        } 
+        }
         #endregion
 
 
