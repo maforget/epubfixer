@@ -200,7 +200,9 @@ namespace ePubFixer
                         {
                             HtmlNode element = body[i];
                             HtmlNode NodeFound = null;
-                            string id2 = element.Id;
+                            string idAtt = element.GetAttributeValue("id", "");
+                            string nameAtt = element.GetAttributeValue("name", "");
+                            string id2 = string.IsNullOrEmpty(idAtt) ? nameAtt : idAtt;
                             if (id2 != "" && id2 == id)
                                 NodeFound = element;
                             else
@@ -313,6 +315,8 @@ namespace ePubFixer
             foreach (HtmlNode item in elements.DescendantNodes())
             {
                 string id = item.GetAttributeValue("id", "");
+                string name = item.GetAttributeValue("name", "");
+                id = string.IsNullOrEmpty(id) ? name : id;
                 if (id != "" && !AnchorsInFile.Contains(id))
                 {
                     AnchorsInFile.Add(id);

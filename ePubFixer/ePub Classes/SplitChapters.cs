@@ -349,6 +349,8 @@ namespace ePubFixer
 
         private void CutFiles(string filename, string id, string prevId, string splitFilename)
         {
+            string prevIdAtt = prevId;
+            string idAtt = id;
             string html = GetHtml(filename);
 
             if (!String.IsNullOrEmpty(html))
@@ -356,15 +358,17 @@ namespace ePubFixer
                 List<string> File = GetHtmlBody(html);
                 string Head = GetHead(html);
                 List<string> ExtractedBody = new List<string>();
-                id = id != "" ? "id=\"" + id : id;
-                prevId = !String.IsNullOrEmpty(prevId) ? "id=\"" + prevId : prevId;
+                idAtt = id != "" ? "id=\"" + id : id;
+                prevIdAtt = String.IsNullOrEmpty(prevId) ? "id=\"" + prevId : prevId;
+                //string nameAtt = id != "" ? "name=\"" + id : id;
+                //string prevNameAtt = !String.IsNullOrEmpty(prevId) ? "name=\"" + prevId : prevId;
 
-                if (String.IsNullOrEmpty(id))
+                if (String.IsNullOrEmpty(idAtt))
                     // Just for the last file
-                    ExtractedBody = File.SkipWhile(x => !x.Contains(prevId)).ToList();
+                    ExtractedBody = File.SkipWhile(x => !x.Contains(prevIdAtt)).ToList();
                 else
-                    ExtractedBody = File.SkipWhile(x => !x.Contains(prevId))
-                                    .TakeWhile(x => !x.Contains(id)).ToList();
+                    ExtractedBody = File.SkipWhile(x => !x.Contains(prevIdAtt))
+                                    .TakeWhile(x => !x.Contains(idAtt)).ToList();
 
 
                 StringBuilder sb = new StringBuilder();
@@ -373,7 +377,7 @@ namespace ePubFixer
                 ExtractedBody.ForEach(x => sb.AppendLine(x));
                 string newHtml = sb.ToString();
 
-                if (ExtractedBody.Count <= 2 || prevId == "" && PreviousContainedAnchor)
+                if (ExtractedBody.Count <= 2 || prevIdAtt == "" && PreviousContainedAnchor)
                 {
                     splitNumber--;
                 } else
