@@ -33,7 +33,7 @@ Functionality
 - The program can cut your chapter to separate files, instead of multiple chapters per file.
 - Delete files from your book along with any associated entries in the OPF file. (Look in the Add windows).
 - Create an inline TOC from your Table of content. 
-    - This will check the guide portion of the opf for the "toc" item, and replace it with your new Content file. If this does not exist it will create one at the end, where you can place it where you want.
+	- This will check the guide portion of the opf for the "toc" item, and replace it with your new Content file. If this does not exist it will create one at the end, where you can place it where you want.
 	- If you want to edit an existing one, you can use the Add window and the "Set as Table of Content" command, this will set the file and tell the program to replace this file. Or you can use Sigil and the "Add Semantic" button and Table of Content.
 
 
@@ -60,7 +60,7 @@ Functionality
 ** Cover Editor **
 
 - Change the Cover without having to reconvert your file (Like calibre does)(Note that using this will convert your covers to SVG)
-    - There is also a from folder button that will take the cover.jpg file that is next to the ePub (useful with calibre, where you can download a new cover, and change it by clicking from folder)
+	- There is also a from folder button that will take the cover.jpg file that is next to the ePub (useful with calibre, where you can download a new cover, and change it by clicking from folder)
 - Resize the Cover so that it fits the screen of your eReader.
 	- Note that this has been tested on the Kobo Touch, it resizes the cover in a way that will have the Kobo created a cover without borders, but it might look weird in other viewer like calibre, etc (because it forces a Screen of 800 X 600)
 - Update all will use the selected settings for all the book that where selected, useful too update multiple covers at once.
@@ -82,12 +82,13 @@ v1.5.0
 - Added an option in the setting menu will let you remove margins in the body Style instead of zeroing them. (usefull with the Kobo Touch when margins can not the modified in book.)
 - Added support when only .NET 4 was installed (only XP computers, since other already have .NET 3.5 preinstalled)
 - Support when Sigil encodes filenames like URLs, they will now be decoded.
-- You can set the type of file (Cover & Table of COntent) in the Add windows, this is used with the Inline TOC & Cover Editor.
-- Other small fix.
+- You can set the type of file (Cover & Table of Content) in the Add windows, this is used with the Inline TOC & Cover Editor.
+- Deleting a file did not delete the actual file in the Zip. Also it also removes the info in the guide.
+- Plenty of Other fix.
 
 
 v1.4.1
-Added support when filenames with spaces were changed to special character (ex: %20). It happens usually with Sigil 4.
+- Added support when filenames with spaces were changed to special character (ex: %20). It happens usually with Sigil 4.
 
 
 v1.4.0
