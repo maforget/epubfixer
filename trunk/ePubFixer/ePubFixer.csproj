@@ -164,6 +164,7 @@
     <Compile Include="Utils\Hourglass.cs" />
     <Compile Include="Utils\MySettingsProvider.cs" />
     <Compile Include="Utils\Preview.cs" />
+    <Compile Include="Utils\RelativePath.cs" />
     <Compile Include="Utils\SiteGraber.cs" />
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="Utils\Variables.cs" />
