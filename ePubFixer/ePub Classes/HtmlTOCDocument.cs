@@ -66,8 +66,9 @@ namespace ePubFixer
                     string file = fileOutName.Replace(Variables.OPFpath, "");
                     doc.AddTOCContentRef(file);
                     doc.AddHtmlFile(file);//Will also add the spine option
-                    Utils.NewFilename();
                 }
+
+                Utils.NewFilename();
             }
 
         }
