@@ -361,6 +361,9 @@ namespace ePubFixer
                 coverRef = (from g in ManifestGuide.Elements(ns + "reference")
                             where g.Attribute("type").Value == type
                             select g.Attribute("href").Value);
+            } else
+            {
+                coverRef = new List<string>();
             }
             return coverRef;
         }

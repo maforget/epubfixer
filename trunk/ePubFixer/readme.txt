@@ -75,6 +75,9 @@ Please direct any comment or bugs here : http://code.google.com/p/epubfixer/
 Change Log
 -------------------------------------------
 
+v1.5.1
+- A book would crash when doing certain thing when there was no guide in the opf.
+
 v1.5.0
 - Added a Select All option inthe context menu of the Add window. It will select all the nodes that are expanded.
 - Added the Cover Editor (look in the readme for additionnal info).
