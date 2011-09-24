@@ -45,6 +45,14 @@ namespace ePubFixer
             {
                 CreateTOCNeeded = true;
                 return Path.Combine(Variables.OPFpath, "content.html");
+            } else
+            {
+                //Add a confirmation Box before replacing a already existing Inline TOC 
+                if (System.Windows.Forms.MessageBox.Show("The file " + tocRef + " is already set has your Table of Content\n" + 
+                    "Do you want to replace it?", "Replace existing Inline Table of Content",System.Windows.Forms.MessageBoxButtons.YesNo,System.Windows.Forms.MessageBoxIcon.Question)==System.Windows.Forms.DialogResult.No)
+                {
+                    return Path.Combine(Variables.OPFpath, "content.html");
+                }
             }
 
             return tocRef;
