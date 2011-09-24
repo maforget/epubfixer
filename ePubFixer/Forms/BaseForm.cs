@@ -17,7 +17,7 @@ namespace ePubFixer
         private bool FilesExtracted = false;
         private bool DoubleClicked;
         protected TreeModel Model;
-        private int border = 125;
+        private int border = 150;
         private int textColWidth = 100;
         protected XNamespace ns;
         protected XElement TOC;
