@@ -35,6 +35,33 @@ namespace ePubFixer
             ns = tocXML.Name.Namespace;
         }
 
+        private string NewInlineTOCFile(string ExistingTocRef)
+        {
+            CreateTOCNeeded = true;
+            string content = Path.Combine(Variables.OPFpath, "content.html");
+
+            if (string.IsNullOrEmpty(ExistingTocRef))
+                return content;
+
+            if (Variables.ZipFileList.Contains(content))
+            {
+                string file = Path.GetFileNameWithoutExtension(ExistingTocRef);
+                int version = 2;
+
+                if (file != "content" && file.StartsWith("content"))
+                {
+                    if (!int.TryParse(file.Substring(7), out version))
+                        version = 2;
+                    else
+                        version++;
+                }
+
+                content = Path.Combine(Variables.OPFpath, "content" + version.ToString() + ".html");
+            }
+
+            return content;
+        }
+
         private string GetTOCRef()
         {
             OpfDocument doc = new OpfDocument();
@@ -43,15 +70,14 @@ namespace ePubFixer
 
             if (string.IsNullOrEmpty(tocRef))
             {
-                CreateTOCNeeded = true;
-                return Path.Combine(Variables.OPFpath, "content.html");
+                return NewInlineTOCFile(tocRef);
             } else
             {
                 //Add a confirmation Box before replacing a already existing Inline TOC 
-                if (System.Windows.Forms.MessageBox.Show("The file " + tocRef + " is already set has your Table of Content\n" + 
-                    "Do you want to replace it?", "Replace existing Inline Table of Content",System.Windows.Forms.MessageBoxButtons.YesNo,System.Windows.Forms.MessageBoxIcon.Question)==System.Windows.Forms.DialogResult.No)
+                if (System.Windows.Forms.MessageBox.Show("The file " + tocRef + " is already set has your Table of Content\n" +
+                    "Do you want to replace it?", "Replace existing Inline Table of Content", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
                 {
-                    return Path.Combine(Variables.OPFpath, "content.html");
+                    return NewInlineTOCFile(tocRef);
                 }
             }
 
@@ -71,7 +97,7 @@ namespace ePubFixer
                 {
                     //We need to add the new file inside the spine and manifest and guide
                     OpfDocument doc = new OpfDocument();
-                    string file = Variables.OPFpath.Length==0 ? fileOutName : fileOutName.Replace(Variables.OPFpath, "");
+                    string file = Variables.OPFpath.Length == 0 ? fileOutName : fileOutName.Replace(Variables.OPFpath, "");
                     doc.AddTOCContentRef(file);
                     doc.AddHtmlFile(file);//Will also add the spine option
                 }
@@ -93,9 +119,9 @@ namespace ePubFixer
                 indent = 0;
 
                 HtmlNode itemNode = CreateHtmlTOC(item);
-                if (itemNode!=null)
+                if (itemNode != null)
                 {
-                    Tocdocument.DocumentNode.AppendChild(itemNode); 
+                    Tocdocument.DocumentNode.AppendChild(itemNode);
                 }
             }
 
@@ -133,9 +159,9 @@ namespace ePubFixer
                 foreach (XElement item in toc.Descendants(ns + "navPoint"))
                 {
                     HtmlNode itemNode = CreateHtmlTOC(item);
-                    if (itemNode!=null)
+                    if (itemNode != null)
                     {
-                        TopNode.AppendChild(itemNode); 
+                        TopNode.AppendChild(itemNode);
                     }
                 }
             }
@@ -155,7 +181,7 @@ namespace ePubFixer
 
                 return path;
             }
-        } 
+        }
         #endregion
     }
 
