@@ -249,6 +249,8 @@ namespace ePubFixer
             DeleteFromManifest(FilesToDelete);
             DeleteFromGuide(FilesToDelete);
 
+            Utils.NewFilename();
+
         }
 
         public static void DeleteFromManifest(IEnumerable<string> FilesTodelete)
