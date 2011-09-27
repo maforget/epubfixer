@@ -37,7 +37,6 @@ namespace ePubFixer
 
         //Settings For MassUpdate
         internal static bool MassPreserveRatio = true;
-        internal static bool OnlyEditHtml = true;
         internal static SourceOfCover MassSource = SourceOfCover.FromBook;
         public static double ImageRatio = 0.75;
         public enum SourceOfCover { FromFolder, FromBook }
@@ -113,12 +112,13 @@ namespace ePubFixer
             string HtmlWidth = ImageNode.GetAttributeValue("width", "");
             string HeigthValue = e.Heigth.ToString();
             string WidthValue = e.Width.ToString();
-            //string HeigthValue = ImageIsSVG ? e.Heigth.ToString() : "100%";
-            //string WidthValue = ImageIsSVG ? e.Width.ToString() : "100%";
 
-            string SVGAspectValue = PreserveAspectRatio ? "xMidYMid meet" : "none";
-            string SVGHeigthValue = PreserveAspectRatio ? "100%" : "800";
-            string SVGWidthValue = PreserveAspectRatio ? "100%" : "600";
+            string SVGAspectValue = "xMidYMid meet";
+            //string SVGAspectValue = PreserveAspectRatio ? "xMidYMid meet" : "none";
+            //string SVGHeigthValue = PreserveAspectRatio ? "100%" : "800";
+            //string SVGWidthValue = PreserveAspectRatio ? "100%" : "600";
+            string SVGHeigthValue = "100%";
+            string SVGWidthValue = "100%";
             HtmlAttribute SVGAspectAttri = ImageNode.ParentNode.Attributes["preserveAspectRatio"];
             HtmlAttribute SVGHeigthAttri = ImageNode.ParentNode.Attributes["height"];
             HtmlAttribute SVGWidthAttri = ImageNode.ParentNode.Attributes["width"];

@@ -45,7 +45,6 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.cbPreserveRatio = new System.Windows.Forms.CheckBox();
-            this.cbOnlyEditHtml = new System.Windows.Forms.CheckBox();
             this.btnMassUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
             this.panel1.SuspendLayout();
@@ -203,19 +202,6 @@
             this.cbPreserveRatio.UseVisualStyleBackColor = true;
             this.cbPreserveRatio.CheckedChanged += new System.EventHandler(this.cbPreserveRatio_CheckedChanged);
             // 
-            // cbOnlyEditHtml
-            // 
-            this.cbOnlyEditHtml.Checked = true;
-            this.cbOnlyEditHtml.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbOnlyEditHtml.Enabled = false;
-            this.cbOnlyEditHtml.Location = new System.Drawing.Point(12, 246);
-            this.cbOnlyEditHtml.Name = "cbOnlyEditHtml";
-            this.cbOnlyEditHtml.Size = new System.Drawing.Size(119, 24);
-            this.cbOnlyEditHtml.TabIndex = 16;
-            this.cbOnlyEditHtml.Text = "Only Edit the Html";
-            this.cbOnlyEditHtml.UseVisualStyleBackColor = true;
-            this.cbOnlyEditHtml.CheckedChanged += new System.EventHandler(this.cbOnlyEditHtml_CheckedChanged);
-            // 
             // btnMassUpdate
             // 
             this.btnMassUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -235,7 +221,6 @@
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(668, 718);
             this.Controls.Add(this.btnMassUpdate);
-            this.Controls.Add(this.cbOnlyEditHtml);
             this.Controls.Add(this.cbPreserveRatio);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnFromFolder);
@@ -282,7 +267,6 @@
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.CheckBox cbPreserveRatio;
-        private System.Windows.Forms.CheckBox cbOnlyEditHtml;
         private System.Windows.Forms.Button btnMassUpdate;
     }
 }

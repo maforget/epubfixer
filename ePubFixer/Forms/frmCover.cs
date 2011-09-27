@@ -98,34 +98,13 @@ namespace ePubFixer
         bool ProcessEditOnlyCheck = true;
         private void cbPreserveRatio_CheckedChanged(object sender, EventArgs e)
         {
-            cbOnlyEditHtml.Enabled = !cbPreserveRatio.Checked;
-
-            ProcessEditOnlyCheck = false;//SO the Event for OnlyEditHtml doesn't fire
-            cbOnlyEditHtml.Checked = cbPreserveRatio.Checked;
-            ProcessEditOnlyCheck = true;
-
             ResizeImage();
-        }
-
-        private void cbOnlyEditHtml_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ProcessEditOnlyCheck)
-            {
-                if (cbOnlyEditHtml.Checked && BackupCoverHtml != null)
-                {
-                    ChangeImage(BackupCoverHtml);
-                } else
-                {
-                    ResizeImage();
-                }
-            }
         }
 
         private void btnMassUpdate_Click(object sender, EventArgs e)
         {
             Variables.MassUpdate = true;
             CoverDocument.MassPreserveRatio = cbPreserveRatio.Checked;
-            CoverDocument.OnlyEditHtml = cbOnlyEditHtml.Checked;
             CoverDocument.MassSource = source;
 
             OnCoverChanged(new CoverChangedArgs(Cover, cbPreserveRatio.Checked));
@@ -142,7 +121,7 @@ namespace ePubFixer
                 BackupCoverHtml = new Bitmap(Cover);
                 BackupCover = new Bitmap(Cover);
                 double ratio = (double)Cover.Width / (double)Cover.Height;
-                if (cbOnlyEditHtml.Checked || ratio != CoverDocument.ImageRatio)
+                if (ratio != CoverDocument.ImageRatio)
                 {
                     Image img = CoverDocument.ResizeImage(Cover, CoverDocument.ImageRatio, cbPreserveRatio.Checked);
                     ChangeImage(img); 
@@ -238,7 +217,6 @@ namespace ePubFixer
                 using (new HourGlass())
                 {
                     cbPreserveRatio.Checked = CoverDocument.MassPreserveRatio;
-                    cbOnlyEditHtml.Checked = CoverDocument.OnlyEditHtml;
 
                     if (CoverDocument.MassSource == CoverDocument.SourceOfCover.FromFolder)
                         FromFolderSource();
