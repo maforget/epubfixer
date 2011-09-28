@@ -139,7 +139,7 @@ namespace ePubFixer
         internal void AddHtmlFile(string filename)
         {
             string id = Guid.NewGuid().ToString();
-            AddManifestEntry("application/xhtml+xml", filename, id);
+            AddManifestEntry("application/xhtml+xml", filename, filename);
 
             //Also Add it to Spine
             AddSpineElement(id);
