@@ -90,8 +90,11 @@ namespace ePubFixer
             this.Cover = cover;
             this.Message = string.Empty;
             this.ChangedCoverFile = false;
-            this.Heigth = cover.Height;
-            this.Width = cover.Width;
+            if (cover!=null)
+            {
+                this.Heigth = cover.Height;
+                this.Width = cover.Width; 
+            }
             this.PreserveAspectRatio = PreserveRatio;
         }
 
