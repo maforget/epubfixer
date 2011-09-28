@@ -156,8 +156,8 @@ namespace ePubFixer
                     {
 
                         //If file is not SVG base Convert it and rerun the Fix
-                        string SVGhtml = @"<svg xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" height=""800"" preserveAspectRatio=""none"" version=""1.1"" viewBox=""0 0 600 800"" width=""600"">
-      <image height=""800"" width=""600"" xlink:href=""" + this.OriginalImageURL + @"""></image>
+                        string SVGhtml = @"<svg xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" height=""800"" preserveAspectRatio=""none"" version=""1.1"" viewBox=""0 0 600 800"" width=""100%"">
+      <image height=""800"" width=""100%"" xlink:href=""" + this.OriginalImageURL + @"""></image>
     </svg>";
                         string newHtml = ImageNode.OwnerDocument.DocumentNode.OuterHtml.Replace(ImageNode.OwnerDocument.DocumentNode.SelectSingleNode("//body").InnerHtml, SVGhtml);
 
