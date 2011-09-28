@@ -73,11 +73,16 @@ namespace ePubFixer
                 return NewInlineTOCFile(tocRef);
             } else
             {
+                System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show("The file \"" + tocRef + "\" is already set has your Table of Content\n" +
+                                    "Do you want to replace it?\n\nClicking \"No\" Will create a new Table fo Content", "Replace existing Inline Table of Content", System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question);
+
                 //Add a confirmation Box before replacing a already existing Inline TOC 
-                if (System.Windows.Forms.MessageBox.Show("The file " + tocRef + " is already set has your Table of Content\n" +
-                    "Do you want to replace it?", "Replace existing Inline Table of Content", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+                if (result == System.Windows.Forms.DialogResult.No)
                 {
                     return NewInlineTOCFile(tocRef);
+                } else if (result == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    tocRef = string.Empty;
                 }
             }
 
@@ -88,7 +93,7 @@ namespace ePubFixer
         {
             string text = CreateHtmlTOC();
 
-            if (!string.IsNullOrEmpty(text))
+            if (!string.IsNullOrEmpty(fileOutName) || !string.IsNullOrEmpty(text))
             {
                 fileOutStream = text.ToStream();
                 UpdateZip();
