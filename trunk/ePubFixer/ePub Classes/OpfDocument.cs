@@ -142,7 +142,7 @@ namespace ePubFixer
             AddManifestEntry("application/xhtml+xml", filename, filename);
 
             //Also Add it to Spine
-            AddSpineElement(id);
+            AddSpineElement(filename);
         }
         #endregion
 
