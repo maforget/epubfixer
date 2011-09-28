@@ -38,7 +38,7 @@ namespace ePubFixer
         public static void NewFilename()
         {
             NewFilename(false);
-        } 
+        }
         #endregion
 
         #region Get Icon & Title
@@ -130,9 +130,11 @@ namespace ePubFixer
 
         private static bool CheckPath(string Path)
         {
-            var path = (from f in Variables.ZipFileList
-                        where f.EndsWith(Path)
-                        select f).FirstOrDefault();
+            string path = "";
+            if (Path!=null)
+            {
+                path = (from f in Variables.ZipFileList where f.EndsWith(Path) select f).FirstOrDefault(); 
+            }
 
             return string.IsNullOrEmpty(path) ? false : true;
 
