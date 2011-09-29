@@ -380,7 +380,7 @@ namespace ePubFixer
 
         public string GetHtmlTOCRef()
         {
-            return GetGuideRef("toc");
+            return GetGuideRef("toc").Split('#')[0];
         }
 
         public List<string> GetFilesFromOPF()
