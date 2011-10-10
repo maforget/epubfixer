@@ -95,7 +95,6 @@ namespace ePubFixer
             OnCoverChanged(new CoverChangedArgs(Cover, cbPreserveRatio.Checked));
         }
 
-        bool ProcessEditOnlyCheck = true;
         private void cbPreserveRatio_CheckedChanged(object sender, EventArgs e)
         {
             ResizeImage();

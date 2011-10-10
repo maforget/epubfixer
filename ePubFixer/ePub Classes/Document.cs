@@ -182,12 +182,11 @@ namespace ePubFixer
                     return null;
                 }
 
-                Text = Text.Replace("?xml version=\"1.1\"", "?xml version=\"1.0\"");
-
+                Text = FixMetadata(Text);
                 OldTOC = XElement.Parse(Text.Trim());
                 ns = OldTOC.Name.Namespace;
 
-                return OldTOC.Elements(ns + TextToFind).FirstOrDefault();
+                return FixOpfDeclaration(OldTOC, TextToFind);
             } catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show("Invalid File\n" + ex.Message, Variables.BookName);
@@ -202,6 +201,42 @@ namespace ePubFixer
             return GetXmlElement(stream, TextToFind);
         }
         #endregion
+
+        #region OPF Fix
+        protected string FixMetadata(string text)
+        {
+            string Text = text;
+            Text = Text.Replace("?xml version=\"1.1\"", "?xml version=\"1.0\"");
+            Text = Text.Replace("opf:metadata", "metadata");
+            Text = Text.Replace("opf:guide", "guide");
+            Text = Text.Replace("opf:spine", "spine");
+            Text = Text.Replace("opf:manifest", "manifest");
+
+            return Text;
+        }
+
+        protected XElement FixOpfDeclaration(XElement toc, string TextToFind)
+        {
+            XElement meta = OldTOC.Element(ns + TextToFind);
+            if (meta != null)
+            {
+                meta.Attributes(XNamespace.Xmlns + "opf").Remove();
+            }
+
+            return meta;
+        }
+
+        protected void SaveOpfFixToFile()
+        {
+            OpfDocument doc = new OpfDocument();
+            XElement meta = doc.GetXmlElement("metadata");
+            if (meta != null)
+            {
+                doc.ReplaceSection(meta, "metadata");
+            }
+        } 
+        #endregion
+
         #endregion
 
 

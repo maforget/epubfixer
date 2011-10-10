@@ -304,10 +304,10 @@
     <EmbeddedResource Include="DLL\TidyManaged.dll" />
     <EmbeddedResource Include="DLL\HtmlAgilityPack.dll" />
     <Content Include="libtidy.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="msvcr100.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="readme.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
