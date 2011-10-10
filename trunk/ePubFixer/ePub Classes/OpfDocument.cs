@@ -90,8 +90,7 @@ namespace ePubFixer
                     return false;
                 }
 
-                Text = Text.Replace("?xml version=\"1.1\"", "?xml version=\"1.0\"");
-
+                Text = FixMetadata(Text);
                 OldTOC = XElement.Parse(Text.Trim());
                 ns = OldTOC.Name.Namespace;
                 return true;
@@ -102,6 +101,7 @@ namespace ePubFixer
                 return false;
             }
         }
+
         #endregion
 
         #region Create Entries in OPF File
@@ -392,10 +392,18 @@ namespace ePubFixer
 
         public List<string> GetFilesFromOPF()
         {
-            var ret = (from i in GetFilesList()
-                       select Path.Combine(Variables.OPFpath, i.Value)).ToList();
+            try
+            {
+                List<string> ret = (from i in GetFilesList()
+                                    select Path.Combine(Variables.OPFpath, i.Value)).ToList();
 
-            return ret;
+                return ret;
+            }
+            catch (Exception)
+            {
+                
+                return new List<string>();
+            }
         }
 
         #endregion
