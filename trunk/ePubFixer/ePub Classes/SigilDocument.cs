@@ -34,14 +34,6 @@ namespace ePubFixer
         #endregion
 
         #region Update File
-        private void FixMetadata()
-        {
-            OpfDocument doc = new OpfDocument();
-            XElement meta = doc.GetXmlElement("metadata");
-            meta.Attributes(XNamespace.Xmlns + "opf").Remove();
-            doc.ReplaceSection(meta, "metadata");
-        }
-
         internal override void UpdateFile()
         {
             //if (File.Exists(Variables.SigilDefaultPath))
@@ -62,7 +54,7 @@ namespace ePubFixer
                 return;
             }
 
-            FixMetadata();
+            SaveOpfFixToFile();
 
             //GetBackupTOC
             string ncxFile = Variables.NCXFile;

@@ -58,7 +58,7 @@ namespace ePubFixer
 
             this.WriteCSS();
             base.UpdateZip(fileOutStream);
-
+            SaveOpfFixToFile();
 
             if (Variables.Filenames.IndexOf(Variables.Filename) == (Variables.Filenames.Count - 1)
                 && Factory.NumberOfJobs == 1)

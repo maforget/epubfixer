@@ -92,6 +92,7 @@ namespace ePubFixer
             {
                 NewTOC = new XElement(OldTOC);
                 NewTOC.Element(ns + "navMap").ReplaceWith(newNavMap);
+                SaveOpfFixToFile();
             } else
             {
                 //Create a new TOC
