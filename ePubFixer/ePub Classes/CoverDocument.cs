@@ -193,6 +193,7 @@ namespace ePubFixer
                         fileOutName = Zip.GetFilePathInsideZip(ImageURL);
                         fileOutStream = e.Cover.ToStream(BookImage.RawFormat);
                         UpdateZip();
+                        SaveOpfFixToFile();
                         e.Message = SaveMessage;
                         ChangedCoverFile = true;
                     } else
