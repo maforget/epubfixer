@@ -62,9 +62,11 @@ Functionality
 - Change the Cover without having to reconvert your file (Like calibre does)(Note that using this will convert your covers to SVG)
 	- There is also a from folder button that will take the cover.jpg file that is next to the ePub (useful with calibre, where you can download a new cover, and change it by clicking from folder)
 - Resize the Cover so that it fits the screen of your eReader.
-	- Note that this has been tested on the Kobo Touch, it resizes the cover in a way that will have the Kobo created a cover without borders, but it might look weird in other viewer like calibre, etc (because it forces a Screen of 800 X 600)
-- Update all will use the selected settings for all the book that where selected, useful too update multiple covers at once.
+	- If you choose to not keep the aspect ratio it resizes the cover to a ratio of 0.75 (600 X 800)
+- Update all will use the selected settings for all the book that where selected, useful to update multiple covers at once.
+	- The From File will not be used when doing an update all.
 - Note that if the Cover is not explicitly set inside the opf file, it will use the first file in the book. (You can set it in the Add window)
+	- If no cover exists, it will NOT create one.
 
 Nigol
 
@@ -74,6 +76,14 @@ Please direct any comment or bugs here : http://code.google.com/p/epubfixer/
 -------------------------------------------
 Change Log
 -------------------------------------------
+
+v1.5.2
+- LibTidy didn't work on 64bit systems, the app will now be 32bit even on 64bit systems.
+- Added a confirmation box to replace the Inline TOC before doing so.
+- Removed Edit HTML Only from Cover Editor, and will make the cover fit to the window, instead of forcing to a 600 x 800 window.
+- The id of a Created Inline TOC will be the filename instead of a GUID.
+- Added a fix for some files that sigil 0.4.2 can't open, because of a badly formed content.opf file. Opening them though ePubFixer will fix them.
+- Bundled a DLL that was required for the libtidy.dll file that is part of Visual C++ Runtime, that if missing from the computer would crash ePubFIxer.
 
 v1.5.1
 - A book would crash when doing certain thing when there was no guide in the opf.
