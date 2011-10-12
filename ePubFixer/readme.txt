@@ -82,8 +82,8 @@ v1.5.2
 - Added a confirmation box to replace the Inline TOC before doing so.
 - Removed Edit HTML Only from Cover Editor, and will make the cover fit to the window, instead of forcing to a 600 x 800 window.
 - The id of a Created Inline TOC will be the filename instead of a GUID.
-- Added a fix for some files that sigil 0.4.2 can't open, because of a badly formed content.opf file. Opening them though ePubFixer will fix them.
-- Bundled a DLL that was required for the libtidy.dll file that is part of Visual C++ Runtime, that if missing from the computer would crash ePubFIxer.
+- Added a fix for some files that sigil 0.4.2 can't open, because of a badly formed content.opf file. Opening Sigil or Saving the file through ePubFixer will fix them.
+- Bundled a DLL that was required for the libtidy.dll file that is part of Visual C++ Runtime, that if missing from the computer would crash ePubFixer.
 
 v1.5.1
 - A book would crash when doing certain thing when there was no guide in the opf.
