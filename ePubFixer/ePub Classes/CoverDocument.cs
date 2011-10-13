@@ -113,8 +113,8 @@ namespace ePubFixer
             string HeigthValue = e.Heigth.ToString();
             string WidthValue = e.Width.ToString();
 
-            string SVGAspectValue = "xMidYMid meet";
-            //string SVGAspectValue = PreserveAspectRatio ? "xMidYMid meet" : "none";
+            //string SVGAspectValue = "xMidYMid meet";
+            string SVGAspectValue = PreserveAspectRatio ? "xMidYMid meet" : "none";
             //string SVGHeigthValue = PreserveAspectRatio ? "100%" : "800";
             //string SVGWidthValue = PreserveAspectRatio ? "100%" : "600";
             string SVGHeigthValue = "100%";
