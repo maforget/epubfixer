@@ -47,6 +47,7 @@
             this.cbPreserveRatio = new System.Windows.Forms.CheckBox();
             this.btnMassUpdate = new System.Windows.Forms.Button();
             this.cbAspectRatio = new System.Windows.Forms.ComboBox();
+            this.lblScreenRes = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -219,13 +220,22 @@
             this.cbAspectRatio.DropDownWidth = 200;
             this.cbAspectRatio.FormattingEnabled = true;
             this.cbAspectRatio.Items.AddRange(new object[] {
-            "3:4 ratio (6\" screen - 600 x 800)",
-            "9.375:16  ratio (7\" screen - 600 x 1024)"});
-            this.cbAspectRatio.Location = new System.Drawing.Point(13, 269);
+            "600 x 800 - 6\" screens (3 : 4)",
+            "600 x 1024 - 7\" screens (75 : 128)",
+            "824 x 1200 (103 : 150)"});
+            this.cbAspectRatio.Location = new System.Drawing.Point(12, 291);
             this.cbAspectRatio.Name = "cbAspectRatio";
             this.cbAspectRatio.Size = new System.Drawing.Size(118, 21);
             this.cbAspectRatio.TabIndex = 18;
             this.cbAspectRatio.SelectedIndexChanged += new System.EventHandler(this.cbAspectRatio_SelectedIndexChanged);
+            // 
+            // lblScreenRes
+            // 
+            this.lblScreenRes.Location = new System.Drawing.Point(9, 259);
+            this.lblScreenRes.Name = "lblScreenRes";
+            this.lblScreenRes.Size = new System.Drawing.Size(119, 29);
+            this.lblScreenRes.TabIndex = 19;
+            this.lblScreenRes.Text = "Screen Size (only for Ratio Calculation)";
             // 
             // frmCover
             // 
@@ -234,6 +244,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(668, 718);
+            this.Controls.Add(this.lblScreenRes);
             this.Controls.Add(this.cbAspectRatio);
             this.Controls.Add(this.btnMassUpdate);
             this.Controls.Add(this.cbPreserveRatio);
@@ -283,5 +294,6 @@
         private System.Windows.Forms.CheckBox cbPreserveRatio;
         private System.Windows.Forms.Button btnMassUpdate;
         private System.Windows.Forms.ComboBox cbAspectRatio;
+        private System.Windows.Forms.Label lblScreenRes;
     }
 }
