@@ -27,6 +27,7 @@ namespace ePubFixer
             this.Icon = Utils.GetIcon();
             WindowSave.RestoreWindows(Properties.Settings.Default.frmCover, this);
             DefaultImage = CoverFile == null ? null : CoverFile;
+            BackupCover = DefaultImage;
             DefaultURL = CoverFile == null ? "" : "DefaultImageStream";
             this.Text += " - " + Variables.BookName;
             ChangeImage();
@@ -120,7 +121,7 @@ namespace ePubFixer
         #region ChangeImage
         private void GetAspecRatioValue(int i)
         {
-            double[] ARlist = { 0.75, 0.5859375 };
+            double[] ARlist = { 0.75, 0.5859375, 0.686667};
 
             if (i >= 0)
             {
@@ -133,6 +134,8 @@ namespace ePubFixer
             int pbWidth = (int)(panel1.Height * CoverDocument.ImageRatio);
             int FormWidth = 172 + pbWidth;
 
+
+            //Resize Form & PictureBox
             panel1.Width = pbWidth;
             this.Width = FormWidth;
 
