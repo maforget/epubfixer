@@ -46,6 +46,7 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.cbPreserveRatio = new System.Windows.Forms.CheckBox();
             this.btnMassUpdate = new System.Windows.Forms.Button();
+            this.cbAspectRatio = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -100,9 +101,8 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.pbCover);
             this.panel1.Location = new System.Drawing.Point(142, 12);
@@ -213,6 +213,20 @@
             this.btnMassUpdate.UseVisualStyleBackColor = true;
             this.btnMassUpdate.Click += new System.EventHandler(this.btnMassUpdate_Click);
             // 
+            // cbAspectRatio
+            // 
+            this.cbAspectRatio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAspectRatio.DropDownWidth = 200;
+            this.cbAspectRatio.FormattingEnabled = true;
+            this.cbAspectRatio.Items.AddRange(new object[] {
+            "3:4 ratio (6\" screen - 600 x 800)",
+            "9.375:16  ratio (7\" screen - 600 x 1024)"});
+            this.cbAspectRatio.Location = new System.Drawing.Point(13, 269);
+            this.cbAspectRatio.Name = "cbAspectRatio";
+            this.cbAspectRatio.Size = new System.Drawing.Size(118, 21);
+            this.cbAspectRatio.TabIndex = 18;
+            this.cbAspectRatio.SelectedIndexChanged += new System.EventHandler(this.cbAspectRatio_SelectedIndexChanged);
+            // 
             // frmCover
             // 
             this.AcceptButton = this.btnSave;
@@ -220,6 +234,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(668, 718);
+            this.Controls.Add(this.cbAspectRatio);
             this.Controls.Add(this.btnMassUpdate);
             this.Controls.Add(this.cbPreserveRatio);
             this.Controls.Add(this.statusStrip1);
@@ -235,7 +250,6 @@
             this.Controls.Add(this.btnClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(674, 746);
             this.Name = "frmCover";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cover Editor";
@@ -268,5 +282,6 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.CheckBox cbPreserveRatio;
         private System.Windows.Forms.Button btnMassUpdate;
+        private System.Windows.Forms.ComboBox cbAspectRatio;
     }
 }
