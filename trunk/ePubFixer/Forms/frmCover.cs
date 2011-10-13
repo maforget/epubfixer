@@ -16,7 +16,6 @@ namespace ePubFixer
         bool BackupDone = false;
         Image Cover;
         Image BackupCover;
-        Image BackupCoverHtml;
         Image DefaultImage;
         string DefaultURL;
         internal event EventHandler<CoverChangedArgs> CoverChanged;
@@ -97,7 +96,7 @@ namespace ePubFixer
 
         private void cbPreserveRatio_CheckedChanged(object sender, EventArgs e)
         {
-            ResizeImage();
+            ResizeImage(false);
         }
 
         private void btnMassUpdate_Click(object sender, EventArgs e)
@@ -110,20 +109,46 @@ namespace ePubFixer
 
             this.Close();
         }
+
+        private void cbAspectRatio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetAspecRatioValue(cbAspectRatio.SelectedIndex);
+            ResizeImage(false);
+        }
         #endregion
 
         #region ChangeImage
-        private void ResizeImage()
+        private void GetAspecRatioValue(int i)
+        {
+            double[] ARlist = { 0.75, 0.5859375 };
+
+            if (i >= 0)
+            {
+                CoverDocument.ImageRatio = ARlist[i];
+            } else
+            {
+                CoverDocument.ImageRatio = 0.75;
+            }
+
+            int pbWidth = (int)(panel1.Height * CoverDocument.ImageRatio);
+            int FormWidth = 172 + pbWidth;
+
+            panel1.Width = pbWidth;
+            this.Width = FormWidth;
+
+
+        }
+
+        private void ResizeImage(bool Backup = true)
         {
             if (Cover != null && !cbPreserveRatio.Checked)
             {
-                BackupCoverHtml = new Bitmap(Cover);
-                BackupCover = new Bitmap(Cover);
+                BackupCover = Backup ? new Bitmap(Cover) : BackupCover;
                 double ratio = (double)Cover.Width / (double)Cover.Height;
                 if (ratio != CoverDocument.ImageRatio)
                 {
                     Image img = CoverDocument.ResizeImage(Cover, CoverDocument.ImageRatio, cbPreserveRatio.Checked);
-                    ChangeImage(img); 
+                    ChangeImage(img);
                 }
                 BackupDone = true;
             } else if (BackupDone)
@@ -179,6 +204,7 @@ namespace ePubFixer
             if (!string.IsNullOrEmpty(CoverFromFolder))
             {
                 ChangeImage(CoverFromFolder);
+                BackupCover = new Bitmap(Cover);
                 ResizeImage();
                 SourceMessage = " Using File cover.jpg in folder " + Path.GetDirectoryName(Variables.Filename);
             }
@@ -195,7 +221,6 @@ namespace ePubFixer
                 //Update the new DefaultImage
                 DefaultImage = e.Cover;
                 BackupCover = e.Cover;
-                BackupCoverHtml = e.Cover;
             }
         }
 
@@ -207,6 +232,9 @@ namespace ePubFixer
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
                 //this.ShowInTaskbar = false;
                 this.Size = new Size(0, 0);
+            } else
+            {
+                cbAspectRatio.SelectedIndex = 0;
             }
         }
         private void MassUpdate()
@@ -226,5 +254,6 @@ namespace ePubFixer
             }
         }
         #endregion
+
     }
 }
