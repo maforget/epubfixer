@@ -80,6 +80,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;DRM</DefineConstants>
+	<DRM>TRUE</DRM>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -89,6 +90,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
+	<DRM>FALSE</DRM>
     <Optimize>true</Optimize>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -100,6 +102,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release_DRM|x86'">
     <OutputPath>bin\x86\Release_DRM\</OutputPath>
     <DefineConstants>TRACE;DRM</DefineConstants>
+	<DRM>TRUE</DRM>
     <Optimize>true</Optimize>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -113,9 +116,8 @@
       <HintPath>DLL\Aga.Controls.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Drm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Drm">
       <HintPath>DLL\Drm.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
