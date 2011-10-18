@@ -63,7 +63,7 @@ namespace ePubFixer
             if (Variables.Filenames.IndexOf(Variables.Filename) == (Variables.Filenames.Count - 1)
                 && Factory.NumberOfJobs == 1)
             {
-                System.Windows.MessageBox.Show("Your Files are now fixed");
+                System.Windows.Forms.MessageBox.Show("Your Files are now fixed");
             }
         }
         #endregion
