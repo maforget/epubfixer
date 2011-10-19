@@ -738,6 +738,7 @@ namespace ePubFixer
 
         //TODO Look for links in html files and add a option to see only those (ex : Content with LInks or Footnote)
 
+        //TODO When Show Anchors is false, don't show files that exists in the TOC but have #file1256 after it.
 
     }
 
