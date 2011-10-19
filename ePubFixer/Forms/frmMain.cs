@@ -301,7 +301,7 @@ namespace ePubFixer
 
             if (Properties.Settings.Default.RecentFiles != null)
             {
-                LastFiles = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
+                LastFiles = Properties.Settings.Default.RecentFiles.LoadSettings().ToList();
                 LastFiles = LastFiles.OrderByDescending(x => LastFiles.IndexOf(x)).ToList();
             }
 

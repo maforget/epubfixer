@@ -80,9 +80,8 @@ namespace ePubFixer
                         FileDecrypted = Drm.Adept.Epub.Strip(ProtectedFilePath, NewFilePath);
                         if (FileDecrypted)
                         {
-                            Properties.Settings.Default.RecentFiles.Add(NewFilePath);
-                            Utils.SaveRecentFilesSettings(Properties.Settings.Default.RecentFiles.Cast<string>().ToList());
-
+                            Properties.Settings.Default.RecentFiles = Properties.Settings.Default.RecentFiles.AddSettings(NewFilePath);
+                            Utils.SaveRecentFiles();
                         }
                         return FileDecrypted;
                     }
