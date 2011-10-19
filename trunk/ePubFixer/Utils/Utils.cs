@@ -185,12 +185,12 @@ namespace ePubFixer
         #region Save Recent Files
         public static void SaveRecentFiles()
         {
-            if (Properties.Settings.Default.RecentFiles == null)
-                Properties.Settings.Default.RecentFiles = new System.Collections.ArrayList();
+            //if (Properties.Settings.Default.RecentFiles == null)
+            //    Properties.Settings.Default.RecentFiles = new System.Collections.ArrayList();
 
             List<string> LastFiles = new List<string>();
 
-            foreach (string item in Properties.Settings.Default.RecentFiles)
+            foreach (string item in Properties.Settings.Default.RecentFiles.LoadSettings())
             {
                 LastFiles.Add(item);
             }
@@ -199,25 +199,25 @@ namespace ePubFixer
             Utils.SaveRecentFilesSettings(LastFiles);
         }
 
-        public static void SaveRecentFilesSettings(List<string> LastFiles)
+        private static void SaveRecentFilesSettings(List<string> LastFiles)
         {
             int Qty = LastFiles.Count > 10 ? 10 : LastFiles.Count;
             LastFiles = LastFiles.GetRange(LastFiles.Count - Qty, Qty);
-            Properties.Settings.Default.RecentFiles.Clear();
+            List<string> RecentFiles = Properties.Settings.Default.RecentFiles.LoadSettings().ToList();
 
             foreach (string item in LastFiles)
             {
-
-                if (!Properties.Settings.Default.RecentFiles.Contains(item))
-                    Properties.Settings.Default.RecentFiles.Add(item);
+                if (!RecentFiles.Contains(item))
+                    RecentFiles.Add(item);
                 else
                 {
-                    int index = LastFiles.IndexOf(item);
-                    Properties.Settings.Default.RecentFiles.RemoveAt(index);
-                    Properties.Settings.Default.RecentFiles.Add(item);
+                    int index = RecentFiles.IndexOf(item);
+                    RecentFiles.RemoveAt(index);
+                    RecentFiles.Add(item);
                 }
             }
 
+            Properties.Settings.Default.RecentFiles = RecentFiles.SaveSettings();
             Properties.Settings.Default.Save();
         }
         #endregion

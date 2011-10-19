@@ -156,9 +156,10 @@ namespace ePubFixer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Configuration.SettingsProviderAttribute(typeof(MySettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.ArrayList RecentFiles {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RecentFiles {
             get {
-                return ((global::System.Collections.ArrayList)(this["RecentFiles"]));
+                return ((string)(this["RecentFiles"]));
             }
             set {
                 this["RecentFiles"] = value;
