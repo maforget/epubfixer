@@ -64,7 +64,7 @@ namespace ePubFixer
                             return false;
                     }
 
-                    string NewFilePath = SaveDirectory + "\\" + Variables.BookName;
+                    string NewFilePath = Path.Combine(SaveDirectory, Variables.BookName);
                     if (File.Exists(NewFilePath) &&
                         MessageBox.Show("File Already Exists, Do you want to replace it?\n\"" + Variables.BookName + "\"",
                         "File Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
