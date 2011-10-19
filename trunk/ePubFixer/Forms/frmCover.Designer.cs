@@ -264,6 +264,7 @@
             this.Name = "frmCover";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cover Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCover_FormClosing);
             this.Load += new System.EventHandler(this.frmCover_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).EndInit();
             this.panel1.ResumeLayout(false);
