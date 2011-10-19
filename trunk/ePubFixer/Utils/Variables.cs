@@ -159,7 +159,7 @@ namespace ePubFixer
         {
             get
             {
-                return Path.GetDirectoryName(Filename) + "\\" + Path.GetFileNameWithoutExtension(Filename) + " - Backup.epub";
+                return Path.Combine(Path.GetDirectoryName(Filename), Path.GetFileNameWithoutExtension(Filename) + " - Backup.epub");
             }
         }
         #endregion
@@ -179,8 +179,8 @@ namespace ePubFixer
 
         private static string GetBookName()
         {
-            string[] s = Filename.Split('\\');
-            return s[s.Length - 1];
+            string s = Path.GetFileNameWithoutExtension(Filename);
+            return s;
         }
         #endregion
 

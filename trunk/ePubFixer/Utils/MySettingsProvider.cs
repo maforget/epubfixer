@@ -63,7 +63,7 @@ using System.Xml.Serialization;
             //Returns a path when Portable.
             //return new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).DirectoryName;
 
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + ApplicationName + "\\";
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ApplicationName);
 
             if (!Directory.Exists(path))
             {

@@ -37,8 +37,7 @@ namespace ePubFixer
                         //}
                     }
                 }
-            }
-            catch (Exception)
+            } catch (Exception)
             {
             }
         }
@@ -71,8 +70,7 @@ namespace ePubFixer
                 {
                     Directory.Delete(Variables.TempFolder, true);
                 }
-            }
-            catch (Exception)
+            } catch (Exception)
             {
 
             }
@@ -81,8 +79,8 @@ namespace ePubFixer
         internal static string GetTempFilePath(string filename)
         {
             string file = GetFilePathInsideZip(filename);
-            file = file.Replace('/', '\\');
-            file = Variables.TempFolder + @"\" + file;
+            file = file.Replace('/', Path.DirectorySeparatorChar);
+            file = Path.Combine(Variables.TempFolder, file);
 
             file = Preview.ConvertToHTML(file);
 
@@ -97,7 +95,7 @@ namespace ePubFixer
             if (!String.IsNullOrEmpty(filename))
             {
                 file = (from z in Variables.FilesPathFromOPF
-                        where Path.Combine(Variables.OPFpath,filename)==z || filename==z
+                        where Path.Combine(Variables.OPFpath, filename) == z || filename == z
                         select z).FirstOrDefault();
 
                 if (string.IsNullOrEmpty(file))
