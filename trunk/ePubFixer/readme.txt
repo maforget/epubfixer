@@ -62,7 +62,7 @@ Functionality
 - Change the Cover without having to reconvert your file (Like calibre does)(Note that using this will convert your covers to SVG)
 	- There is also a from folder button that will take the cover.jpg file that is next to the ePub (useful with calibre, where you can download a new cover, and change it by clicking from folder)
 - Resize the Cover so that it fits the screen of your eReader.
-	- If you choose to not keep the aspect ratio it resizes the cover to a ratio of 0.75 (600 X 800)
+	- If you choose to not keep the aspect ratio it resizes the cover to a ratio of 0.75 (600 X 800) by default, but you can change it with the menu.
 - Update all will use the selected settings for all the book that where selected, useful to update multiple covers at once.
 	- The From File will not be used when doing an update all.
 - Note that if the Cover is not explicitly set inside the opf file, it will use the first file in the book. (You can set it in the Add window)
@@ -76,6 +76,12 @@ Please direct any comment or bugs here : http://code.google.com/p/epubfixer/
 -------------------------------------------
 Change Log
 -------------------------------------------
+v1.5.3
+- In the Cover Editor, unchecking the preserve Aspect Ratio box will revert to previous behavior of setting the SVG to "none" instead "MidXMidY meet".
+- Added a menu in the Cover Editor to select the desired aspect ratio that the image will be resized.
+- Fixed some issues with Mono / Linux. (Crash with Fix Margins, Preview working, Path issues)
+- Fixed some setting not being remembered or saved in the wrong place.
+
 
 v1.5.2
 - LibTidy didn't work on 64bit systems, the app will now be 32bit even on 64bit systems.
