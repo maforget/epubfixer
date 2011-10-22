@@ -190,7 +190,7 @@ namespace ePubFixer
 
             List<string> LastFiles = new List<string>();
 
-            foreach (string item in Properties.Settings.Default.RecentFiles.LoadSettings())
+            foreach (string item in Properties.Settings.Default.RecentFiles2.LoadSettings())
             {
                 LastFiles.Add(item);
             }
@@ -203,7 +203,7 @@ namespace ePubFixer
         {
             int Qty = LastFiles.Count > 10 ? 10 : LastFiles.Count;
             LastFiles = LastFiles.GetRange(LastFiles.Count - Qty, Qty);
-            List<string> RecentFiles = Properties.Settings.Default.RecentFiles.LoadSettings().ToList();
+            List<string> RecentFiles = Properties.Settings.Default.RecentFiles2.LoadSettings().ToList();
 
             foreach (string item in LastFiles)
             {
@@ -217,7 +217,7 @@ namespace ePubFixer
                 }
             }
 
-            Properties.Settings.Default.RecentFiles = RecentFiles.SaveSettings();
+            Properties.Settings.Default.RecentFiles2 = RecentFiles.SaveSettings();
             Properties.Settings.Default.Save();
         }
         #endregion

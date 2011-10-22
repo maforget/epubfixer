@@ -157,12 +157,12 @@ namespace ePubFixer.Properties {
         [global::System.Configuration.SettingsProviderAttribute(typeof(MySettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string RecentFiles {
+        public string RecentFiles2 {
             get {
-                return ((string)(this["RecentFiles"]));
+                return ((string)(this["RecentFiles2"]));
             }
             set {
-                this["RecentFiles"] = value;
+                this["RecentFiles2"] = value;
             }
         }
         
