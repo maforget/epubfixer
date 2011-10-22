@@ -32,7 +32,7 @@
     <Setting Name="Decrypt" Provider="MySettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="RecentFiles" Provider="MySettingsProvider" Type="System.String" Scope="User">
+    <Setting Name="RecentFiles2" Provider="MySettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="frmCover" Provider="MySettingsProvider" Type="System.String" Scope="User">

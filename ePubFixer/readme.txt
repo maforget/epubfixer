@@ -80,7 +80,9 @@ v1.5.3
 - In the Cover Editor, unchecking the preserve Aspect Ratio box will revert to previous behavior of setting the SVG to "none" instead "MidXMidY meet".
 - Added a menu in the Cover Editor to select the desired aspect ratio that the image will be resized.
 - Fixed some issues with Mono / Linux. (Crash with Fix Margins, Preview working, Path issues)
+	- There are still some issues like extracting files for the browser only working the first time, Preview crashing the app after the first time.
 - Fixed some setting not being remembered or saved in the wrong place.
+- Changed the way the Recent Files are stored in the settings
 
 
 v1.5.2

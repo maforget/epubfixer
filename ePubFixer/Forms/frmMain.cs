@@ -299,9 +299,9 @@ namespace ePubFixer
             recentFilesToolStripMenuItem.DropDownItems.Clear();
             List<string> LastFiles = null;
 
-            if (Properties.Settings.Default.RecentFiles != null)
+            if (Properties.Settings.Default.RecentFiles2 != null)
             {
-                LastFiles = Properties.Settings.Default.RecentFiles.LoadSettings().ToList();
+                LastFiles = Properties.Settings.Default.RecentFiles2.LoadSettings().ToList();
                 LastFiles = LastFiles.OrderByDescending(x => LastFiles.IndexOf(x)).ToList();
             }
 
