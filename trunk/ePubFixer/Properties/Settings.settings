@@ -44,5 +44,8 @@
     <Setting Name="InsertAnInlineTOC" Provider="MySettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="CoverKeepAspectRatio" Provider="MySettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

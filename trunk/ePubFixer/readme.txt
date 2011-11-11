@@ -84,6 +84,7 @@ v1.5.3
 - Fixed some setting not being remembered or saved in the wrong place.
 - Changed the way the Recent Files are stored in the settings.
 - Clicking Rename will have the text selected in the Rename tool.
+- The Keep Aspect Ratio checkbox inside of the Cover Editor will now be remembered.
 
 
 v1.5.2

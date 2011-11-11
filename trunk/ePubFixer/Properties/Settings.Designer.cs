@@ -204,5 +204,18 @@ namespace ePubFixer.Properties {
                 this["InsertAnInlineTOC"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(MySettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CoverKeepAspectRatio {
+            get {
+                return ((bool)(this["CoverKeepAspectRatio"]));
+            }
+            set {
+                this["CoverKeepAspectRatio"] = value;
+            }
+        }
     }
 }
