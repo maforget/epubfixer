@@ -82,7 +82,8 @@ v1.5.3
 - Fixed some issues with Mono / Linux. (Crash with Fix Margins, Preview working, Path issues)
 	- There are still some issues like extracting files for the browser only working the first time, Preview crashing the app after the first time.
 - Fixed some setting not being remembered or saved in the wrong place.
-- Changed the way the Recent Files are stored in the settings
+- Changed the way the Recent Files are stored in the settings.
+- Clicking Rename will have the text selected in the Rename tool.
 
 
 v1.5.2
