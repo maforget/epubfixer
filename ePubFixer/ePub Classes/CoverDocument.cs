@@ -97,7 +97,7 @@ namespace ePubFixer
             {
                 return false;
             }
-        } 
+        }
         #endregion
 
         #region Export NEw COver
@@ -172,8 +172,7 @@ namespace ePubFixer
                     }
 
                     FixedCoverWidth = true;
-                }
-                catch (Exception) { }
+                } catch (Exception) { }
             }
 
             return FixedCoverWidth;
@@ -236,7 +235,7 @@ namespace ePubFixer
                     e.Message = "Cover is Empty, Aborting";
                 }
             }
-        } 
+        }
         #endregion
 
         #region Get Image From Book
@@ -283,7 +282,7 @@ namespace ePubFixer
 
             fileExtractStream = GetStream(ImageURL);
 
-            if(fileExtractStream!=null)
+            if (fileExtractStream != null)
                 BookImage = string.IsNullOrEmpty(ImageURL) ? null : Image.FromStream(fileExtractStream);
         }
         #endregion
@@ -295,11 +294,18 @@ namespace ePubFixer
             string FirstRef = MyOPFDoc.GetSpineRefAtIndex(0);
             if (FirstRef != CoverFile)
             {
-                //TODO Check if linearize = off
+                //TODO Check if  linear="no"
                 System.Windows.Forms.MessageBox.Show("The Cover File is not the first File\n" +
                 "Please use the Reading Order editor to modify it (id=" + Utils.GetId(CoverFile) + ")", "Cover is Not the First File", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
             }
-        }
 
+            XAttribute linearValue = MyOPFDoc.SpineElements[0].Attribute("linear");
+            if (linearValue!=null && linearValue.Value == "no")
+            {
+                System.Windows.Forms.MessageBox.Show("The Cover File has a linear value of \"no\". This could lead to the Cover being shown at the End of the book.\n\n" +
+            "Please use the Reading Order editor to modify it (Just Save it and it will remove any linear value) ", "Linear Value of Cover is \"no\"", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
+            }
+
+        }
     }
 }

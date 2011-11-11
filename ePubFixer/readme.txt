@@ -85,6 +85,7 @@ v1.5.3
 - Changed the way the Recent Files are stored in the settings.
 - Clicking Rename will have the text selected in the Rename tool.
 - The Keep Aspect Ratio checkbox inside of the Cover Editor will now be remembered.
+- When Saving a cover you will be warned if the cover has a value of linear="no" (Putting the cover at the end of the book).
 
 
 v1.5.2
