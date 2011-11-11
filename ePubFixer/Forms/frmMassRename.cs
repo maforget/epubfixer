@@ -42,6 +42,7 @@ namespace ePubFixer
             txtInput.TabIndex = 0;
             txtInput.Focus();
             txtInput.Text = InputText.Count > 1 ? "" : InputText[0];
+            txtInput.SelectAll();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
