@@ -22,13 +22,30 @@ namespace ePubFixer
         protected override XElement OldTOC { get; set; }
         protected override XNamespace ns { get; set; }
 
-        private List<System.Xml.Linq.XAttribute> SpineIDs
+        public List<System.Xml.Linq.XElement> SpineElements
         {
             get
             {
-                return GetXmlElement("spine").Elements(ns + "itemref").Attributes("idref").ToList();
+                return GetXmlElement("spine").Elements(ns + "itemref").ToList();
             }
         }
+
+        public List<System.Xml.Linq.XAttribute> SpineIDs
+        {
+            get
+            {
+                return SpineElements.Attributes("idref").ToList();
+            }
+        }
+
+        public List<System.Xml.Linq.XElement> ManifestElements
+        {
+            get
+            {
+                return GetManifest().Elements().ToList();
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -76,7 +93,7 @@ namespace ePubFixer
 
         #endregion
 
-        #region Extract OPF File
+        #region Initial Setup
         private bool SetFile()
         {
             fileExtractStream = base.GetStream(Variables.OPFfile);
@@ -106,17 +123,17 @@ namespace ePubFixer
 
         #region Create Entries in OPF File
         #region Manifest
-        internal void CreateTocEntry()
+        internal void AddTocEntry()
         {
             List<string> fileList = GetFilesList("application/x-dtbncx+xml");
 
             if (fileList.Count == 0)
             {
-                AddManifestEntry("application/x-dtbncx+xml", "toc.ncx", "toc.ncx");
+                AddEntryToManifest("application/x-dtbncx+xml", "toc.ncx", "toc.ncx");
             }
         }
 
-        private void AddManifestEntry(string MediaType, string FileName, string id)
+        private void AddEntryToManifest(string MediaType, string FileName, string id)
         {
             XElement tocElement = new XElement(ns + "item",
                                                     new XAttribute("href", FileName),
@@ -139,7 +156,7 @@ namespace ePubFixer
         internal void AddHtmlFile(string filename)
         {
             string id = Guid.NewGuid().ToString();
-            AddManifestEntry("application/xhtml+xml", filename, filename);
+            AddEntryToManifest("application/xhtml+xml", filename, filename);
 
             //Also Add it to Spine
             AddSpineElement(filename);
@@ -147,7 +164,7 @@ namespace ePubFixer
         #endregion
 
         #region Guide
-        private void AddGuideRef(string File, string type,string Title)
+        private void AddEntryToGuide(string File, string type,string Title)
         {
             using (new HourGlass())
             {
@@ -180,12 +197,12 @@ namespace ePubFixer
 
         internal void AddCoverRef(string CoverFile)
         {
-            AddGuideRef(CoverFile, "cover","Cover");
+            AddEntryToGuide(CoverFile, "cover","Cover");
         }
 
         internal void AddTOCContentRef(string ContentFile)
         {
-            AddGuideRef(ContentFile, "toc","Table of Content");
+            AddEntryToGuide(ContentFile, "toc","Table of Content");
         }
         #endregion
 
@@ -248,8 +265,9 @@ namespace ePubFixer
         #region Get FilesList & General OPF Info
         private XElement GetManifest()
         {
-            XElement ret = new XElement(OldTOC.Element(ns + "manifest"));
-            return ret;
+            //XElement ret = new XElement(OldTOC.Element(ns + "manifest"));
+            //return ret;
+            return GetXmlElement("manifest");
         }
 
         private List<string> GetFilesList(Predicate<string> filter)

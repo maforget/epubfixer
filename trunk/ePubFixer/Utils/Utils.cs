@@ -131,9 +131,9 @@ namespace ePubFixer
         private static bool CheckPath(string Path)
         {
             string path = "";
-            if (Path!=null)
+            if (Path != null)
             {
-                path = (from f in Variables.ZipFileList where f.EndsWith(Path) select f).FirstOrDefault(); 
+                path = (from f in Variables.ZipFileList where f.EndsWith(Path) select f).FirstOrDefault();
             }
 
             return string.IsNullOrEmpty(path) ? false : true;
@@ -143,7 +143,7 @@ namespace ePubFixer
         {
             string EncodedPath = System.Web.HttpUtility.UrlPathEncode(file);
             string DecodedPath = System.Web.HttpUtility.UrlDecode(file);
-            
+
             if (CheckPath(DecodedPath))
             {
                 return DecodedPath;
@@ -203,14 +203,16 @@ namespace ePubFixer
         {
             int Qty = LastFiles.Count > 10 ? 10 : LastFiles.Count;
             LastFiles = LastFiles.GetRange(LastFiles.Count - Qty, Qty);
-            List<string> RecentFiles = Properties.Settings.Default.RecentFiles2.LoadSettings().ToList();
+            List<string> RecentFiles = new List<string>();
 
             foreach (string item in LastFiles)
             {
                 if (!RecentFiles.Contains(item))
+                    //aDD iT
                     RecentFiles.Add(item);
                 else
                 {
+                    //mOVE IT ON TOP
                     int index = RecentFiles.IndexOf(item);
                     RecentFiles.RemoveAt(index);
                     RecentFiles.Add(item);
@@ -333,7 +335,7 @@ namespace ePubFixer
             }
 
             XElement newManifest = new XElement(ns + "guide", newItems);
-            doc.ReplaceSection(newManifest,"guide");
+            doc.ReplaceSection(newManifest, "guide");
         }
         #endregion
     }

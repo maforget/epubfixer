@@ -84,7 +84,7 @@ namespace ePubFixer
                 //System.Windows.Forms.MessageBox.Show("No TOC file Present", Variables.BookName);
                 //return;
                 fileOutName = "toc.ncx";
-                doc.CreateTocEntry();
+                doc.AddTocEntry();
             } 
 
 
