@@ -193,8 +193,8 @@
             // 
             // cbPreserveRatio
             // 
-            this.cbPreserveRatio.Checked = true;
-            this.cbPreserveRatio.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbPreserveRatio.Checked = global::ePubFixer.Properties.Settings.Default.CoverKeepAspectRatio;
+            this.cbPreserveRatio.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ePubFixer.Properties.Settings.Default, "CoverKeepAspectRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cbPreserveRatio.Location = new System.Drawing.Point(12, 205);
             this.cbPreserveRatio.Name = "cbPreserveRatio";
             this.cbPreserveRatio.Size = new System.Drawing.Size(119, 35);
