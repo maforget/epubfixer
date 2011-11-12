@@ -142,7 +142,7 @@ namespace ePubFixer
             if (OldTOC != null)
             {
                 NewTOC = new XElement(OldTOC);
-                NewTOC.Element(ns + "manifest").Add(tocElement);
+                FixOpfDeclaration(NewTOC, "manifest").Add(tocElement);
                 base.WriteXML();
                 base.UpdateZip();
                 SetFile();
@@ -164,7 +164,7 @@ namespace ePubFixer
         #endregion
 
         #region Guide
-        private void AddEntryToGuide(string File, string type,string Title)
+        private void AddEntryToGuide(string File, string type, string Title)
         {
             using (new HourGlass())
             {
@@ -197,12 +197,12 @@ namespace ePubFixer
 
         internal void AddCoverRef(string CoverFile)
         {
-            AddEntryToGuide(CoverFile, "cover","Cover");
+            AddEntryToGuide(CoverFile, "cover", "Cover");
         }
 
         internal void AddTOCContentRef(string ContentFile)
         {
-            AddEntryToGuide(ContentFile, "toc","Table of Content");
+            AddEntryToGuide(ContentFile, "toc", "Table of Content");
         }
         #endregion
 
@@ -402,7 +402,7 @@ namespace ePubFixer
 
             if (!string.IsNullOrEmpty(s))
             {
-                return s.Split('#')[0]; 
+                return s.Split('#')[0];
             }
 
             return "";
@@ -416,10 +416,9 @@ namespace ePubFixer
                                     select Path.Combine(Variables.OPFpath, i.Value)).ToList();
 
                 return ret;
-            }
-            catch (Exception)
+            } catch (Exception)
             {
-                
+
                 return new List<string>();
             }
         }
