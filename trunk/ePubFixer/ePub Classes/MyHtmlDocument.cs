@@ -104,9 +104,9 @@ namespace ePubFixer
 
                         DetectedHeaders cache = Variables.HeaderTextInFile.Where(x => x.Key == path).Select(x => x.Value).FirstOrDefault();
 
-                        header.Result = (from f in cache.Result
-                                         select HttpUtility.HtmlDecode(f)).ToList();
-                        header.OriginalCount = cache.OriginalCount;
+                        header.Result = cache.Result==null ? null : (from f in cache.Result
+                                                                    select HttpUtility.HtmlDecode(f)).ToList();
+                        header.OriginalCount = header.Result == null ? 0 : cache.OriginalCount;
 
                         Result.Add(path, header);
                     }
@@ -117,7 +117,7 @@ namespace ePubFixer
                     {
                         header.Result = GetText(html.DocumentNode.SelectSingleNode("//body"));
 
-                        header.OriginalCount = header.Result.Count;
+                        header.OriginalCount = header.Result==null ? 0 : header.Result.Count;
                         Result.Add(path, header);
                         Variables.HeaderTextInFile.Add(path, header);
                     }
@@ -296,7 +296,7 @@ namespace ePubFixer
             {
                 AnchorsInFile = new List<string>();
                 HtmlDocument html = GetHtml(filename);
-                if (html != null)
+                if (html != null && html.DocumentNode.SelectSingleNode("//body")!=null)
                 {
                     var elements = html.DocumentNode.SelectSingleNode("//body").DescendantNodesAndSelf();
                     foreach (HtmlNode item in elements)
