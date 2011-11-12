@@ -66,7 +66,8 @@ namespace ePubFixer
                 }
 
                 return null;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return null;
             }
@@ -116,7 +117,8 @@ namespace ePubFixer
                 }
 
                 SaveMessage = "Saved!";
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 SaveMessage = "Error : " + e.Message;
             }
@@ -187,7 +189,8 @@ namespace ePubFixer
                 ns = OldTOC.Name.Namespace;
 
                 return FixOpfDeclaration(OldTOC, TextToFind);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show("Invalid File\n" + ex.Message, Variables.BookName);
                 ns = nsIfEmpty;
@@ -217,11 +220,11 @@ namespace ePubFixer
 
         protected XElement FixOpfDeclaration(XElement toc, string TextToFind)
         {
-            XElement meta = OldTOC.Element(ns + TextToFind);
-            if (meta != null)
+            XElement meta = toc.Element(ns + TextToFind);
+            if (meta == null)
             {
-                meta.Attributes(XNamespace.Xmlns + "opf").Remove();
-            }
+                meta = toc.Element(TextToFind);
+            } 
 
             return meta;
         }
@@ -234,7 +237,7 @@ namespace ePubFixer
             {
                 doc.ReplaceSection(meta, "metadata");
             }
-        } 
+        }
         #endregion
 
         #endregion
