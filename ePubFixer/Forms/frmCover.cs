@@ -247,10 +247,11 @@ namespace ePubFixer
                 using (new HourGlass())
                 {
                     cbPreserveRatio.Checked = CoverDocument.MassPreserveRatio;
-                    ResizeImage(false);
-
+                    
                     if (CoverDocument.MassSource == CoverDocument.SourceOfCover.FromFolder)
                         FromFolderSource();
+                    else
+                        ResizeImage(false);
 
                     OnCoverChanged(new CoverChangedArgs(Cover, cbPreserveRatio.Checked));
                     this.Close();
