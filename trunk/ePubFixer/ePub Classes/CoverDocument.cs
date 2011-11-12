@@ -224,7 +224,7 @@ namespace ePubFixer
                     #endregion
 
                     //Check to see if the cover file is the first
-                    //if (!Variables.MassUpdate)
+                    if (!Variables.MassUpdate)
                         CheckPositionOfCover(); 
 
                     //Update the stream and BookImage with the new default
