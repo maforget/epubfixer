@@ -233,6 +233,10 @@ namespace ePubFixer
             {
                 NewTOC = new XElement(OldTOC);
                 XElement Section = NewTOC.Element(ns + section);
+                XElement Section2 = NewTOC.Element(section);
+
+                if (Section == null && Section2 != null)
+                    Section = Section2;
 
                 if (Section == null)
                 {
