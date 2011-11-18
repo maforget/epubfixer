@@ -54,9 +54,11 @@ namespace ePubFixer
         internal override void UpdateFile()
         {
             GetImage();
-            frmCover frm = new frmCover(BookImage);
-            frm.CoverChanged += new EventHandler<CoverChangedArgs>(ExportNewCover);
-            frm.ShowDialog();
+            using (frmCover frm = new frmCover(BookImage))
+            {
+                frm.CoverChanged += new EventHandler<CoverChangedArgs>(ExportNewCover);
+                frm.ShowDialog(); 
+            }
         }
 
         #region Image

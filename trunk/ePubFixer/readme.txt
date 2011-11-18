@@ -86,6 +86,7 @@ v1.5.3
 - Clicking Rename will have the text selected in the Rename tool.
 - The Keep Aspect Ratio checkbox inside of the Cover Editor will now be remembered.
 - When Saving a cover you will be warned if the cover has a value of linear="no" (Putting the cover at the end of the book).
+- Fixed a Memory problem where using the Mass Update in the Cover Editor would eat up all the memory and crash.
 
 
 v1.5.2
