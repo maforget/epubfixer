@@ -69,9 +69,11 @@ namespace ePubFixer
             //if (xml == null)
             //    return false;
 
-            frmSpineEdit frm = new frmSpineEdit(xml);
-            frm.Save += new EventHandler<ExportTocEventArgs>(frm_Save);
-            frm.ShowDialog();
+            using (frmSpineEdit frm = new frmSpineEdit(xml))
+            {
+                frm.Save += new EventHandler<ExportTocEventArgs>(frm_Save);
+                frm.ShowDialog(); 
+            }
         }
 
         private void frm_Save(object sender, ExportTocEventArgs e)

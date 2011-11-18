@@ -37,9 +37,11 @@ namespace ePubFixer
             fileExtractStream = base.GetStreamOPF(Variables.NCXFile);
             XElement xml = GetXmlElement("navMap");
 
-            frmTocEdit frm = new frmTocEdit(xml);
-            frm.Save += new EventHandler<ExportTocEventArgs>(frm_Save);
-            frm.ShowDialog();
+            using (frmTocEdit frm = new frmTocEdit(xml))
+            {
+                frm.Save += new EventHandler<ExportTocEventArgs>(frm_Save);
+                frm.ShowDialog(); 
+            }
         }
 
         #region Save
