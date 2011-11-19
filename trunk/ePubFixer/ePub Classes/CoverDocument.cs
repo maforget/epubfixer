@@ -295,7 +295,7 @@ namespace ePubFixer
                 ImageNode = HtmlDoc.DocumentNode.SelectSingleNode("//" + item.Key);
                 if (ImageNode != null)
                 {
-                    ImageIsSVG = ImageNode.ParentNode.Name == "svg" ? true : false;
+                    ImageIsSVG = ImageNode.ParentNode.Name == "svg" && item.Key=="image" ? true : false;
                     ImageURL = ImageNode.Attributes[item.Value].Value;
 
                     //Clean URL
