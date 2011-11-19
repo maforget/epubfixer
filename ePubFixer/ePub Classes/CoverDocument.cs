@@ -62,11 +62,20 @@ namespace ePubFixer
         }
 
         #region Image
+        internal static int MaxHeight
+        {
+            get
+            {
+                int MaxHeight = 1600;
+                return MaxHeight;
+            }
+        }
         public static Image ResizeImage(Image image, double WidthRatioVsHeigth, bool preserveRatio)
         {
-            int height = image.Height;
+            int height = image.Height > MaxHeight ? MaxHeight : image.Height;
             int Width = image.Width;
-            int ResizedWidth = !preserveRatio ? (int)(height * WidthRatioVsHeigth) : image.Width;
+            int ResizedWidth = (int)(height * WidthRatioVsHeigth);
+            //int ResizedWidth = !preserveRatio ? (int)(height * WidthRatioVsHeigth) : image.Width;
 
             Bitmap b = new Bitmap(ResizedWidth, height);
             Graphics g = Graphics.FromImage(b);
@@ -192,7 +201,7 @@ namespace ePubFixer
                     if (!ImageCompare(e.Cover, BookImage))
                     {
                         fileOutName = Zip.GetFilePathInsideZip(ImageURL);
-                        fileOutStream = e.Cover.ToStream(BookImage.RawFormat);
+                        fileOutStream = e.Cover.ToStream(GetImageType(BookImage));
                         UpdateZip();
                         SaveOpfFixToFile();
                         e.Message = SaveMessage;
@@ -237,6 +246,20 @@ namespace ePubFixer
                 {
                     e.Message = "Cover is Empty, Aborting";
                 }
+            }
+        }
+
+        private ImageFormat GetImageType(Image BookImage)
+        {
+            switch (Path.GetExtension(ImageURL))
+            {
+                case ".png": return ImageFormat.Png;
+                case ".tif": return ImageFormat.Tiff;
+                case ".bmp": return ImageFormat.Bmp;
+                case ".jpg" :
+                case ".jpeg": return ImageFormat.Jpeg;
+                case ".gif": return ImageFormat.Gif;
+                default: return BookImage.RawFormat;
             }
         }
         #endregion

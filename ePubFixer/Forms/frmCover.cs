@@ -144,11 +144,13 @@ namespace ePubFixer
 
         private void ResizeImage(bool Backup = true)
         {
+            BackupCover = Backup ? new Bitmap(Cover) : BackupCover;
             if (Cover != null && !cbPreserveRatio.Checked)
             {
-                BackupCover = Backup ? new Bitmap(Cover) : BackupCover;
+                
+
                 double ratio = (double)Cover.Width / (double)Cover.Height;
-                if (ratio != CoverDocument.ImageRatio)
+                if (Cover.Height > CoverDocument.MaxHeight | ratio != CoverDocument.ImageRatio)
                 {
                     Image img = CoverDocument.ResizeImage(Cover, CoverDocument.ImageRatio, cbPreserveRatio.Checked);
                     ChangeImage(img);
