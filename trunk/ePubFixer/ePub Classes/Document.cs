@@ -210,10 +210,14 @@ namespace ePubFixer
         {
             string Text = text;
             Text = Text.Replace("?xml version=\"1.1\"", "?xml version=\"1.0\"");
-            Text = Text.Replace("opf:metadata", "metadata");
-            Text = Text.Replace("opf:guide", "guide");
-            Text = Text.Replace("opf:spine", "spine");
-            Text = Text.Replace("opf:manifest", "manifest");
+
+            //Text = Text.Replace("opf:metadata", "metadata");
+            //Text = Text.Replace("opf:guide", "guide");
+            //Text = Text.Replace("opf:spine", "spine");
+            //Text = Text.Replace("opf:manifest", "manifest");
+            //Text = Text.Replace("opf:item", "item");
+            //Text = Text.Replace("opf:itemref ", "itemref");
+            //Text = Text.Replace("opf:reference ", "reference");
 
             return Text;
         }
@@ -231,12 +235,16 @@ namespace ePubFixer
 
         protected void SaveOpfFixToFile()
         {
-            OpfDocument doc = new OpfDocument();
-            XElement meta = doc.GetXmlElement("metadata");
-            if (meta != null)
-            {
-                doc.ReplaceSection(meta, "metadata");
-            }
+            //List<string> list = new List<string>() { "metadata", "manifest", "spine", "guide" };
+            //OpfDocument doc = new OpfDocument();
+            //foreach (string item in list)
+            //{
+            //    XElement meta = doc.GetXmlElement(item);
+            //    if (meta != null)
+            //    {
+            //        doc.ReplaceSection(meta, item);
+            //    }
+            //}
         }
         #endregion
 
