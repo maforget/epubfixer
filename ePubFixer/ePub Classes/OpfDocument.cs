@@ -26,7 +26,7 @@ namespace ePubFixer
         {
             get
             {
-                return GetXmlElement("spine").Elements(ns + "itemref").ToList();
+                return GetXmlElement("spine").Elements().ToList();
             }
         }
 
@@ -71,6 +71,7 @@ namespace ePubFixer
 
             using (frmSpineEdit frm = new frmSpineEdit(xml))
             {
+                //frmSpineEdit frm = new frmSpineEdit(xml);
                 frm.Save += new EventHandler<ExportTocEventArgs>(frm_Save);
                 frm.ShowDialog(); 
             }

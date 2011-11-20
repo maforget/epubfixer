@@ -39,8 +39,9 @@ namespace ePubFixer
 
             using (frmTocEdit frm = new frmTocEdit(xml))
             {
+                //frmTocEdit frm = new frmTocEdit(xml);
                 frm.Save += new EventHandler<ExportTocEventArgs>(frm_Save);
-                frm.ShowDialog(); 
+                frm.ShowDialog();
             }
         }
 

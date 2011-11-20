@@ -79,14 +79,14 @@ Change Log
 v1.5.3
 - In the Cover Editor, unchecking the preserve Aspect Ratio box will revert to previous behavior of setting the SVG to "none" instead "MidXMidY meet".
 - Added a menu in the Cover Editor to select the desired aspect ratio that the image will be resized.
-- Fixed some issues with Mono / Linux. (Crash with Fix Margins, Preview working, Path issues)
-	- There are still some issues like extracting files for the browser only working the first time, Preview crashing the app after the first time.
+- Fixed some issues with Mono / Linux. (Crash with Fix Margins, Preview working, Path issues, Recent Files working)
 - Fixed some setting not being remembered or saved in the wrong place.
 - Changed the way the Recent Files are stored in the settings.
 - Clicking Rename will have the text selected in the Rename tool.
 - The Keep Aspect Ratio checkbox inside of the Cover Editor will now be remembered.
 - When Saving a cover you will be warned if the cover has a value of linear="no" (Putting the cover at the end of the book).
 - Fixed a Memory problem where using the Mass Update in the Cover Editor would eat up all the memory and crash.
+- Removed the malform opf fix with Sigil and other function, because it did more harm than good.
 
 
 v1.5.2
