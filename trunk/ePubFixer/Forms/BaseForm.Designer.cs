@@ -57,9 +57,9 @@
             // tree
             // 
             this.tree.AllowDrop = true;
-            this.tree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tree.BackColor = System.Drawing.SystemColors.Window;
             this.tree.Columns.Add(this.TextCol);
             this.tree.Columns.Add(this.CheckCol);
@@ -309,12 +309,12 @@
         protected System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        internal System.Windows.Forms.ToolStripProgressBar Progress;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         protected System.Windows.Forms.CheckBox cbSplit;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Timer timer;
         protected System.Windows.Forms.CheckBox cbCreateHtmlTOC;
+        private System.Windows.Forms.ToolStripProgressBar Progress;
 
 
     }

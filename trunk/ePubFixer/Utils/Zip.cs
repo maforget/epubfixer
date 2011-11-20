@@ -10,11 +10,11 @@ namespace ePubFixer
     class Zip
     {
 
-        public static event EventHandler<ExtractProgressArgs> ExtractProgress;
-        static ExtractProgressArgs Progress;
+        public event EventHandler<ExtractProgressArgs> ExtractProgress;
+        ExtractProgressArgs Progress;
 
         #region ZipExtract
-        internal static void ExtractZip()
+        internal void ExtractZip()
         {
             try
             {
@@ -28,13 +28,6 @@ namespace ePubFixer
                     {
 
                         item.Extract(Variables.TempFolder, ExtractExistingFileAction.OverwriteSilently);
-                        //Progress.Transferred += Convert.ToInt32(item.UncompressedSize);
-                        ////System.Threading.Thread.Sleep(100);
-
-                        //if (ExtractProgress!=null)
-                        //{
-                        //    ExtractProgress(item, Progress);
-                        //}
                     }
                 }
             } catch (Exception)
@@ -42,9 +35,9 @@ namespace ePubFixer
             }
         }
 
-        static long Old;
-        static long New;
-        static void zip_ExtractProgress(object sender, ExtractProgressEventArgs e)
+        long Old;
+        long New;
+        void zip_ExtractProgress(object sender, ExtractProgressEventArgs e)
         {
             if (e.EventType == ZipProgressEventType.Extracting_EntryBytesWritten)
             {
