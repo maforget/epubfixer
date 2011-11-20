@@ -45,6 +45,7 @@ namespace ePubFixer
             TOC = xml;
 
         }
+
         private void SetToolTips()
         {
 
@@ -125,6 +126,7 @@ namespace ePubFixer
             Properties.Settings.Default.InsertAnInlineTOC = cbCreateHtmlTOC.Checked;
             Properties.Settings.Default.Save();
             Preview.CloseOpenedForms();
+            t.Abort();
             Zip.DeleteTemp();
         }
 
@@ -490,10 +492,12 @@ namespace ePubFixer
         #endregion
 
         #region Extract Temp Files
+        Thread t;
         private void ExtractFiles()
         {
-            Zip.ExtractProgress += new EventHandler<ExtractProgressArgs>(Utils_ExtractProgress);
-            Thread t = new Thread(new ThreadStart(Zip.ExtractZip));
+            Zip zip = new Zip();
+            zip.ExtractProgress += new EventHandler<ExtractProgressArgs>(Utils_ExtractProgress);
+            t = new Thread(new ThreadStart(zip.ExtractZip));
             t.IsBackground = true;
             t.Start();
             FilesExtracted = true;

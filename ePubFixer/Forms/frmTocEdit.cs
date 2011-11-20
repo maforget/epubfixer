@@ -20,6 +20,11 @@ namespace ePubFixer
             ns = TOC == null ? "\"http://www.daisy.org/z3986/2005/ncx/\" version=\"2005-1\" xml:lang=\"en\"" : TOC.Name.Namespace;
             nodeTextBox.DrawText += new EventHandler<DrawEventArgs>(nodeTextBox_DrawText);
         }
+
+        ~frmTocEdit()
+        {
+            
+        }
         #endregion
 
         #region Form Events
