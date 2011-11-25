@@ -318,12 +318,14 @@
             // btnSearchNet
             // 
             this.btnSearchNet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSearchNet.Enabled = false;
             this.btnSearchNet.Location = new System.Drawing.Point(403, 528);
             this.btnSearchNet.Name = "btnSearchNet";
             this.btnSearchNet.Size = new System.Drawing.Size(87, 25);
             this.btnSearchNet.TabIndex = 5;
             this.btnSearchNet.Text = "Download";
             this.btnSearchNet.UseVisualStyleBackColor = true;
+            this.btnSearchNet.Visible = false;
             this.btnSearchNet.Click += new System.EventHandler(this.btnSearchNet_Click);
             // 
             // frmAdd
