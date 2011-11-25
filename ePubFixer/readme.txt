@@ -63,7 +63,7 @@ Functionality
 	- There is also a from folder button that will take the cover.jpg file that is next to the ePub (useful with calibre, where you can download a new cover, and change it by clicking from folder)
 - Resize the Cover so that it fits the screen of your eReader.
 	- If you choose to not keep the aspect ratio it resizes the cover to a ratio of 0.75 (600 X 800) by default, but you can change it with the menu.
-- Update all will use the selected settings for all the book that where selected, useful to update multiple covers at once.
+- Update all will use the selected settings for all the book that were selected, useful to update multiple covers at once.
 	- The From File will not be used when doing an update all.
 - Note that if the Cover is not explicitly set inside the opf file, it will use the first file in the book. (You can set it in the Add window)
 	- If no cover exists, it will NOT create one.
@@ -87,6 +87,9 @@ v1.5.3
 - When Saving a cover you will be warned if the cover has a value of linear="no" (Putting the cover at the end of the book).
 - Fixed a Memory problem where using the Mass Update in the Cover Editor would eat up all the memory and crash.
 - Removed the malform opf fix with Sigil and other function, because it did more harm than good.
+- Covers will have a maximum height of 1600 when resizing them (having them not Preserve the Aspect Ratio), 
+because very high resolution images are sometimes not processed on some readers.
+- Removed the Download button from the Add window, since Table of Contents are not longuer available on the Kobobooks website.
 
 
 v1.5.2
