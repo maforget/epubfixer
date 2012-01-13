@@ -224,27 +224,28 @@ namespace ePubFixer
 
         protected XElement FixOpfDeclaration(XElement toc, string TextToFind)
         {
-            XElement meta = toc.Element(ns + TextToFind);
-            if (meta == null)
+            XElement meta = OldTOC.Element(ns + TextToFind);
+            if (meta != null)
             {
-                meta = toc.Element(TextToFind);
-            } 
+                meta.Attributes(XNamespace.Xmlns + "opf").Remove();
+            }
 
             return meta;
+
         }
 
         protected void SaveOpfFixToFile()
         {
-            //List<string> list = new List<string>() { "metadata", "manifest", "spine", "guide" };
-            //OpfDocument doc = new OpfDocument();
-            //foreach (string item in list)
-            //{
-            //    XElement meta = doc.GetXmlElement(item);
-            //    if (meta != null)
-            //    {
-            //        doc.ReplaceSection(meta, item);
-            //    }
-            //}
+            List<string> list = new List<string>() { "metadata", "manifest", "spine", "guide" };
+            OpfDocument doc = new OpfDocument();
+            foreach (string item in list)
+            {
+                XElement meta = doc.GetXmlElement(item);
+                if (meta != null)
+                {
+                    doc.ReplaceSection(meta, item);
+                }
+            }
         }
         #endregion
 
