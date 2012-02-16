@@ -145,7 +145,8 @@ namespace ePubFixer
             if (OldTOC != null)
             {
                 NewTOC = new XElement(OldTOC);
-                FixOpfDeclaration(NewTOC, "manifest").Add(tocElement);
+                //FixOpfDeclaration(NewTOC, "manifest").Add(tocElement);
+                NewTOC.Element(ns + "manifest").Add(tocElement);
                 base.WriteXML();
                 base.UpdateZip();
                 SetFile();
