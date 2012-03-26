@@ -499,7 +499,6 @@ namespace ePubFixer
 
                 if (cbShowAll.Checked)
                 {
-                    //TODO Reload TOC if Show All is true and using drag drop
                     LoadFiles();
                 }
             }

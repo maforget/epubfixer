@@ -320,7 +320,6 @@ namespace ePubFixer
             string FirstRef = MyOPFDoc.GetSpineRefAtIndex(0);
             if (FirstRef != CoverFile)
             {
-                //TODO Check if  linear="no"
                 System.Windows.Forms.MessageBox.Show("The Cover File is not the first File\n" +
                 "Please use the Reading Order editor to modify it (id=" + Utils.GetId(CoverFile) + ")", "Cover is Not the First File", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
             }

@@ -118,7 +118,6 @@ namespace ePubFixer
             HtmlNodeCollection PageContentPaid = Page.DocumentNode.SelectNodes("//span[@class='SCShortCoverTitle']");
             HtmlNodeCollection PageContentFree = Page.DocumentNode.SelectNodes("//span[@class='SCShortCoverTitleLink']/a");
             HtmlNodeCollection PageContent = PageContentPaid == null ? PageContentFree : PageContentPaid;
-            //TODO CHECK for deleted page and use the 2nd link if it an error
             if (PageContent!=null)
             {
                 TOC.AddRange(PageContent.Select(x => x.InnerText));
