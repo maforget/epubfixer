@@ -86,10 +86,9 @@ v1.5.3
 - The Keep Aspect Ratio checkbox inside of the Cover Editor will now be remembered.
 - When Saving a cover you will be warned if the cover has a value of linear="no" (Putting the cover at the end of the book).
 - Fixed a Memory problem where using the Mass Update in the Cover Editor would eat up all the memory and crash.
-- Removed the malform opf fix with Sigil and other function, because it did more harm than good.
 - Covers will have a maximum height of 1600 when resizing them (having them not Preserve the Aspect Ratio), 
 because very high resolution images are sometimes not processed on some readers.
-- Removed the Download button from the Add window, since Table of Contents are not longuer available on the Kobobooks website.
+- Removed the Download button from the Add window, since Table of Contents are no longer available on the Kobobooks website.
 
 
 v1.5.2
