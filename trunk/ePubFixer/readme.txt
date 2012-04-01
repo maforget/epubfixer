@@ -57,7 +57,7 @@ Functionality
 - You can also use any external exe, it will work also.
 
 
-** Cover Editor **
+** Cover Editor **000
 
 - Change the Cover without having to reconvert your file (Like calibre does)(Note that using this will convert your covers to SVG)
 	- There is also a from folder button that will take the cover.jpg file that is next to the ePub (useful with calibre, where you can download a new cover, and change it by clicking from folder)
