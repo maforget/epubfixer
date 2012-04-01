@@ -51,6 +51,7 @@ namespace ePubFixer
         #region Form Events
         private void frmCover_Load(object sender, EventArgs e)
         {
+            cbAspectRatio.SelectedIndex = Properties.Settings.Default.ResizeAspectRatioValue;
             MassUpdate();
         }
 
@@ -59,8 +60,10 @@ namespace ePubFixer
             if (!Variables.MassUpdate)
             {
                 Properties.Settings.Default.frmCover = WindowSave.SaveWindow(this);
-                Properties.Settings.Default.Save();
             }
+
+            Properties.Settings.Default.ResizeAspectRatioValue = cbAspectRatio.SelectedIndex;
+            Properties.Settings.Default.Save();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -116,7 +119,7 @@ namespace ePubFixer
         private void cbAspectRatio_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbAspectRatio.SelectedIndex == cbAspectRatio.Items.Count - 1)
-                RestoreBackup();//Restore the original Image if the last option is selected (Original SIze)
+                RestoreBackup();//Restore the original Image if the last option is selected (Original Size)
 
             GetAspecRatioValue(cbAspectRatio.SelectedIndex);
             ResizeImage(false);
@@ -139,12 +142,9 @@ namespace ePubFixer
             int pbWidth = (int)(panel1.Height * CoverDocument.ImageRatio);
             int FormWidth = 172 + pbWidth;
 
-            if (!cbPreserveRatio.Checked)
-            {
-                //Resize Form & PictureBox
-                panel1.Width = pbWidth;
-                this.Width = FormWidth; 
-            }
+            //Resize Form & PictureBox
+            panel1.Width = pbWidth;
+            this.Width = FormWidth;
 
         }
 
