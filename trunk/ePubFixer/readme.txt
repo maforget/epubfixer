@@ -78,6 +78,8 @@ Change Log
 -------------------------------------------
 v1.5.4
 - Added a Original Valu in the drop-down menu in the Cover editor, that will change the html code to Aspect ratio to "none" but won't resize the image.
+- There was a bug in the Mass Update in the Cover Editor that would only resize to the 800 x 600 setting
+- The drop-down menu in the Cover Editor Will now remember the previous setting
 
 v1.5.3
 - In the Cover Editor, unchecking the preserve Aspect Ratio box will revert to previous behavior of setting the SVG to "none" instead "MidXMidY meet".

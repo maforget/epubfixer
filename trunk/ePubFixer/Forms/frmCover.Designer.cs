@@ -44,10 +44,10 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.cbPreserveRatio = new System.Windows.Forms.CheckBox();
             this.btnMassUpdate = new System.Windows.Forms.Button();
             this.cbAspectRatio = new System.Windows.Forms.ComboBox();
             this.lblScreenRes = new System.Windows.Forms.Label();
+            this.cbPreserveRatio = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -191,19 +191,6 @@
             this.toolTip.InitialDelay = 500;
             this.toolTip.ReshowDelay = 100;
             // 
-            // cbPreserveRatio
-            // 
-            this.cbPreserveRatio.Checked = global::ePubFixer.Properties.Settings.Default.CoverKeepAspectRatio;
-            this.cbPreserveRatio.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbPreserveRatio.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ePubFixer.Properties.Settings.Default, "CoverKeepAspectRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbPreserveRatio.Location = new System.Drawing.Point(12, 205);
-            this.cbPreserveRatio.Name = "cbPreserveRatio";
-            this.cbPreserveRatio.Size = new System.Drawing.Size(119, 35);
-            this.cbPreserveRatio.TabIndex = 15;
-            this.cbPreserveRatio.Text = "Preserve Aspect Ratio";
-            this.cbPreserveRatio.UseVisualStyleBackColor = true;
-            this.cbPreserveRatio.CheckedChanged += new System.EventHandler(this.cbPreserveRatio_CheckedChanged);
-            // 
             // btnMassUpdate
             // 
             this.btnMassUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -238,6 +225,19 @@
             this.lblScreenRes.Size = new System.Drawing.Size(119, 29);
             this.lblScreenRes.TabIndex = 19;
             this.lblScreenRes.Text = "Screen Size (only for Ratio Calculation)";
+            // 
+            // cbPreserveRatio
+            // 
+            this.cbPreserveRatio.Checked = global::ePubFixer.Properties.Settings.Default.CoverKeepAspectRatio;
+            this.cbPreserveRatio.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbPreserveRatio.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ePubFixer.Properties.Settings.Default, "CoverKeepAspectRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbPreserveRatio.Location = new System.Drawing.Point(12, 205);
+            this.cbPreserveRatio.Name = "cbPreserveRatio";
+            this.cbPreserveRatio.Size = new System.Drawing.Size(119, 35);
+            this.cbPreserveRatio.TabIndex = 15;
+            this.cbPreserveRatio.Text = "Preserve Aspect Ratio";
+            this.cbPreserveRatio.UseVisualStyleBackColor = true;
+            this.cbPreserveRatio.CheckedChanged += new System.EventHandler(this.cbPreserveRatio_CheckedChanged);
             // 
             // frmCover
             // 
