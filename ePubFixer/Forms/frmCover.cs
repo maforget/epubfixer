@@ -40,7 +40,7 @@ namespace ePubFixer
             toolTip.SetToolTip(btnFromFolder, "Uses the cover.jpg file that is in the same directory has the Book.\n" +
                                                 "Useful when fetching new covers with Calibre and you just want to\n" +
                                                 "update the cover without having to Convert the file again.");
-            toolTip.SetToolTip(btnReset, "Changes back to the default Cover from the book");
+            toolTip.SetToolTip(btnFromBook, "Changes back to the default Cover from the book");
             toolTip.SetToolTip(btnFile, "Chooses a image file to update the Cover");
             toolTip.SetToolTip(btnSave, "Will Update the image file and make sure that the cover is stretched to fit.\n" +
                                         "Also adds the cover to the guide if it was missing");
@@ -73,6 +73,7 @@ namespace ePubFixer
             if (openDialog.ShowDialog() == DialogResult.OK)
             {
                 ChangeImage(openDialog.FileName);
+                GetAspecRatioValue(cbAspectRatio.SelectedIndex);
                 ResizeImage();
                 SourceMessage = " Using Source " + openDialog.FileName;
             }
@@ -83,10 +84,11 @@ namespace ePubFixer
             FromFolderSource();
         }
 
-        private void btnReset_Click(object sender, EventArgs e)
+        private void btnFromBook_Click(object sender, EventArgs e)
         {
             source = CoverDocument.SourceOfCover.FromBook;
             ChangeImage();
+            GetAspecRatioValue(cbAspectRatio.SelectedIndex);
             ResizeImage();
         }
 
@@ -113,6 +115,9 @@ namespace ePubFixer
 
         private void cbAspectRatio_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cbAspectRatio.SelectedIndex == cbAspectRatio.Items.Count - 1)
+                RestoreBackup();//Restore the original Image if the last option is selected (Original SIze)
+
             GetAspecRatioValue(cbAspectRatio.SelectedIndex);
             ResizeImage(false);
         }
@@ -121,7 +126,7 @@ namespace ePubFixer
         #region ChangeImage
         private void GetAspecRatioValue(int i)
         {
-            double[] ARlist = { 0.75, 0.5859375, 0.686667};
+            double[] ARlist = { 0.75, 0.5859375, 0.686667, GetCoverRatio() };
 
             if (i >= 0)
             {
@@ -134,32 +139,48 @@ namespace ePubFixer
             int pbWidth = (int)(panel1.Height * CoverDocument.ImageRatio);
             int FormWidth = 172 + pbWidth;
 
-
-            //Resize Form & PictureBox
-            panel1.Width = pbWidth;
-            this.Width = FormWidth;
-
+            if (!cbPreserveRatio.Checked)
+            {
+                //Resize Form & PictureBox
+                panel1.Width = pbWidth;
+                this.Width = FormWidth; 
+            }
 
         }
 
+        private double GetCoverRatio()
+        {
+            double ratio = 0.75;
+
+            if (Cover != null)
+                ratio = (double)Cover.Width / (double)Cover.Height;
+
+            return ratio;
+        }
+
+        private void RestoreBackup()
+        {
+            if (BackupDone)
+            {
+                ChangeImage(BackupCover);
+                BackupDone = false;
+            }
+        }
         private void ResizeImage(bool Backup = true)
         {
             BackupCover = Backup ? new Bitmap(Cover) : BackupCover;
             if (Cover != null && !cbPreserveRatio.Checked)
             {
-                
-
-                double ratio = (double)Cover.Width / (double)Cover.Height;
+                double ratio = GetCoverRatio();
                 if (Cover.Height > CoverDocument.MaxHeight | ratio != CoverDocument.ImageRatio)
                 {
-                    Image img = CoverDocument.ResizeImage(Cover, CoverDocument.ImageRatio, cbPreserveRatio.Checked);
+                    Image img = CoverDocument.ResizeImage(Cover, cbPreserveRatio.Checked);
                     ChangeImage(img);
                 }
                 BackupDone = true;
-            } else if (BackupDone)
+            } else
             {
-                ChangeImage(BackupCover);
-                BackupDone = false;
+                RestoreBackup();
             }
         }
 
@@ -210,6 +231,7 @@ namespace ePubFixer
             {
                 ChangeImage(CoverFromFolder);
                 BackupCover = new Bitmap(Cover);
+                GetAspecRatioValue(cbAspectRatio.SelectedIndex);
                 ResizeImage();
                 SourceMessage = " Using File cover.jpg in folder " + Path.GetDirectoryName(Variables.Filename);
             }
@@ -249,7 +271,7 @@ namespace ePubFixer
                 using (new HourGlass())
                 {
                     cbPreserveRatio.Checked = CoverDocument.MassPreserveRatio;
-                    
+
                     if (CoverDocument.MassSource == CoverDocument.SourceOfCover.FromFolder)
                         FromFolderSource();
                     else

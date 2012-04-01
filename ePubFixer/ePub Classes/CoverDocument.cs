@@ -70,12 +70,15 @@ namespace ePubFixer
                 return MaxHeight;
             }
         }
-        public static Image ResizeImage(Image image, double WidthRatioVsHeigth, bool preserveRatio)
+        public static Image ResizeImage(Image image, bool preserveRatio)
         {
             int height = image.Height > MaxHeight ? MaxHeight : image.Height;
             int Width = image.Width;
-            int ResizedWidth = (int)(height * WidthRatioVsHeigth);
+            int ResizedWidth = (int)(height * ImageRatio);
             //int ResizedWidth = !preserveRatio ? (int)(height * WidthRatioVsHeigth) : image.Width;
+
+            if (Width == ResizedWidth)//Return Image without any processing if the size doesn't change
+                return image;
 
             Bitmap b = new Bitmap(ResizedWidth, height);
             Graphics g = Graphics.FromImage(b);

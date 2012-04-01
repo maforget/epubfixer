@@ -35,7 +35,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnFile = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnReset = new System.Windows.Forms.Button();
+            this.btnFromBook = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblWidth = new System.Windows.Forms.Label();
@@ -102,8 +102,8 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.pbCover);
             this.panel1.Location = new System.Drawing.Point(142, 12);
@@ -111,15 +111,15 @@
             this.panel1.Size = new System.Drawing.Size(502, 670);
             this.panel1.TabIndex = 7;
             // 
-            // btnReset
+            // btnFromBook
             // 
-            this.btnReset.Location = new System.Drawing.Point(28, 41);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(88, 23);
-            this.btnReset.TabIndex = 3;
-            this.btnReset.Text = "From Book";
-            this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            this.btnFromBook.Location = new System.Drawing.Point(28, 41);
+            this.btnFromBook.Name = "btnFromBook";
+            this.btnFromBook.Size = new System.Drawing.Size(88, 23);
+            this.btnFromBook.TabIndex = 3;
+            this.btnFromBook.Text = "From Book";
+            this.btnFromBook.UseVisualStyleBackColor = true;
+            this.btnFromBook.Click += new System.EventHandler(this.btnFromBook_Click);
             // 
             // label1
             // 
@@ -194,6 +194,7 @@
             // cbPreserveRatio
             // 
             this.cbPreserveRatio.Checked = global::ePubFixer.Properties.Settings.Default.CoverKeepAspectRatio;
+            this.cbPreserveRatio.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbPreserveRatio.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ePubFixer.Properties.Settings.Default, "CoverKeepAspectRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cbPreserveRatio.Location = new System.Drawing.Point(12, 205);
             this.cbPreserveRatio.Name = "cbPreserveRatio";
@@ -222,7 +223,8 @@
             this.cbAspectRatio.Items.AddRange(new object[] {
             "600 x 800 - 6\" screens (3 : 4)",
             "600 x 1024 - 7\" screens (75 : 128)",
-            "824 x 1200 (103 : 150)"});
+            "824 x 1200 (103 : 150)",
+            "Original (Don\'t Resize)"});
             this.cbAspectRatio.Location = new System.Drawing.Point(12, 291);
             this.cbAspectRatio.Name = "cbAspectRatio";
             this.cbAspectRatio.Size = new System.Drawing.Size(118, 21);
@@ -254,7 +256,7 @@
             this.Controls.Add(this.lblWidth);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnReset);
+            this.Controls.Add(this.btnFromBook);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnFile);
             this.Controls.Add(this.btnSave);
@@ -283,7 +285,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnFile;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Button btnFromBook;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblWidth;
