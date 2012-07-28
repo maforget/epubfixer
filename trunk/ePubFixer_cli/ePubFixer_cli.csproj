@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BE10DD35-C53E-4F1C-9EFA-F373A74F8BFC}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ePubFixer_cli</RootNamespace>
+    <AssemblyName>ePubFixer_cli</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CLI</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;CLI</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ePubFixer_cli.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aga.Controls">
+      <HintPath>..\ePubFixer\DLL\Aga.Controls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\ePubFixer\DLL\HtmlAgilityPack.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>..\ePubFixer\DLL\Ionic.Zip.Reduced.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TidyManaged">
+      <HintPath>..\ePubFixer\DLL\TidyManaged.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\ePubFixer\ePub Classes\ContainerDocument.cs">
+      <Link>ePub Classes\ContainerDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\ePub Classes\Document.cs">
+      <Link>ePub Classes\Document.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\ePub Classes\HtmlTOCDocument.cs">
+      <Link>ePub Classes\HtmlTOCDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\ePub Classes\MyHtmlDocument.cs">
+      <Link>ePub Classes\MyHtmlDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\ePub Classes\OpfDocument.cs">
+      <Link>ePub Classes\OpfDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\ePub Classes\TocDocument.cs">
+      <Link>ePub Classes\TocDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\Utils\Decryption.cs">
+      <Link>Utils\Decryption.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\Utils\EventArgs.cs">
+      <Link>Utils\EventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\Utils\Extensions.cs">
+      <Link>Utils\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\Utils\Hourglass.cs">
+      <Link>Utils\Hourglass.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\Utils\NavDetails.cs">
+      <Link>Utils\NavDetails.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\Utils\RelativePath.cs">
+      <Link>Utils\RelativePath.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\Utils\Utils.cs">
+      <Link>Utils\Utils.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\Utils\Variables.cs">
+      <Link>Utils\Variables.cs</Link>
+    </Compile>
+    <Compile Include="..\ePubFixer\Utils\Zip.cs">
+      <Link>Utils\Zip.cs</Link>
+    </Compile>
+    <Compile Include="TOC.cs" />
+    <Compile Include="Utils\CommandLine.cs" />
+    <Compile Include="Utils\CommandLineText.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\ePubFixer\DLL\HtmlAgilityPack.dll">
+      <Link>DLL\HtmlAgilityPack.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ePubFixer\DLL\Ionic.Zip.Reduced.dll">
+      <Link>DLL\Ionic.Zip.Reduced.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ePubFixer\DLL\TidyManaged.dll">
+      <Link>DLL\TidyManaged.dll</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\ePubFixer\libtidy.dll">
+      <Link>libtidy.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ePubFixer\msvcr100.dll">
+      <Link>msvcr100.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Debug Goto :Exit
+
+del "$(TargetDir)*.config"
+del "$(TargetDir)*.manifest"
+
+cd "$(SolutionDir)..\FileNameVersion\FileNameVersion\bin\Debug\"
+
+for /f "tokens=*" %25%25a in ('FileNameVersion "$(TargetPath)"') do set MyPath=%25%25a
+
+xcopy /y "$(ProjectDir)$(OutDir)*.*" "%25userprofile%25\Desktop\%25MyPath%25"
+
+:Exit</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
