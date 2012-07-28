@@ -81,7 +81,7 @@ namespace ePubFixer
                         if (FileDecrypted)
                         {
                             Properties.Settings.Default.RecentFiles2 = Properties.Settings.Default.RecentFiles2.AddSettings(NewFilePath);
-                            Utils.SaveRecentFiles();
+                            RecentFiles.SaveRecentFiles();
                         }
                         return FileDecrypted;
                     }

@@ -44,7 +44,7 @@ namespace ePubFixer
                 }
             }
 
-            Utils.SaveRecentFiles();
+            RecentFiles.SaveRecentFiles();
         } 
         #endregion
 

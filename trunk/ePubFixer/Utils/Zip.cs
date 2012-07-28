@@ -75,7 +75,7 @@ namespace ePubFixer
             file = file.Replace('/', Path.DirectorySeparatorChar);
             file = Path.Combine(Variables.TempFolder, file);
 
-            file = Preview.ConvertToHTML(file);
+            //file = Preview.ConvertToHTML(file); Done directly inside the preview class
 
             return file;
         }

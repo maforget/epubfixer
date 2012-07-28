@@ -184,6 +184,11 @@ namespace ePubFixer
         }
         #endregion
 
+#if CLI
+        //Used in Cli version only
+        public static bool TextInChapters { get; set; }
+        public static bool CreateHtmlTOC { get; set; } 
+#endif
     }
 
     public enum AddWindowType
