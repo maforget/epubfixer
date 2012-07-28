@@ -116,7 +116,7 @@ namespace ePubFixer
         private string CreateHtmlTOC()
         {
             HtmlNode Title = Tocdocument.CreateElement("h1");
-            HtmlNode titleAppendChild = Title.AppendChild(HtmlTextNode.CreateNode("Table of Content"));
+            HtmlNode titleAppendChild = Title.AppendChild(HtmlTextNode.CreateNode("Table of Contents"));
             Tocdocument.DocumentNode.AppendChild(Title);
 
             foreach (XElement item in NewNavMap.Elements())
