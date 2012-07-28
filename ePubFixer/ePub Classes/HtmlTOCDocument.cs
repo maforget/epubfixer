@@ -73,8 +73,13 @@ namespace ePubFixer
                 return NewInlineTOCFile(tocRef);
             } else
             {
+#if !CLI
                 System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show("The file \"" + tocRef + "\" is already set has your Table of Content\n" +
-                                    "Do you want to replace it?\n\nClicking \"No\" Will create a new Table fo Content", "Replace existing Inline Table of Content", System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question);
+                            "Do you want to replace it?\n\nClicking \"No\" Will create a new Table fo Content", "Replace existing Inline Table of Content", System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question); 
+#else
+
+                System.Windows.Forms.DialogResult result = System.Windows.Forms.DialogResult.OK;
+#endif
 
                 //Add a confirmation Box before replacing a already existing Inline TOC 
                 if (result == System.Windows.Forms.DialogResult.No)
