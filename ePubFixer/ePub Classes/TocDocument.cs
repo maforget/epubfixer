@@ -19,7 +19,7 @@ namespace ePubFixer
         protected override XElement NewTOC { get; set; }
         protected override XElement NewNavMap { get; set; }
         protected override XElement OldTOC { get; set; }
-        protected override XNamespace ns { get; set; } 
+        protected override XNamespace ns { get; set; }
         #endregion
 
         #region Constructor
@@ -28,7 +28,7 @@ namespace ePubFixer
         {
             fileExtractStream = base.GetStreamOPF(Variables.NCXFile);
             nsIfEmpty = "\"http://www.daisy.org/z3986/2005/ncx/\" version=\"2005-1\" xml:lang=\"en\"";
-        } 
+        }
         #endregion
 
         #region Update Files
@@ -37,12 +37,14 @@ namespace ePubFixer
             fileExtractStream = base.GetStreamOPF(Variables.NCXFile);
             XElement xml = GetXmlElement("navMap");
 
+#if !CLI
             using (frmTocEdit frm = new frmTocEdit(xml))
             {
                 //frmTocEdit frm = new frmTocEdit(xml);
                 frm.Save += new EventHandler<ExportTocEventArgs>(frm_Save);
                 frm.ShowDialog();
-            }
+            } 
+#endif
         }
 
         #region Save
@@ -70,8 +72,8 @@ namespace ePubFixer
             }
 
             e.Message = SaveMessage;
-            
-        }  
+
+        }
         #endregion
 
         #endregion
@@ -88,7 +90,7 @@ namespace ePubFixer
                 //return;
                 fileOutName = "toc.ncx";
                 doc.AddTocEntry();
-            } 
+            }
 
 
             if (OldTOC != null)
@@ -107,7 +109,7 @@ namespace ePubFixer
                     new XElement(newNavMap));
             }
             return NewTOC;
-        } 
+        }
         #endregion
 
 

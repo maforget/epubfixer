@@ -32,7 +32,7 @@ namespace ePubFixer
                 Variables.Filenames.Clear();
                 string[] files = openFileDialog1.FileNames;
                 Variables.Filenames.AddRange(files);
-                Utils.SaveRecentFiles();
+                RecentFiles.SaveRecentFiles();
                 btnGo.Enabled = true;
             }
         }
@@ -43,7 +43,7 @@ namespace ePubFixer
                 Variables.Filenames.Clear();
                 string[] files = Directory.GetFiles(folderBrowser.SelectedPath, "*.epub", SearchOption.AllDirectories);
                 Variables.Filenames.AddRange(files);
-                Utils.SaveRecentFiles();
+                RecentFiles.SaveRecentFiles();
                 btnGo.Enabled = true;
             }
         }
@@ -323,7 +323,7 @@ namespace ePubFixer
 
             Variables.Filenames.Clear();
             Variables.Filenames.Add(menu.Text);
-            Utils.SaveRecentFiles();
+            RecentFiles.SaveRecentFiles();
             btnGo.Enabled = true;
         }
 
