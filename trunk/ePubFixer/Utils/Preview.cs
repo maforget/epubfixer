@@ -21,7 +21,6 @@ namespace ePubFixer
 
             try
             {
-                ConvertToHTML(Zip.GetTempFilePath(filename));
                 frmPreview frmPreview = new frmPreview(filename, Chapter);
                 //frm.AddOwnedForm(frmPreview);
                 Variables.OpenedForm.Add(frmPreview);
