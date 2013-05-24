@@ -77,13 +77,15 @@ namespace ePubFixer
         #region Get Stream
         public virtual Stream GetStreamOPF(string FilenameInsideEpub)
         {
-            Stream s = this.OpenZip(e => e.FileName == Variables.OPFpath + FilenameInsideEpub);
+            Stream s = this.OpenZip(e => FilenameInsideEpub.StartsWith("../") ? e.FileName == FilenameInsideEpub.Substring(3) :
+                e.FileName == Variables.OPFpath + FilenameInsideEpub);
             return s;
         }
 
         public virtual Stream GetStream(string FilenameInsideEpub)
         {
-            Stream s = this.OpenZip(e => e.FileName.EndsWith(FilenameInsideEpub));
+            Stream s = this.OpenZip(e => FilenameInsideEpub.StartsWith("../") ? e.FileName == FilenameInsideEpub.Substring(3) : 
+                e.FileName.EndsWith(FilenameInsideEpub));
             return s;
         }
 
