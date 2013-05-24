@@ -274,7 +274,7 @@ namespace ePubFixer
             string coverRef = MyOPFDoc.GetCoverRef();
 
             //If it does not exist get first page in spine
-            if (string.IsNullOrEmpty(coverRef))
+            if (string.IsNullOrEmpty(coverRef) || !Utils.VerifyFileExists(coverRef))
                 coverRef = MyOPFDoc.GetSpineRefAtIndex(0);
             else
                 IsGuideEmpty = false;
@@ -295,7 +295,7 @@ namespace ePubFixer
 
             foreach (var item in TagToCheck)
             {
-                ImageNode = HtmlDoc.DocumentNode.SelectSingleNode("//" + item.Key);
+                ImageNode = HtmlDoc == null ? null : HtmlDoc.DocumentNode.SelectSingleNode("//" + item.Key);
                 if (ImageNode != null)
                 {
                     ImageIsSVG = ImageNode.ParentNode.Name == "svg" && item.Key=="image" ? true : false;
