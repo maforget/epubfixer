@@ -423,7 +423,7 @@ namespace ePubFixer
             try
             {
                 List<string> ret = (from i in GetFilesList()
-                                    select Path.Combine(Variables.OPFpath, i.Value)).ToList();
+                                    select i.Value.StartsWith("../") ? i.Value.Substring(3) : Path.Combine(Variables.OPFpath, i.Value)).ToList();
 
                 return ret;
             } catch (Exception)

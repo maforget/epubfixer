@@ -88,7 +88,7 @@ namespace ePubFixer
             if (!String.IsNullOrEmpty(filename))
             {
                 file = (from z in Variables.FilesPathFromOPF
-                        where Path.Combine(Variables.OPFpath, filename) == z || filename == z
+                        where filename.StartsWith("../") ? filename.Substring(3) == z : Path.Combine(Variables.OPFpath, filename) == z || filename == z
                         select z).FirstOrDefault();
 
                 if (string.IsNullOrEmpty(file))
