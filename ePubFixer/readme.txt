@@ -68,9 +68,7 @@ Functionality
 - Note that if the Cover is not explicitly set inside the opf file, it will use the first file in the book. (You can set it in the Add window)
 	- If no cover exists, it will NOT create one.
 
-Nigol
-
-Please direct any comment or bugs here : http://code.google.com/p/epubfixer/
+Please direct any comment or bugs here : https://github.com/maforget/epubfixer
 
 
 -------------------------------------------
