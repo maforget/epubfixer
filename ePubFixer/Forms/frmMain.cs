@@ -86,10 +86,8 @@ namespace ePubFixer
             SetToolTips();
 
             #region Decrypt
-#if DRM
             decryptFilesToolStripMenuItem.Visible = true;
             decryptFilesToolStripMenuItem.Enabled = true;
-#endif
             #endregion
 
         }
