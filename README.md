@@ -1,4 +1,7 @@
-![GitHub All Releases](https://img.shields.io/github/downloads/maforget/epubfixer/total.svg)
+
+![](https://user-images.githubusercontent.com/11904426/49408766-b230d800-f72b-11e8-99d3-49a4beebb186.jpg)
+![](https://user-images.githubusercontent.com/11904426/49408767-b230d800-f72b-11e8-94d0-a4baf79a0c4a.jpg)
+![](https://user-images.githubusercontent.com/11904426/49408768-b230d800-f72b-11e8-9003-a75571cbded1.jpg)
 
 # Functionality #
 
@@ -73,7 +76,4 @@ You can use the Open With plugin to easily open your file from calibre.
     mono ePubFixer.exe
 ```
 
-![](https://github.com/maforget/epubfixer/raw/master/MainWindow.jpg)
-![](https://github.com/maforget/epubfixer/raw/master/TOCEditor.jpg)
-![](https://github.com/maforget/epubfixer/raw/master/CoverEditor.jpg)
-
+![GitHub All Releases](https://img.shields.io/github/downloads/maforget/epubfixer/total.svg)
