@@ -17,8 +17,8 @@ namespace ePubFixer
         public static string SigilDefaultPath = "C:\\Program Files\\Sigil\\Sigil.exe";
         public static bool BackupDone { get; set; }
         public static bool DoBackup { get; set; }
-        public static string VersionLocation = @"http://epubfixer.googlecode.com/svn/trunk/ePubFixer/Version.xml";
-        public static string DownloadLocation = @"http://code.google.com/p/epubfixer/downloads/list";
+        public static string VersionLocation = @"https://raw.githubusercontent.com/maforget/epubfixer/master/ePubFixer/Version.xml";
+        public static string DownloadLocation = @"https://github.com/maforget/epubfixer/releases";
         public static Dictionary<string, DetectedHeaders> HeaderTextInFile;
         public static Dictionary<string, DetectedHeaders> AnchorTextInFile;
         public static Dictionary<string, List<string>> AnchorsInFile;

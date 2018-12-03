@@ -7,6 +7,7 @@ using CommandLine.Text;
 using System.ComponentModel;
 using System.Reflection;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace ePubFixer_cli
 {
@@ -45,6 +46,7 @@ namespace ePubFixer_cli
             var options = new Options();
             var parser = new CommandLineParser(new CommandLineParserSettings(false, true, Console.Error));
             if (!parser.ParseArguments(args, options))
+                Console.ReadLine();
                 Environment.Exit(1);
 
             DoCoreTask(options);
